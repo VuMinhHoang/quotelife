@@ -8,5 +8,6 @@ import org.koin.dsl.module.Module
  */
 class Modules {
     fun get(): List<Module> = listOf(
+            GraphqlModule().module
     )
 }

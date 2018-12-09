@@ -1,4 +1,4 @@
-package giavu.hoangvm.japanfood.network
+package giavu.hoangvm.japanfood.graphql
 
 /**
  * @Author: Hoang Vu
