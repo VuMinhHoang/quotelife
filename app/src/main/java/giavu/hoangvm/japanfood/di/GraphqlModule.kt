@@ -1,6 +1,8 @@
-package giavu.hoangvm.japanfood.graphql
+package giavu.hoangvm.japanfood.di
 
 import giavu.hoangvm.japanfood.R
+import giavu.hoangvm.japanfood.api.CategoryApi
+import giavu.hoangvm.japanfood.graphql.GraphqlClientFactory
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module.Module
@@ -34,6 +36,8 @@ class GraphqlModule {
                     httpClient = get(GraphqlClientFactory.TAG_GRAPHQL_HTTP_CLIENT),
                     cacheConfig = GraphqlClientFactory.CacheConfig.USE_CACHE).client
         }
+
+        single{ CategoryApi(get (name = GraphqlClientFactory.CacheConfig.NO_CACHE.rawValue))}
 
     }
 }

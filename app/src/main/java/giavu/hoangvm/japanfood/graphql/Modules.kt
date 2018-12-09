@@ -1,5 +1,6 @@
 package giavu.hoangvm.japanfood.graphql
 
+import giavu.hoangvm.japanfood.di.GraphqlModule
 import org.koin.dsl.module.Module
 
 /**
