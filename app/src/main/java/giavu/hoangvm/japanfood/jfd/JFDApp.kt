@@ -1,6 +1,8 @@
 package giavu.hoangvm.japanfood.jfd
 
 import android.app.Application
+import android.content.Intent
+import giavu.hoangvm.japanfood.activity.MainActivity
 
 /**
  * @Author: Hoang Vu
@@ -11,5 +13,8 @@ open class JFDApp: Application() {
     override fun onCreate() {
         super.onCreate()
         KoinInitializer(this).initialize()
+
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        startActivity(intent)
     }
 }

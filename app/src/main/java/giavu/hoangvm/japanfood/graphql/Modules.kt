@@ -1,5 +1,6 @@
 package giavu.hoangvm.japanfood.graphql
 
+import giavu.hoangvm.japanfood.di.GraphqlModule
 import org.koin.dsl.module.Module
 
 /**
@@ -8,5 +9,6 @@ import org.koin.dsl.module.Module
  */
 class Modules {
     fun get(): List<Module> = listOf(
+            GraphqlModule().module
     )
 }
