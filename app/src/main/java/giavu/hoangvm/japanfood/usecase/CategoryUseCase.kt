@@ -1,6 +1,8 @@
 package giavu.hoangvm.japanfood.usecase
 
+import android.util.Log
 import giavu.hoangvm.japanfood.api.CategoryApi
+import giavu.hoangvm.japanfood.model.Category
 import io.reactivex.Single
 import query.CategoryQuery
 
@@ -10,7 +12,7 @@ import query.CategoryQuery
  */
 class CategoryUseCase(private val categoryApi: CategoryApi) {
 
-    fun getCategory(): Single<String> {
+    fun getCategory(): Single<List<Category>> {
         return categoryApi.get().map { response ->
             response.data()?.let {
                 convert(it)
@@ -18,7 +20,16 @@ class CategoryUseCase(private val categoryApi: CategoryApi) {
         }
     }
 
-    private fun convert(response: CategoryQuery.Data) : String{
-            return ""
+    private fun convert(response: CategoryQuery.Data): List<Category> {
+        Log.d("Print", "Call convert")
+        return response.categories()?.category()?.mapNotNull { category ->
+            category.title()?.let {
+                makeCategory(it)
+            }
+        } ?: emptyList()
+    }
+
+    private fun makeCategory(title: String): Category {
+        return Category(title)
     }
 }

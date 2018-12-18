@@ -12,6 +12,7 @@ import query.CategoryQuery
  * @Date:   2018/12/09
  */
 class CategoryApi(private val client: ApolloClient) {
+
     fun get() : Single<Response<CategoryQuery.Data>> {
         return CategoryQuery().let { query ->
             client.query(query)

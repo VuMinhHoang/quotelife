@@ -66,5 +66,6 @@ dependencies {
     implementation "com.google.code.gson:gson:${GSON_VERSION}"
 
     implementation "com.jakewharton.timber:timber:${TIMBER_VERSION}"
-
+    debugImplementation "com.facebook.stetho:stetho:${STETHO_VERSION}"
+    debugImplementation "com.facebook.stetho:stetho-okhttp3:${STETHO_VERSION}"
 }
