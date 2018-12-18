@@ -11,5 +11,8 @@ open class JFDApp: Application() {
     override fun onCreate() {
         super.onCreate()
         KoinInitializer(this).initialize()
+
+        //val intent = Intent(applicationContext, MainActivity::class.java)
+        //startActivity(intent)
     }
 }
