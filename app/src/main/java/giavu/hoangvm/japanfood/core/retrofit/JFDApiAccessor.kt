@@ -1,6 +1,7 @@
 package giavu.hoangvm.japanfood.core.retrofit
 
 import android.content.Context
+import giavu.hoangvm.japanfood.R
 import giavu.hoangvm.japanfood.core.graphql.ApiHeader
 
 /**
@@ -9,7 +10,7 @@ import giavu.hoangvm.japanfood.core.graphql.ApiHeader
  */
 class JFDApiAccessor(private val context: Context) : ApiAccessor(context = context) {
     override fun getBaseUrl(): String {
-        return "https://sportsop-soccer-sports-open-data-v1.p.mashape.com/"
+        return context.getString(R.string.app_scheme) + "://" + context.getString(R.string.sport_base_url)
     }
 
     override fun onCreateHeaders(headers: MutableMap<String, String>) {
