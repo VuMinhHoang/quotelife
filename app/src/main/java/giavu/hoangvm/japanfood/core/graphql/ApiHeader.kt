@@ -1,4 +1,4 @@
-package giavu.hoangvm.japanfood.graphql
+package giavu.hoangvm.japanfood.core.graphql
 
 /**
  * @Author: Hoang Vu
@@ -13,6 +13,7 @@ class ApiHeader {
         val KEY_AUTHORIZATION = "Authorization"
         val VALUE_AUTHORIZATION_BEARER_PREFIX = "Bearer "
         val KEY_API_KEY = "APIKey"
+        val X_MASHAPE_KEY = "X-Mashape-Key"
         val KEY_LANGUAGE = "Language"
         val CLIENT_ID = "clientID"
     }

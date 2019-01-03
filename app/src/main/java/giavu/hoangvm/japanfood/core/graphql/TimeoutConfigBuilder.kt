@@ -1,4 +1,4 @@
-package giavu.hoangvm.japanfood.graphql
+package giavu.hoangvm.japanfood.core.graphql
 
 import androidx.annotation.NonNull
 import java.util.concurrent.TimeUnit

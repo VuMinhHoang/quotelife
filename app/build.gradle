@@ -64,6 +64,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
     implementation "com.google.code.gson:gson:${GSON_VERSION}"
+    implementation "com.squareup.okhttp3:okhttp:${OKHTTP_VERSION}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${OKHTTP_VERSION}"
 
     implementation "com.jakewharton.timber:timber:${TIMBER_VERSION}"
     debugImplementation "com.facebook.stetho:stetho:${STETHO_VERSION}"

@@ -1,4 +1,4 @@
-package giavu.hoangvm.japanfood.graphql
+package giavu.hoangvm.japanfood.core.graphql
 
 import com.apollographql.apollo.api.Response
 import timber.log.Timber

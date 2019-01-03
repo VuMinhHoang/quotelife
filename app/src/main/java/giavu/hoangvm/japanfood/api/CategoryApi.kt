@@ -3,7 +3,7 @@ package giavu.hoangvm.japanfood.api
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.rx2.Rx2Apollo
-import giavu.hoangvm.japanfood.graphql.ApiHandler
+import giavu.hoangvm.japanfood.core.graphql.ApiHandler
 import io.reactivex.Single
 import query.CategoryQuery
 

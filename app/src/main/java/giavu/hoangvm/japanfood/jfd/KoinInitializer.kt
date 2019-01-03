@@ -2,7 +2,7 @@ package giavu.hoangvm.japanfood.jfd
 
 import android.app.Application
 import giavu.hoangvm.japanfood.BuildConfig
-import giavu.hoangvm.japanfood.graphql.Modules
+import giavu.hoangvm.japanfood.core.graphql.Modules
 import org.koin.android.ext.android.startKoin
 import org.koin.android.logger.AndroidLogger
 import org.koin.log.EmptyLogger

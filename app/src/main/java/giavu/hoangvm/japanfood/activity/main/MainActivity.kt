@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import giavu.hoangvm.japanfood.R
+import giavu.hoangvm.japanfood.api.LeaguesApi
+import giavu.hoangvm.japanfood.core.retrofit.JFDApiAccessor
 import giavu.hoangvm.japanfood.databinding.ActivityMainBinding
 import giavu.hoangvm.japanfood.model.Category
 import giavu.hoangvm.japanfood.usecase.CategoryUseCase
@@ -32,10 +34,24 @@ class MainActivity : AppCompatActivity() {
         initializeDataBinding()
         Log.d("Print", "Call oncreate")
         fetchCategoris()
+        //fetchLeagues()
     }
 
     private fun observerViewModel(){
 
+    }
+
+    private fun fetchLeagues(){
+        JFDApiAccessor(this@MainActivity).from().using(LeaguesApi::class.java)
+                .getLeaguesList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onSuccess = {
+                            Log.d("Test Retrofit", it.size.toString())
+                        },
+                        onError = {Log.d("Test Retrofit", it.toString())}
+                )
     }
 
     private fun initializeDataBinding(){

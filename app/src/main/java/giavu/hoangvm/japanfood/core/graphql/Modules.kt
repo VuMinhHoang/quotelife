@@ -1,5 +1,6 @@
-package giavu.hoangvm.japanfood.graphql
+package giavu.hoangvm.japanfood.core.graphql
 
+import giavu.hoangvm.japanfood.di.ApiModule
 import giavu.hoangvm.japanfood.di.GraphqlModule
 import giavu.hoangvm.japanfood.di.UseCaseModule
 import org.koin.dsl.module.Module
@@ -12,6 +13,7 @@ class Modules {
     fun get(): List<Module> = listOf(
             GraphqlHttpClientModule().module,
             GraphqlModule().module,
-            UseCaseModule().module
+            UseCaseModule().module,
+            ApiModule().module
     )
 }
