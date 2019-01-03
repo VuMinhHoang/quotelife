@@ -5,6 +5,7 @@
     <string name="app_scheme">https</string>
     <string name="app_base_url">api.yelp.com/v3/graphql</string>
     <string name="sport_base_url">sportsop-soccer-sports-open-data-v1.p.mashape.com</string>
+    <string name="sport_apikey">ftHoprj6CGmshGTkHN641OnT91qxp1odrEjjsnukrGxRpG2liY</string>
     <string name="client_id">xcMc1qYPaNFaBxC07gIIsA</string>
     <string name="app_api_key">3jrKho3XbBsFoKEBYxp1mpfelkxZtKxMTMUj5L6mfNsbZrtshVMOPOypHcDJSN38-zhP-Y_tHoi95EZLeVwUJgG3AFyvu76AkmSAE8uh4HVpLQfIWndMTPOG9ocKXHYx</string>
 </resources>

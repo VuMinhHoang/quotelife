@@ -14,7 +14,7 @@ class JFDApiAccessor(private val context: Context) : ApiAccessor(context = conte
     }
 
     override fun onCreateHeaders(headers: MutableMap<String, String>) {
-        headers.put(ApiHeader.X_MASHAPE_KEY, "ftHoprj6CGmshGTkHN641OnT91qxp1odrEjjsnukrGxRpG2liY")
+        headers.put(ApiHeader.X_MASHAPE_KEY, context.getString(R.string.sport_apikey))
         headers.put(ApiHeader.KEY_ACCEPT, ApiHeader.VALUE_ACCEPT_JSON)
     }
 
