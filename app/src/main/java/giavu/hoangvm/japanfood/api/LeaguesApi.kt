@@ -9,6 +9,6 @@ import retrofit2.http.GET
  * @Date:   2019/01/03
  */
 interface LeaguesApi {
-    @GET("v1/leagues")
+    @GET("api/quotes")
     fun getLeaguesList(): Single<List<League>>
 }

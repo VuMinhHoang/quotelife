@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeDataBinding()
         Log.d("Print", "Call oncreate")
-        fetchCategoris()
-        //fetchLeagues()
+        //fetchCategoris()
+        fetchLeagues()
     }
 
     private fun observerViewModel(){
