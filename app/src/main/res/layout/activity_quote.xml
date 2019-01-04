@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="giavu.hoangvm.japanfood.activity.dailyquote.QuoteViewModel">
+        </variable>
+    </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,8 +15,9 @@
     <TextView
         android:id="@+id/quote"
         android:gravity="center"
-        android:text="Empty"
+        android:text="@{viewModel.quote}"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
 </RelativeLayout>
+</layout>
