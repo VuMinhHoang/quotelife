@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onSuccess = {
-                            Log.d("Test Retrofit", it.size.toString())
+                            Log.d("Test Retrofit", "Ngon day")
                         },
                         onError = {Log.d("Test Retrofit", it.toString())}
                 )

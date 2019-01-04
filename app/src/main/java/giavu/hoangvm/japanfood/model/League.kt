@@ -7,8 +7,6 @@ import com.google.gson.annotations.SerializedName
  * @Date:   2019/01/03
  */
 data class League(
-        @SerializedName("league_slug") val league_slug: String,
-        @SerializedName("name") val name: String,
-        @SerializedName("nation") val nation: String,
-        @SerializedName("level") val level: String,
-        @SerializedName("federation") val federation: String)
+        @SerializedName("page") val page: String,
+        @SerializedName("last_page") val last_page: Boolean,
+        @SerializedName("quotes") val nation: String)
