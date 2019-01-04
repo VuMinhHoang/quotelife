@@ -1,6 +1,6 @@
 package giavu.hoangvm.japanfood.api
 
-import giavu.hoangvm.japanfood.model.League
+import giavu.hoangvm.japanfood.model.Response
 import io.reactivex.Single
 import retrofit2.http.GET
 
@@ -10,5 +10,5 @@ import retrofit2.http.GET
  */
 interface LeaguesApi {
     @GET("quotes")
-    fun getLeaguesList(): Single<List<League>>
+    fun getLeaguesList(): Single<Response>
 }
