@@ -1,4 +1,4 @@
-package giavu.hoangvm.japanfood.activity.main
+package giavu.hoangvm.japanfood.activity.login
 
 import giavu.hoangvm.japanfood.model.LoginResponse
 
@@ -8,4 +8,6 @@ import giavu.hoangvm.japanfood.model.LoginResponse
  */
 interface LoginNavigator {
     fun toLogin(response: LoginResponse)
+    fun showProgress()
+    fun hideProgress()
 }

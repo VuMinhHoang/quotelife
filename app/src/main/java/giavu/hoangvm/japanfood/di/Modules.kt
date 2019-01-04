@@ -1,8 +1,6 @@
-package giavu.hoangvm.japanfood.core.graphql
+package giavu.hoangvm.japanfood.di
 
-import giavu.hoangvm.japanfood.di.ApiModule
-import giavu.hoangvm.japanfood.di.GraphqlModule
-import giavu.hoangvm.japanfood.di.UseCaseModule
+import giavu.hoangvm.japanfood.core.graphql.GraphqlHttpClientModule
 import org.koin.dsl.module.Module
 
 /**
@@ -14,6 +12,7 @@ class Modules {
             GraphqlHttpClientModule().module,
             GraphqlModule().module,
             UseCaseModule().module,
-            ApiModule().module
+            ApiModule().module,
+            ViewModelModule().module
     )
 }

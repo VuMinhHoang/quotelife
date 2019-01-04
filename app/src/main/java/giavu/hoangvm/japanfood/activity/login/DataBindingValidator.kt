@@ -1,4 +1,4 @@
-package giavu.hoangvm.japanfood.activity.main
+package giavu.hoangvm.japanfood.activity.login
 
 import android.text.TextUtils
 import android.widget.EditText

@@ -1,4 +1,4 @@
-package giavu.hoangvm.japanfood.activity.main
+package giavu.hoangvm.japanfood.activity.login
 
 import android.app.Application
 import android.util.Log
@@ -51,7 +51,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         Log.d("Why", loginBody.email + "-" + loginBody.password)
         userApi.login(body)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe { navigator.showProgress() }
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { navigator.hideProgress() }
                 .subscribeBy(
                         onSuccess = { response ->
                             if(response != null) {

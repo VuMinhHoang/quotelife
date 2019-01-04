@@ -1,11 +1,13 @@
-package giavu.hoangvm.japanfood.activity.main
+package giavu.hoangvm.japanfood.activity.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import giavu.hoangvm.japanfood.R
+import giavu.hoangvm.japanfood.activity.dailyquote.QuoteActivity
 import giavu.hoangvm.japanfood.api.QuotesApi
 import giavu.hoangvm.japanfood.api.UserApi
 import giavu.hoangvm.japanfood.core.retrofit.JFDApiAccessor
@@ -128,7 +130,19 @@ class MainActivity : AppCompatActivity() {
         override fun toLogin(response: LoginResponse) {
             if(response.userToken != null){
                 Log.d(TAG, "Login")
+                val intent = Intent(this@MainActivity, QuoteActivity::class.java)
+                startActivity(intent)
             }
+        }
+
+        override fun showProgress() {
+            //this@MainActivity.showProgress()
+            Log.d(TAG, "showProgress")
+        }
+
+        override fun hideProgress() {
+            //this@MainActivity.hideProgress()
+            Log.d(TAG, "hideProgress")
         }
     }
 
