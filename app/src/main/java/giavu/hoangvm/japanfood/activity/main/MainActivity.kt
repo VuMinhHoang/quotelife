@@ -7,9 +7,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import giavu.hoangvm.japanfood.R
 import giavu.hoangvm.japanfood.api.QuotesApi
+import giavu.hoangvm.japanfood.api.UserApi
 import giavu.hoangvm.japanfood.core.retrofit.JFDApiAccessor
 import giavu.hoangvm.japanfood.databinding.ActivityMainBinding
 import giavu.hoangvm.japanfood.model.Category
+import giavu.hoangvm.japanfood.model.LoginBody
+import giavu.hoangvm.japanfood.model.User
 import giavu.hoangvm.japanfood.usecase.CategoryUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -35,11 +38,33 @@ class MainActivity : AppCompatActivity() {
         Log.d("Print", "Call oncreate")
         //fetchCategoris()
         //fetchQuotes()
-        getQuoteOfDay()
+        //getQuoteOfDay()
+        login()
     }
 
     private fun observerViewModel(){
 
+    }
+
+    private fun login() {
+        val loginBody = LoginBody(
+                email = "hoangvmh@gmail.com",
+                password = "Hoanghuong2012"
+        )
+        val body = User(
+                user = loginBody
+        )
+        JFDApiAccessor(this@MainActivity).from().using(UserApi::class.java)
+                .login(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onSuccess = {
+                            Log.d("Test Retrofit", it.toString())
+                        },
+                        onError = {Log.d("Test Retrofit", it.toString())}
+                )
+                .addTo(compositeDisposable)
     }
 
     private fun getQuoteOfDay(){
