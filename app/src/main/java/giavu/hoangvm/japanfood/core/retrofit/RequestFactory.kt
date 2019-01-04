@@ -1,5 +1,6 @@
 package giavu.hoangvm.japanfood.core.retrofit
 
+import giavu.hoangvm.japanfood.core.graphql.ApiHeader
 import okhttp3.Headers
 import okhttp3.Request
 
@@ -14,6 +15,9 @@ class RequestFactory(private val headers: Map<String, String>, private val reque
     fun create(): Request {
         val builder = request.newBuilder()
         builder.headers(Headers.of(headers))
+        if(!isAuthRequired()){
+            builder.removeHeader(ApiHeader.KEY_AUTHORIZATION)
+        }
 
         /*
            実装メモ
@@ -30,6 +34,13 @@ class RequestFactory(private val headers: Map<String, String>, private val reque
          */
 
         return builder.build()
+    }
+
+    private fun isAuthRequired(): Boolean {
+        if(request.url().toString().contains("qotd")) {
+            return false
+        }
+        return true
     }
 
 }

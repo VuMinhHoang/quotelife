@@ -48,7 +48,7 @@ class ApiFactory(
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
             val request = RequestFactory(headerAccessor.get(), chain.request()).create()
-            Log.d("TEST", headerAccessor.get().toString())
+            Log.d("TEST", request.headers().toString())
             Log.d("TEST", request.toString())
             return chain.proceed(request)
         }

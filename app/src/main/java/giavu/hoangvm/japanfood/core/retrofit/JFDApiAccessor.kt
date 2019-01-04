@@ -15,7 +15,7 @@ class JFDApiAccessor(private val context: Context) : ApiAccessor(context = conte
 
     override fun onCreateHeaders(headers: MutableMap<String, String>) {
         headers.put(ApiHeader.KEY_AUTHORIZATION, context.getString(R.string.quote_api_key))
-        //headers.put(ApiHeader.KEY_ACCEPT, ApiHeader.VALUE_ACCEPT_JSON)
+        headers.put(ApiHeader.CONTENT_TYPE, ApiHeader.VALUE_ACCEPT_JSON)
     }
 
     fun from(): ApiAccessor {
