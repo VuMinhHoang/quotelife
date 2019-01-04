@@ -6,68 +6,96 @@
             type="giavu.hoangvm.japanfood.activity.main.MainViewModel">
         </variable>
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#5fb0c9"
     android:orientation="vertical"
-    tools:context="giavu.hoangvm.japanfood.activity.main.MainActivity">
+    android:scrollbarAlwaysDrawVerticalTrack="true">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/login_title"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Password is : "
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="22dp"
+        android:gravity="center_horizontal"
+        android:text="Account Login"
+        android:textColor="#fff"
+        android:textSize="26sp"
+        android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="200dp"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/login_title"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="70dp"
         android:background="@color/colorPrimary"
-        android:text="@{viewModel.password}"
-        android:textColor="@android:color/holo_orange_dark"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <EditText
-        android:id="@+id/changePass"
-        android:layout_gravity="center_horizontal"
-        android:hint="Please enter something here"
-        android:inputType="textPassword"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="30dp">
 
-    <EditText
-        android:id="@+id/changePassConfirm"
-        android:onTextChanged="@{(text, start, before, count) -> viewModel.onPasswordTextChanged(text)}"
-        android:layout_gravity="center_horizontal"
-        android:hint="Please enter confirm something here"
-        android:inputType="textPassword"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawableTint="#FF4081"
+                android:hint="User Name"
+                android:drawableStart="@drawable/ic_id_mail_white"
+                android:inputType="textEmailAddress"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.onUsernameTextChanged(text)}"
+                android:singleLine="true" />
 
-    <Button
-        android:id="@+id/setting"
-        android:layout_marginTop="20dp"
-        android:text="SETTING"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:drawableTint="#FF4081"
+                android:hint="Password"
+                android:drawableStart="@drawable/ic_lock_white"
+                android:inputType="textPassword"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.onPasswordTextChanged(text)}"
+                android:singleLine="true" />
 
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:paddingTop="5dp"
+                android:text="Forgot Password?" />
+
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="22dp"
+                android:background="#d67601"
+                android:text="Sign in"
+                android:textAllCaps="false"
+                android:onClick="@{() -> viewModel.login()}"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/user_profile_photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/login_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/user_profile_image_background"
+        android:elevation="4dp" />
+</RelativeLayout>
 </layout>

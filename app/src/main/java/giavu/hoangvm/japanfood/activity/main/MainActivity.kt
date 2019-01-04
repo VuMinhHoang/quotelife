@@ -12,6 +12,7 @@ import giavu.hoangvm.japanfood.core.retrofit.JFDApiAccessor
 import giavu.hoangvm.japanfood.databinding.ActivityMainBinding
 import giavu.hoangvm.japanfood.model.Category
 import giavu.hoangvm.japanfood.model.LoginBody
+import giavu.hoangvm.japanfood.model.LoginResponse
 import giavu.hoangvm.japanfood.model.User
 import giavu.hoangvm.japanfood.usecase.CategoryUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,6 +24,7 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG = MainActivity::class.java.simpleName
     private val categoryUseCase: CategoryUseCase by inject()
     val compositeDisposable = CompositeDisposable()
 
@@ -34,7 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //setContentView(R.layout.activity_main)
         initializeDataBinding()
+        initViewModel()
         Log.d("Print", "Call oncreate")
         //fetchCategoris()
         //fetchQuotes()
@@ -42,8 +46,10 @@ class MainActivity : AppCompatActivity() {
         login()
     }
 
-    private fun observerViewModel(){
-
+    private fun initViewModel(){
+        viewModel.apply(
+                navigator = navigator
+        )
     }
 
     private fun login() {
@@ -117,6 +123,15 @@ class MainActivity : AppCompatActivity() {
                 })
                 .addTo(compositeDisposable)
     }
+
+    private val navigator = object : LoginNavigator{
+        override fun toLogin(response: LoginResponse) {
+            if(response.userToken != null){
+                Log.d(TAG, "Login")
+            }
+        }
+    }
+
     override fun onDestroy() {
         compositeDisposable.dispose()
         super.onDestroy()
