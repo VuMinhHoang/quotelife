@@ -1,5 +1,6 @@
 package giavu.hoangvm.japanfood.di
 
+import giavu.hoangvm.japanfood.api.QuotesApi
 import giavu.hoangvm.japanfood.api.UserApi
 import giavu.hoangvm.japanfood.core.retrofit.ApiAccessor
 import giavu.hoangvm.japanfood.core.retrofit.JFDApiAccessor
@@ -15,6 +16,7 @@ class ApiModule {
     val module: Module = org.koin.dsl.module.module {
         single<ApiAccessor> { JFDApiAccessor(androidApplication()).from() }
         single<UserApi> { get<ApiAccessor>().using(UserApi::class.java) }
+        single<QuotesApi> { get<ApiAccessor>().using(QuotesApi::class.java) }
 
     }
 }
