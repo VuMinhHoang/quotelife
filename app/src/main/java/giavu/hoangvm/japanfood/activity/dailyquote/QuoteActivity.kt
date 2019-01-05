@@ -12,12 +12,16 @@ class QuoteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeDataBinding()
+        initViewModel()
     }
     val viewModel : QuoteViewModel by lazy {
         ViewModelProviders.of(this@QuoteActivity).get(QuoteViewModel::class.java)
     }
     private lateinit var binding: ActivityQuoteBinding
 
+    private fun initViewModel(){
+        viewModel.initialize()
+    }
     private fun initializeDataBinding(){
         binding = DataBindingUtil.setContentView<ActivityQuoteBinding>(
                 this@QuoteActivity, R.layout.activity_quote)
