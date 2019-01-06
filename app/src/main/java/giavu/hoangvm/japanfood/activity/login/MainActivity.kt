@@ -12,6 +12,8 @@ import giavu.hoangvm.japanfood.api.QuotesApi
 import giavu.hoangvm.japanfood.api.UserApi
 import giavu.hoangvm.japanfood.core.retrofit.JFDApiAccessor
 import giavu.hoangvm.japanfood.databinding.ActivityMainBinding
+import giavu.hoangvm.japanfood.dialog.hideProgress
+import giavu.hoangvm.japanfood.dialog.showProgress
 import giavu.hoangvm.japanfood.model.Category
 import giavu.hoangvm.japanfood.model.LoginBody
 import giavu.hoangvm.japanfood.model.LoginResponse
@@ -24,7 +26,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     private val TAG = MainActivity::class.java.simpleName
     private val categoryUseCase: CategoryUseCase by inject()
@@ -131,18 +133,20 @@ class MainActivity : AppCompatActivity() {
             if(response.userToken != null){
                 Log.d(TAG, "Login")
                 val intent = Intent(this@MainActivity, QuoteActivity::class.java)
-                startActivity(intent)
+                //startActivity(intent)
             }
         }
 
         override fun showProgress() {
             //this@MainActivity.showProgress()
             Log.d(TAG, "showProgress")
+            this@MainActivity.showProgress()
         }
 
         override fun hideProgress() {
             //this@MainActivity.hideProgress()
             Log.d(TAG, "hideProgress")
+            this@MainActivity.hideProgress()
         }
     }
 
