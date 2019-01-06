@@ -30,7 +30,7 @@ class SmartLockClient(activity: FragmentActivity) {
 
     init {
         googleApiClient = GoogleApiClient.Builder(activity)
-                .enableAutoManage(activity as android.support.v4.app.FragmentActivity, null)
+                .enableAutoManage(activity, null)
                 .addApi(Auth.CREDENTIALS_API)
                 .build()
     }
