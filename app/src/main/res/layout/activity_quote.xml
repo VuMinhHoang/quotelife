@@ -3,14 +3,14 @@
     <data>
         <variable
             name="viewModel"
-            type="giavu.hoangvm.japanfood.activity.dailyquote.QuoteViewModel">
+            type="giavu.hoangvm.hh.activity.dailyquote.QuoteViewModel">
         </variable>
     </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="giavu.hoangvm.japanfood.activity.dailyquote.QuoteActivity">
+    tools:context="giavu.hoangvm.hh.activity.dailyquote.QuoteActivity">
     
     <TextView
         android:id="@+id/quote"

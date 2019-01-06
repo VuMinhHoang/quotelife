@@ -1,0 +1,18 @@
+package giavu.hoangvm.hh.jfd
+
+import android.app.Application
+
+/**
+ * @Author: Hoang Vu
+ * @Date:   2018/12/08
+ */
+open class JFDApp: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        KoinInitializer(this).initialize()
+
+        //val intent = Intent(applicationContext, MainActivity::class.java)
+        //startActivity(intent)
+    }
+}
