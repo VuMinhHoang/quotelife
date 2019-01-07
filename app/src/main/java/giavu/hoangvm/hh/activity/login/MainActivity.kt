@@ -1,11 +1,13 @@
 package giavu.hoangvm.hh.activity.login
 
 import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.common.api.Status
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.dailyquote.QuoteActivity
 import giavu.hoangvm.hh.api.QuotesApi
@@ -30,6 +32,9 @@ import org.koin.android.ext.android.inject
 class MainActivity : AppCompatActivity(){
 
     private val TAG = MainActivity::class.java.simpleName
+    private val REQUEST_CODE_SELECT_ACCOUNT = 4
+
+
     private val categoryUseCase: CategoryUseCase by inject()
     private val compositeDisposable = CompositeDisposable()
     private lateinit var smartLockClient : SmartLockClient
@@ -44,6 +49,7 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
+        initialize()
         initializeDataBinding()
         initViewModel()
         Log.d("Print", "Call oncreate")
@@ -61,6 +67,15 @@ class MainActivity : AppCompatActivity(){
         viewModel.apply(
                 navigator = navigator
         )
+    }
+
+    private fun resoluteAccountSelect(status: Status) {
+        try {
+            status.startResolutionForResult(this@MainActivity, REQUEST_CODE_SELECT_ACCOUNT)
+        } catch (e: IntentSender.SendIntentException) {
+            e.printStackTrace()
+        }
+
     }
 
     private fun login() {
