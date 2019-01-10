@@ -50,6 +50,9 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
         initialize()
+        if (savedInstanceState == null) {
+            smartLockClient.requestCredential(this, onRequestCredentialListener)
+        }
         initializeDataBinding()
         initViewModel()
         Log.d("Print", "Call oncreate")
@@ -69,14 +72,6 @@ class MainActivity : AppCompatActivity(){
         )
     }
 
-    private fun resoluteAccountSelect(status: Status) {
-        try {
-            status.startResolutionForResult(this@MainActivity, REQUEST_CODE_SELECT_ACCOUNT)
-        } catch (e: IntentSender.SendIntentException) {
-            e.printStackTrace()
-        }
-
-    }
 
     private fun login() {
         val loginBody = LoginBody(
@@ -169,6 +164,16 @@ class MainActivity : AppCompatActivity(){
             //this@MainActivity.hideProgress()
             Log.d(TAG, "hideProgress")
             this@MainActivity.hideProgress()
+        }
+    }
+
+    private val onRequestCredentialListener = object : SmartLockClient.OnRequestCredentialListener {
+        override fun shouldResoluteAccountSelect(status: Status) {
+            try {
+                status.startResolutionForResult(this@MainActivity, REQUEST_CODE_SELECT_ACCOUNT)
+            } catch (e: IntentSender.SendIntentException) {
+                e.printStackTrace()
+            }
         }
     }
 
