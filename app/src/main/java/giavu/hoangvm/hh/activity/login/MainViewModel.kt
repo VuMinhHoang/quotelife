@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.User
+import giavu.hoangvm.hh.utils.CredentialResult
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -65,6 +66,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                         },
                         onError = {Log.d("Test Retrofit", it.toString())}
                 )
+    }
+
+    fun subscribeCredentialResult(credentialResult: CredentialResult){
+        _username.value = credentialResult.id
+        _password.value = credentialResult.password
     }
 
 }

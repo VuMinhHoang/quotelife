@@ -21,12 +21,15 @@ import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.User
 import giavu.hoangvm.hh.usecase.CategoryUseCase
+import giavu.hoangvm.hh.utils.CredentialResult
 import giavu.hoangvm.hh.utils.SmartLockClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(){
@@ -177,18 +180,26 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    override fun onDestroy() {
-        compositeDisposable.dispose()
-        super.onDestroy()
+    @Subscribe
+    fun onRequestCredentialResult(credentialResult: CredentialResult) {
+        viewModel.subscribeCredentialResult(credentialResult = credentialResult)
     }
 
     override fun onStart() {
         super.onStart()
+        EventBus.getDefault().register(this)
         smartLockClient.subscribe()
     }
 
     override fun onStop() {
         super.onStop()
+        EventBus.getDefault().unregister(this)
         smartLockClient.unsubscribe()
     }
+
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
+    }
+
 }
