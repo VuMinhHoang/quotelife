@@ -3,6 +3,7 @@ package giavu.hoangvm.hh.activity.register
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -58,7 +59,7 @@ class RegisterAccountActivity : AppCompatActivity() {
         }
 
         override fun register() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            Log.d("Reg","REG")
         }
     }
 }

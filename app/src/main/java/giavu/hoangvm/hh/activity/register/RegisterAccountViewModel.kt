@@ -46,6 +46,10 @@ class RegisterAccountViewModel: ViewModel() {
         Log.d("Test",_password.value)
     }
 
+
+    fun register(){
+        navigator.register()
+    }
     private fun checkValidInput(owner: LifecycleOwner){
         combineLatest(source1 = _userName.toPublisher(owner),
                 source2 = _email.toPublisher(owner),
