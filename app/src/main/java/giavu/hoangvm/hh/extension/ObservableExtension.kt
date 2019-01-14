@@ -1,4 +1,4 @@
-package giavu.hoangvm.hh.activity.register
+package giavu.hoangvm.hh.extension
 
 
 import io.reactivex.Observable

@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import giavu.hoangvm.hh.api.UserApi
+import giavu.hoangvm.hh.extension.combineLatest
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
 import io.reactivex.android.schedulers.AndroidSchedulers
