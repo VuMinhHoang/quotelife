@@ -9,16 +9,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.databinding.ActivityRegisterAccountBinding
+import giavu.hoangvm.hh.dialog.hideProgress
+import giavu.hoangvm.hh.dialog.showProgress
+import giavu.hoangvm.hh.model.RegisterResponse
+import giavu.hoangvm.hh.utils.SmartLockClient
+import kotlinx.android.synthetic.main.activity_register_account.*
 import org.koin.android.ext.android.inject
 
 class RegisterAccountActivity : AppCompatActivity() {
 
     companion object {
+        private const val REQUEST_CODE_SMART_LOCK = 1
         fun createIntent(context: Context): Intent{
             return Intent(context,RegisterAccountActivity::class.java)
         }
     }
-
+    private lateinit var smartLockClient : SmartLockClient
     private val viewModel: RegisterAccountViewModel by inject()
     private lateinit var dataBinding: ActivityRegisterAccountBinding
 
@@ -26,6 +32,7 @@ class RegisterAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_register_account)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        smartLockClient = SmartLockClient(this)
         initializeDataBinding()
         initializeViewModel()
 
@@ -51,15 +58,37 @@ class RegisterAccountActivity : AppCompatActivity() {
 
     private val navigator = object: RegisterAccountNavigator {
         override fun showProgress() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            this@RegisterAccountActivity.showProgress()
         }
 
         override fun hideProgress() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            this@RegisterAccountActivity.hideProgress()
         }
 
-        override fun register() {
-            Log.d("Reg","REG")
+        override fun register(response: RegisterResponse) {
+            response.userToken?.let {
+                if(it.isNotEmpty()) {
+                    Log.d("Register", "Done")
+                }
+            }
         }
+    }
+
+    private fun onCompleteRegisterAccount() {
+
+        smartLockClient.saveCredential(
+                this,
+                email.text.toString(),
+                password.text.toString(),
+                REQUEST_CODE_SMART_LOCK,
+                object : SmartLockClient.OnSaveSmartLockListener {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onFailure() {
+
+                    }
+                })
     }
 }

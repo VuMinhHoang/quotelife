@@ -17,7 +17,7 @@ class ViewModelModule {
             MainViewModel(application = androidApplication())
         }
         viewModel {
-            RegisterAccountViewModel()
+            RegisterAccountViewModel(application = androidApplication())
         }
     }
 }

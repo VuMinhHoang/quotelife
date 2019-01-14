@@ -1,5 +1,7 @@
 package giavu.hoangvm.hh.activity.register
 
+import giavu.hoangvm.hh.model.RegisterResponse
+
 /**
  * @Author: Hoang Vu
  * @Date:   2019/01/14
@@ -7,5 +9,5 @@ package giavu.hoangvm.hh.activity.register
 interface RegisterAccountNavigator {
     fun showProgress()
     fun hideProgress()
-    fun register()
+    fun register(response: RegisterResponse)
 }
