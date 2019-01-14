@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import giavu.hoangvm.hh.R
+import giavu.hoangvm.hh.databinding.ActivityRegisterAccountBinding
 import org.koin.android.ext.android.inject
 
 class RegisterAccountActivity : AppCompatActivity() {
@@ -16,11 +18,23 @@ class RegisterAccountActivity : AppCompatActivity() {
     }
 
     private val viewModel: RegisterAccountViewModel by inject()
+    private lateinit var dataBinding: ActivityRegisterAccountBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register_account)
+        //setContentView(R.layout.activity_register_account)
+        initializeDataBinding()
         initializeViewModel()
+
+    }
+
+    private fun initializeDataBinding() {
+        dataBinding = DataBindingUtil.setContentView<ActivityRegisterAccountBinding>(
+                this, R.layout.activity_register_account)
+                .apply {
+                    viewModel = this@RegisterAccountActivity.viewModel
+                    setLifecycleOwner(this@RegisterAccountActivity)
+                }
 
     }
 

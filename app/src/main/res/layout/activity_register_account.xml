@@ -1,52 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="@dimen/margin_top_50dp"
-    tools:context="giavu.hoangvm.hh.activity.register.RegisterAccountActivity">
-
-    <!-- User name -->
-    <EditText
-        android:id="@+id/username"
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="giavu.hoangvm.hh.activity.register.RegisterAccountViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/register_account_item_edit_view_height"
-        android:hint="@string/input_name_sample"
-        android:inputType="text"
-        android:maxLines="1"
-        style="@style/RegisterAccountItemEditField"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/margin_top_50dp"
+        tools:context="giavu.hoangvm.hh.activity.register.RegisterAccountActivity">
 
-    <!-- Email -->
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/register_account_item_edit_view_height"
-        android:hint="@string/input_email_sample"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        style="@style/RegisterAccountItemEditField"/>
+        <!-- User name -->
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_account_item_edit_view_height"
+            android:hint="@string/input_name_sample"
+            android:inputType="text"
+            android:maxLines="1"
+            style="@style/RegisterAccountItemEditField"/>
 
-    <!-- Password -->
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/register_account_item_edit_view_height"
-        android:hint="@string/input_password_sample"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        style="@style/RegisterAccountItemEditField"/>
+        <!-- Email -->
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_account_item_edit_view_height"
+            android:hint="@string/input_email_sample"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            style="@style/RegisterAccountItemEditField"/>
 
-    <!-- Register -->
-    <Button
-        android:id="@+id/button_register"
-        style="@style/MainPrimaryButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/dimen_16dp"
-        android:enabled="false"
-        android:text="@string/action_register" />
+        <!-- Password -->
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/register_account_item_edit_view_height"
+            android:hint="@string/input_password_sample"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            style="@style/RegisterAccountItemEditField"/>
 
-</LinearLayout>
+        <!-- Register -->
+        <Button
+            android:id="@+id/button_register"
+            style="@style/MainPrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/dimen_16dp"
+            android:enabled="false"
+            android:text="@string/action_register" />
+
+    </LinearLayout>
+</layout>
