@@ -3,6 +3,7 @@ package giavu.hoangvm.hh.activity.register
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import giavu.hoangvm.hh.R
@@ -23,6 +24,7 @@ class RegisterAccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_register_account)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         initializeDataBinding()
         initializeViewModel()
 
@@ -40,9 +42,11 @@ class RegisterAccountActivity : AppCompatActivity() {
 
     private fun initializeViewModel(){
         viewModel.initialize(
-                navigator = navigator
+                navigator = navigator,
+                owner = this@RegisterAccountActivity
         )
     }
+
 
     private val navigator = object: RegisterAccountNavigator {
         override fun showProgress() {
