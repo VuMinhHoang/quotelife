@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.api.Status
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.dailyquote.QuoteActivity
+import giavu.hoangvm.hh.activity.register.RegisterAccountActivity
 import giavu.hoangvm.hh.api.QuotesApi
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.core.retrofit.JFDApiAccessor
@@ -153,7 +154,9 @@ class MainActivity : AppCompatActivity(){
             if(response.userToken != null){
                 Log.d(TAG, "Login")
                 val intent = Intent(this@MainActivity, QuoteActivity::class.java)
-                //startActivity(intent)
+                startActivity(intent)
+            }else {
+                startActivity(Intent(this@MainActivity, RegisterAccountActivity::class.java))
             }
         }
 

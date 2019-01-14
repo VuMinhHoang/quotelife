@@ -11,4 +11,9 @@
     <string name="quote_header">Authorization</string>
     <string name="quote_api_key">Token token=f343dee03cb02b63a724fc4de7b2816f</string>
     <string name="quote_url">favqs.com/api/</string>
+
+    <string name="input_name_sample">User Name</string>
+    <string name="input_email_sample">Email</string>
+    <string name="input_password_sample">Password</string>
+    <string name="action_register">Register</string>
 </resources>
