@@ -16,4 +16,5 @@
     <string name="input_email_sample">Email</string>
     <string name="input_password_sample">Password</string>
     <string name="action_register">Register</string>
+    <string name="already_has_account">Already has account</string>
 </resources>

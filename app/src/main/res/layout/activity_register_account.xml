@@ -58,5 +58,15 @@
             android:enabled="@{viewModel.registerButtonEnabled}"
             android:text="@string/action_register" />
 
+        <TextView
+            android:id="@+id/hasAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:onClick="@{() -> viewModel.gotoLogin()}"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_top_50dp"
+            android:text="@string/already_has_account" />
+
     </LinearLayout>
 </layout>

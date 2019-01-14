@@ -10,4 +10,5 @@ interface RegisterAccountNavigator {
     fun showProgress()
     fun hideProgress()
     fun register(response: RegisterResponse)
+    fun toLogin()
 }

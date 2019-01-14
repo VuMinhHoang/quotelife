@@ -1,5 +1,6 @@
 package giavu.hoangvm.hh.activity.login
 
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
@@ -33,6 +34,12 @@ import org.greenrobot.eventbus.Subscribe
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(){
+
+    companion object {
+        fun createIntent(context: Context): Intent{
+            return Intent(context,MainActivity::class.java)
+        }
+    }
 
     private val TAG = MainActivity::class.java.simpleName
     private val REQUEST_CODE_SELECT_ACCOUNT = 4

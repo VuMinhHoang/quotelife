@@ -54,6 +54,9 @@ class RegisterAccountViewModel(application: Application): AndroidViewModel(appli
         Log.d("Test",_password.value)
     }
 
+    fun gotoLogin() {
+        navigator.toLogin()
+    }
 
     fun register(){
         val body = RegBody(
