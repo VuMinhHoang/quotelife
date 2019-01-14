@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray900">#3D3D3D</color>
+    <color name="gray700">#6A6A6A</color>
+    <color name="gray500">#999999</color>
+    <color name="gray300">#D6D6D6</color>
+    <color name="gray100">#F5F5F5</color>
+
+    <!-- theme colors -->
+    <color name="jtx_blue">#192F60</color>
+    <color name="jtx_blue_light">#304470</color>
+    <color name="jtx_blue_dark">#0F1C39</color>
+
+</resources>

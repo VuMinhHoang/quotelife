@@ -47,9 +47,12 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.0.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'
+    implementation 'com.airbnb.android:lottie:2.5.6'
 
     implementation "io.reactivex.rxjava2:rxandroid:${RXANDROID_VERSION}"
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+    implementation "io.reactivex.rxjava2:rxjava:${RXJAVA_VERESION}"
+    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:2.1.1'
 
     implementation "org.koin:koin-java:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
@@ -70,7 +73,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:${OKHTTP_VERSION}"
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation ('com.google.firebase:firebase-core:16.0.4') {
+    implementation('com.google.firebase:firebase-core:16.0.4') {
         exclude group: 'com.android.support'
     }
 

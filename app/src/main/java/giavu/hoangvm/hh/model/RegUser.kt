@@ -1,0 +1,11 @@
+package giavu.hoangvm.hh.model
+
+import com.google.gson.annotations.SerializedName
+
+/**
+ * @Author: Hoang Vu
+ * @Date:   2019/01/14
+ */
+data class RegUser(
+        @SerializedName("user") val user: RegBody) {
+}
