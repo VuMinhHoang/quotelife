@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.api.Status
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.dailyquote.QuoteActivity
@@ -43,10 +42,10 @@ class MainActivity : AppCompatActivity(){
     private val compositeDisposable = CompositeDisposable()
     private lateinit var smartLockClient : SmartLockClient
 
-    val viewModel : MainViewModel by lazy {
+/*    val viewModel : MainViewModel by lazy {
         ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
-    }
-
+    }*/
+    private val viewModel: MainViewModel by inject()
 
     private lateinit var binding: ActivityMainBinding
 
@@ -156,7 +155,7 @@ class MainActivity : AppCompatActivity(){
                 val intent = Intent(this@MainActivity, QuoteActivity::class.java)
                 startActivity(intent)
             }else {
-                startActivity(Intent(this@MainActivity, RegisterAccountActivity::class.java))
+                startActivity(RegisterAccountActivity.createIntent(this@MainActivity))
             }
         }
 

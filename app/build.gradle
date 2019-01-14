@@ -51,8 +51,8 @@ dependencies {
 
     implementation "io.reactivex.rxjava2:rxandroid:${RXANDROID_VERSION}"
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
-
     implementation "io.reactivex.rxjava2:rxjava:${RXJAVA_VERESION}"
+    implementation 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:2.1.1'
 
     implementation "org.koin:koin-java:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
