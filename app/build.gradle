@@ -76,7 +76,7 @@ dependencies {
     implementation('com.google.firebase:firebase-core:16.0.4') {
         exclude group: 'com.android.support'
     }
-
+    implementation "com.airbnb.android:lottie:${LOTTIE_VERSIOIN}"
     implementation "com.jakewharton.timber:timber:${TIMBER_VERSION}"
     debugImplementation "com.facebook.stetho:stetho:${STETHO_VERSION}"
     debugImplementation "com.facebook.stetho:stetho-okhttp3:${STETHO_VERSION}"
