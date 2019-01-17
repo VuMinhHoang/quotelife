@@ -1,6 +1,7 @@
 package giavu.hoangvm.hh.jfd
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
 
 /**
  * @Author: Hoang Vu
@@ -11,7 +12,7 @@ open class JFDApp: Application() {
     override fun onCreate() {
         super.onCreate()
         KoinInitializer(this).initialize()
-
+        FirebaseApp.initializeApp(this)
         //val intent = Intent(applicationContext, MainActivity::class.java)
         //startActivity(intent)
     }
