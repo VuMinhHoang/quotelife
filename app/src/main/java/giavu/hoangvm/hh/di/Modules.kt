@@ -13,6 +13,7 @@ class Modules {
             GraphqlModule().module,
             UseCaseModule().module,
             ApiModule().module,
-            ViewModelModule().module
+            ViewModelModule().module,
+            LocalDataStoreModule().module
     )
 }
