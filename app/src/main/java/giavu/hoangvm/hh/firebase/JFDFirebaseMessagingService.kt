@@ -4,19 +4,18 @@ import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 /**
  * @Author: Hoang Vu
  * @Date:   2019/01/18
  */
-class JFDFirebaseMessagingService: FirebaseMessagingService() {
+class JFDFirebaseMessagingService : FirebaseMessagingService() {
 
     private val fcmTokenStore: FcmTokenStore by inject()
 
     override fun onNewToken(p0: String?) {
         super.onNewToken(p0)
-        Log.d("Token","onNewToken")
+        Log.d("Token", "onNewToken")
         fcmTokenStore.token.postValue(p0)
 
     }
