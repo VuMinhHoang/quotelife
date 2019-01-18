@@ -5,7 +5,6 @@ import android.util.Log
 import com.google.firebase.FirebaseApp
 import giavu.hoangvm.hh.firebase.FcmToken
 import giavu.hoangvm.hh.firebase.FcmTokenStore
-import io.karte.android.tracker.Tracker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
