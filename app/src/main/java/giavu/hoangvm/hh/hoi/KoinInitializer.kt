@@ -1,4 +1,4 @@
-package giavu.hoangvm.hh.jfd
+package giavu.hoangvm.hh.hoi
 
 import android.app.Application
 import giavu.hoangvm.hh.BuildConfig

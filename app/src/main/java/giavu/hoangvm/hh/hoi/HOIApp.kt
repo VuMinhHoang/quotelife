@@ -1,4 +1,4 @@
-package giavu.hoangvm.hh.jfd
+package giavu.hoangvm.hh.hoi
 
 import android.app.Application
 import android.util.Log
@@ -15,7 +15,7 @@ import timber.log.Timber
  * @Author: Hoang Vu
  * @Date:   2018/12/08
  */
-open class JFDApp: Application() {
+open class HOIApp : Application() {
 
     private val fcmTokenStore: FcmTokenStore by inject()
 
