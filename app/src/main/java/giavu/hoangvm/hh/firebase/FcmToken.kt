@@ -10,13 +10,13 @@ object FcmToken {
     fun get(): Single<String> {
         return Single.create<String> { emitter: SingleEmitter<String> ->
             FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult: InstanceIdResult? ->
-                if( emitter.isDisposed) {
-                   return@addOnSuccessListener
+                if (emitter.isDisposed) {
+                    return@addOnSuccessListener
                 }
                 val token = instanceIdResult?.token
                 if (token != null) {
                     emitter.onSuccess(token)
-                }else {
+                } else {
                     emitter.onError(IllegalStateException("Can not get FCM token"))
                 }
             }

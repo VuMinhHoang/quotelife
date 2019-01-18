@@ -33,11 +33,11 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.koin.android.ext.android.inject
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     companion object {
-        fun createIntent(context: Context): Intent{
-            return Intent(context,MainActivity::class.java)
+        fun createIntent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
         }
     }
 
@@ -47,11 +47,11 @@ class MainActivity : AppCompatActivity(){
 
     private val categoryUseCase: CategoryUseCase by inject()
     private val compositeDisposable = CompositeDisposable()
-    private lateinit var smartLockClient : SmartLockClient
+    private lateinit var smartLockClient: SmartLockClient
 
-/*    val viewModel : MainViewModel by lazy {
-        ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
-    }*/
+    /*    val viewModel : MainViewModel by lazy {
+            ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
+        }*/
     private val viewModel: MainViewModel by inject()
 
     private lateinit var binding: ActivityMainBinding
@@ -72,11 +72,11 @@ class MainActivity : AppCompatActivity(){
         login()
     }
 
-    private fun initialize(){
+    private fun initialize() {
         smartLockClient = SmartLockClient(this)
     }
 
-    private fun initViewModel(){
+    private fun initViewModel() {
         viewModel.apply(
                 navigator = navigator
         )
@@ -99,12 +99,12 @@ class MainActivity : AppCompatActivity(){
                         onSuccess = {
                             Log.d("Test Retrofit", it.toString())
                         },
-                        onError = {Log.d("Test Retrofit", it.toString())}
+                        onError = { Log.d("Test Retrofit", it.toString()) }
                 )
                 .addTo(compositeDisposable)
     }
 
-    private fun getQuoteOfDay(){
+    private fun getQuoteOfDay() {
         JFDApiAccessor(this@MainActivity).from().using(QuotesApi::class.java)
                 .getQuoteOfDay()
                 .subscribeOn(Schedulers.io())
@@ -113,12 +113,12 @@ class MainActivity : AppCompatActivity(){
                         onSuccess = {
                             Log.d("Test Retrofit", it.toString())
                         },
-                        onError = {Log.d("Test Retrofit", it.toString())}
+                        onError = { Log.d("Test Retrofit", it.toString()) }
                 )
                 .addTo(compositeDisposable)
     }
 
-    private fun fetchQuotes(){
+    private fun fetchQuotes() {
         JFDApiAccessor(this@MainActivity).from().using(QuotesApi::class.java)
                 .getQuotes()
                 .subscribeOn(Schedulers.io())
@@ -127,12 +127,12 @@ class MainActivity : AppCompatActivity(){
                         onSuccess = {
                             Log.d("Test Retrofit", it.toString())
                         },
-                        onError = {Log.d("Test Retrofit", it.toString())}
+                        onError = { Log.d("Test Retrofit", it.toString()) }
                 )
                 .addTo(compositeDisposable)
     }
 
-    private fun initializeDataBinding(){
+    private fun initializeDataBinding() {
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(
                 this@MainActivity, R.layout.activity_main)
                 .apply {
@@ -141,11 +141,12 @@ class MainActivity : AppCompatActivity(){
                 }
 
     }
+
     private fun onSuccess(result: List<Category>) {
         Log.d("Print string:%s", result.toString())
     }
 
-    private fun fetchCategoris(){
+    private fun fetchCategoris() {
         categoryUseCase.getCategory()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -155,13 +156,13 @@ class MainActivity : AppCompatActivity(){
                 .addTo(compositeDisposable)
     }
 
-    private val navigator = object : LoginNavigator{
+    private val navigator = object : LoginNavigator {
         override fun toLogin(response: LoginResponse) {
-            if(response.userToken != null){
+            if (response.userToken != null) {
                 Log.d(TAG, "Login")
                 val intent = Intent(this@MainActivity, QuoteActivity::class.java)
                 startActivity(intent)
-            }else {
+            } else {
                 startActivity(RegisterAccountActivity.createIntent(this@MainActivity))
             }
         }

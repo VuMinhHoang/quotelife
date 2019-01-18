@@ -17,7 +17,7 @@ import org.koin.android.ext.android.inject
  * @Author: Hoang Vu
  * @Date:   2018/12/15
  */
-class MainViewModel(application: Application): AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private lateinit var navigator: LoginNavigator
 
@@ -26,22 +26,21 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val _password = MutableLiveData<String>()
 
 
-
-    fun apply(navigator: LoginNavigator){
+    fun apply(navigator: LoginNavigator) {
         this.navigator = navigator
     }
 
-    fun onUsernameTextChanged(text: CharSequence){
+    fun onUsernameTextChanged(text: CharSequence) {
         Log.d("Hoang", text.toString())
         _username.postValue(text.toString())
     }
 
-    fun onPasswordTextChanged(text: CharSequence){
+    fun onPasswordTextChanged(text: CharSequence) {
         Log.d("Hoang", text.toString())
         _password.postValue(text.toString())
     }
 
-    fun login(){
+    fun login() {
         val loginBody = LoginBody(
                 email = _username.value.toString(),
                 password = _password.value.toString()
@@ -57,18 +56,18 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 .doFinally { navigator.hideProgress() }
                 .subscribeBy(
                         onSuccess = { response ->
-                            if(response != null) {
+                            if (response != null) {
                                 navigator.toLogin(response)
-                            }else{
+                            } else {
                                 Log.d("Test Retrofit", response.toString())
                             }
 
                         },
-                        onError = {Log.d("Test Retrofit", it.toString())}
+                        onError = { Log.d("Test Retrofit", it.toString()) }
                 )
     }
 
-    fun subscribeCredentialResult(credentialResult: CredentialResult){
+    fun subscribeCredentialResult(credentialResult: CredentialResult) {
         _username.value = credentialResult.id
         _password.value = credentialResult.password
     }

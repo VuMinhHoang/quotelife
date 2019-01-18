@@ -21,11 +21,12 @@ class RegisterAccountActivity : AppCompatActivity() {
 
     companion object {
         private const val REQUEST_CODE_SMART_LOCK = 1
-        fun createIntent(context: Context): Intent{
-            return Intent(context,RegisterAccountActivity::class.java)
+        fun createIntent(context: Context): Intent {
+            return Intent(context, RegisterAccountActivity::class.java)
         }
     }
-    private lateinit var smartLockClient : SmartLockClient
+
+    private lateinit var smartLockClient: SmartLockClient
     private val viewModel: RegisterAccountViewModel by inject()
     private lateinit var dataBinding: ActivityRegisterAccountBinding
 
@@ -49,7 +50,7 @@ class RegisterAccountActivity : AppCompatActivity() {
 
     }
 
-    private fun initializeViewModel(){
+    private fun initializeViewModel() {
         viewModel.initialize(
                 navigator = navigator,
                 owner = this@RegisterAccountActivity
@@ -57,7 +58,7 @@ class RegisterAccountActivity : AppCompatActivity() {
     }
 
 
-    private val navigator = object: RegisterAccountNavigator {
+    private val navigator = object : RegisterAccountNavigator {
         override fun showProgress() {
             this@RegisterAccountActivity.showProgress()
         }
@@ -68,7 +69,7 @@ class RegisterAccountActivity : AppCompatActivity() {
 
         override fun register(response: RegisterResponse) {
             response.userToken?.let {
-                if(it.isNotEmpty()) {
+                if (it.isNotEmpty()) {
                     Log.d("Register", "Done")
                 }
             }

@@ -12,10 +12,10 @@ import timber.log.Timber
  * @Author: Hoang Vu
  * @Date:   2018/12/09
  */
-class GraphqlClientFactory (private val context: Context,
-                            private val serverUrl: String,
-                            httpClient: OkHttpClient,
-                            cacheConfig: CacheConfig) {
+class GraphqlClientFactory(private val context: Context,
+                           private val serverUrl: String,
+                           httpClient: OkHttpClient,
+                           cacheConfig: CacheConfig) {
 
     enum class CacheConfig(val rawValue: String) {
         USE_CACHE("use-cache"),

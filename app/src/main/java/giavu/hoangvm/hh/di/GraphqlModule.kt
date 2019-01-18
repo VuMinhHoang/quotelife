@@ -37,7 +37,7 @@ class GraphqlModule {
                     cacheConfig = GraphqlClientFactory.CacheConfig.USE_CACHE).client
         }
 
-        single{ CategoryApi(get (name = GraphqlClientFactory.CacheConfig.NO_CACHE.rawValue))}
+        single { CategoryApi(get(name = GraphqlClientFactory.CacheConfig.NO_CACHE.rawValue)) }
 
     }
 }

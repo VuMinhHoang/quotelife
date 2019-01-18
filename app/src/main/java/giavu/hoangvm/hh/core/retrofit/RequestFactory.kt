@@ -15,7 +15,7 @@ class RequestFactory(private val headers: Map<String, String>, private val reque
     fun create(): Request {
         val builder = request.newBuilder()
         builder.headers(Headers.of(headers))
-        if(!isAuthRequired()){
+        if (!isAuthRequired()) {
             builder.removeHeader(ApiHeader.KEY_AUTHORIZATION)
         }
 
@@ -37,7 +37,7 @@ class RequestFactory(private val headers: Map<String, String>, private val reque
     }
 
     private fun isAuthRequired(): Boolean {
-        if(request.url().toString().contains("qotd")) {
+        if (request.url().toString().contains("qotd")) {
             return false
         }
         return true

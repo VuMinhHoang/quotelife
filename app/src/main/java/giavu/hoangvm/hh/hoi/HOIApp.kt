@@ -40,7 +40,7 @@ open class HOIApp : Application() {
     }
 
     private fun observeFcmToken() {
-        fcmTokenStore.token.observeForever {token ->
+        fcmTokenStore.token.observeForever { token ->
             Log.d("Token", token)
         }
     }

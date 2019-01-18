@@ -4,7 +4,7 @@ package giavu.hoangvm.hh.core.graphql
  * @Author: Hoang Vu
  * @Date:   2018/12/13
  */
-class DefaultTimeoutConfig : TimeoutConfig{
+class DefaultTimeoutConfig : TimeoutConfig {
     companion object {
         const val DEFAULT_CONNECTION_TIMEOUT_MILLISECONDS: Long = 20000
 

@@ -39,7 +39,7 @@ class SplashActivity : AppCompatActivity() {
                 .delay(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onSuccess = {listCategory ->
+                        onSuccess = { listCategory ->
                             Timber.d("Everything done:%s", listCategory.size.toString())
                             loadActivity()
                         },

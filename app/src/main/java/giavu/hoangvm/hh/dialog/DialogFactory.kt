@@ -90,7 +90,7 @@ class DialogFactory {
     }
 
     private fun <T : BaseDialogFragment> getFragment(
-            manager: FragmentManager, clazz: Class< out T>, flashPendingTransactions: Boolean): T? {
+            manager: FragmentManager, clazz: Class<out T>, flashPendingTransactions: Boolean): T? {
         if (flashPendingTransactions) {
             manager.executePendingTransactions()
         }

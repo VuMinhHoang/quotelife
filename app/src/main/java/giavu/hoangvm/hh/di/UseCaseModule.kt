@@ -10,6 +10,6 @@ import org.koin.dsl.module.Module
 class UseCaseModule {
 
     val module: Module = org.koin.dsl.module.module {
-        single{CategoryUseCase(get())}
+        single { CategoryUseCase(get()) }
     }
 }

@@ -9,7 +9,7 @@ class ApiHeader {
         val KEY_USER_AGENT = "User-agent"
         val KEY_ACCEPT_LANGUAGE = "Accept-Language"
         val KEY_ACCEPT = "Accept"
-        val CONTENT_TYPE="Content-Type"
+        val CONTENT_TYPE = "Content-Type"
         val VALUE_ACCEPT_JSON = "application/json"
         val KEY_AUTHORIZATION = "Authorization"
         val VALUE_AUTHORIZATION_BEARER_PREFIX = "Bearer "

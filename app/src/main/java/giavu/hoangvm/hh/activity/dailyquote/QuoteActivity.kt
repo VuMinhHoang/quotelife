@@ -14,15 +14,17 @@ class QuoteActivity : AppCompatActivity() {
         initializeDataBinding()
         initViewModel()
     }
-    val viewModel : QuoteViewModel by lazy {
+
+    val viewModel: QuoteViewModel by lazy {
         ViewModelProviders.of(this@QuoteActivity).get(QuoteViewModel::class.java)
     }
     private lateinit var binding: ActivityQuoteBinding
 
-    private fun initViewModel(){
+    private fun initViewModel() {
         viewModel.initialize()
     }
-    private fun initializeDataBinding(){
+
+    private fun initializeDataBinding() {
         binding = DataBindingUtil.setContentView<ActivityQuoteBinding>(
                 this@QuoteActivity, R.layout.activity_quote)
                 .apply {

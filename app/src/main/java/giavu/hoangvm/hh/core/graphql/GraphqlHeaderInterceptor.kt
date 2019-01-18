@@ -9,11 +9,11 @@ import okhttp3.Response
  * @Author: Hoang Vu
  * @Date:   2018/12/08
  */
-class GraphqlHeaderInterceptor(private val context: Context): Interceptor {
+class GraphqlHeaderInterceptor(private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response =
             with(chain.request().newBuilder()) {
                 createHeaders().entries.forEach { header ->
-                    addHeader(header.key,header.value)
+                    addHeader(header.key, header.value)
                 }
                 build()
             }.let { request ->

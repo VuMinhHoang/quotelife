@@ -11,13 +11,13 @@ import androidx.databinding.BindingAdapter
 
 @BindingAdapter("passwordValidator")
 fun passwordValidator(editText: EditText, password: String) {
-    if(TextUtils.isEmpty(password)){
+    if (TextUtils.isEmpty(password)) {
         editText.setError(null)
         return
     }
-    if(password.length < 5){
+    if (password.length < 5) {
         editText.setError("Password must be minimum 5")
-    }else {
+    } else {
         editText.setError(null)
     }
 }

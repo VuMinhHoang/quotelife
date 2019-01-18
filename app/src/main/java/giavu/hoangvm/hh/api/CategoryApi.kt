@@ -13,7 +13,7 @@ import query.CategoryQuery
  */
 class CategoryApi(private val client: ApolloClient) {
 
-    fun get() : Single<Response<CategoryQuery.Data>> {
+    fun get(): Single<Response<CategoryQuery.Data>> {
         return CategoryQuery().let { query ->
             client.query(query)
         }.let { call ->

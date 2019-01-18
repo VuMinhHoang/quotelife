@@ -14,21 +14,21 @@ import org.koin.android.ext.android.inject
  * @Author: Hoang Vu
  * @Date:   2019/01/05
  */
-class QuoteViewModel(application: Application): AndroidViewModel(application) {
+class QuoteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val quoteApi: QuotesApi by application.inject()
 
     private val _quote = MutableLiveData<String>()
-    val quote : LiveData<String> = _quote
+    val quote: LiveData<String> = _quote
 
-    fun initialize(){
+    fun initialize() {
         quoteApi.getQuoteOfDay()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onSuccess = { response ->
                             _quote.postValue(response.quote.body)
-                },
+                        },
                         onError = {
 
                         })

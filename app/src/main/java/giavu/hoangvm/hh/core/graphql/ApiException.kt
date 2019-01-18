@@ -5,4 +5,4 @@ package giavu.hoangvm.hh.core.graphql
  * @Date:   2018/12/09
  */
 class ApiException(message: String?,
-                   var code: String? = null ): Exception(message)
+                   var code: String? = null) : Exception(message)

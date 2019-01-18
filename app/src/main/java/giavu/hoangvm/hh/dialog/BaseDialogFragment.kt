@@ -166,7 +166,7 @@ open class BaseDialogFragment : DialogFragment(), ArgumentChangedListener {
                 EventBus.getDefault().post(event)
                 return
             }
-        }catch (e: Throwable){
+        } catch (e: Throwable) {
             throw e
         }
         // Fragment listener passed to setTargetFragment() will take priority

@@ -19,7 +19,7 @@ import timber.log.Timber
  * @Author: Hoang Vu
  * @Date:   2019/01/14
  */
-class RegisterAccountViewModel(application: Application): AndroidViewModel(application) {
+class RegisterAccountViewModel(application: Application) : AndroidViewModel(application) {
 
     private lateinit var navigator: RegisterAccountNavigator
     private val userApi: UserApi by application.inject()
@@ -42,7 +42,7 @@ class RegisterAccountViewModel(application: Application): AndroidViewModel(appli
     }
 
     fun onUserNameInput(text: CharSequence) {
-        Log.d("Test","blabla")
+        Log.d("Test", "blabla")
         _userName.postValue(text.toString())
     }
 
@@ -52,14 +52,14 @@ class RegisterAccountViewModel(application: Application): AndroidViewModel(appli
 
     fun onPasswordInput(text: CharSequence) {
         _password.postValue(text.toString())
-        Log.d("Test",_password.value)
+        Log.d("Test", _password.value)
     }
 
     fun gotoLogin() {
         navigator.toLogin()
     }
 
-    fun register(){
+    fun register() {
         val body = RegBody(
                 login = _userName.value,
                 email = _email.value,
@@ -74,11 +74,11 @@ class RegisterAccountViewModel(application: Application): AndroidViewModel(appli
                 .doFinally { navigator.hideProgress() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(onError = Timber::w,
-                        onSuccess = {navigator.register(it)})
+                        onSuccess = { navigator.register(it) })
                 .addTo(compositeDisposable)
     }
 
-    private fun checkValidInput(owner: LifecycleOwner){
+    private fun checkValidInput(owner: LifecycleOwner) {
         combineLatest(
                 source1 = _userName.toPublisher(owner),
                 source2 = _email.toPublisher(owner),
@@ -87,11 +87,11 @@ class RegisterAccountViewModel(application: Application): AndroidViewModel(appli
                     val userName = triple.first
                     val email = triple.second
                     val password = triple.third
-                    (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() )
+                    (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
                 }
                 .subscribeBy(
                         onError = Timber::w,
-                        onNext = {_registerButtonEnabled.postValue(it)}
+                        onNext = { _registerButtonEnabled.postValue(it) }
                 )
                 .addTo(compositeDisposable)
     }

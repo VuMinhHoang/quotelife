@@ -5,6 +5,6 @@ package giavu.hoangvm.hh.activity.register
  * @Date:   2019/01/14
  */
 sealed class RegisterValidator {
-    object Valid: RegisterValidator()
-    object InValid: RegisterValidator()
+    object Valid : RegisterValidator()
+    object InValid : RegisterValidator()
 }

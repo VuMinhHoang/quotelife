@@ -150,7 +150,7 @@ class SmartLockClient(activity: FragmentActivity) {
         return connectedSingle()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap {requestCredentialResultSingle() }
+                .flatMap { requestCredentialResultSingle() }
                 .flatMap({ it ->
                     val status = it.getStatus()
                     if (status.isSuccess()) {
@@ -170,9 +170,9 @@ class SmartLockClient(activity: FragmentActivity) {
                 .setAccountTypes(IdentityProviders.GOOGLE)
                 .build()
 
-        return Single.create {
-            e -> Auth.CredentialsApi.request(googleApiClient, request)
-                .setResultCallback(e::onSuccess)
+        return Single.create { e ->
+            Auth.CredentialsApi.request(googleApiClient, request)
+                    .setResultCallback(e::onSuccess)
         }
     }
 
