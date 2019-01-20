@@ -1,6 +1,6 @@
 package giavu.hoangvm.hh.core.retrofit
 
-import android.util.Log
+import com.google.gson.GsonBuilder
 import giavu.hoangvm.hh.core.graphql.TimeoutConfigBuilder
 import okhttp3.ConnectionPool
 import okhttp3.Interceptor
@@ -41,15 +41,14 @@ class ApiFactory(
     }
 
     private fun createGsonConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
+        val gson = GsonBuilder().create()
+        return GsonConverterFactory.create(gson)
     }
 
     inner class HeaderInterceptor : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
             val request = RequestFactory(headerAccessor.get(), chain.request()).create()
-            Log.d("TEST", request.headers().toString())
-            Log.d("TEST", request.toString())
             return chain.proceed(request)
         }
     }

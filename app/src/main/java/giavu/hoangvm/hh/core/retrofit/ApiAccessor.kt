@@ -1,9 +1,9 @@
 package giavu.hoangvm.hh.core.retrofit
 
 import android.content.Context
+import android.util.Log
 import okhttp3.ConnectionPool
 import okhttp3.logging.HttpLoggingInterceptor
-import timber.log.Timber
 import java.util.*
 
 /**
@@ -37,7 +37,8 @@ abstract class ApiAccessor(private val context: Context) : ApiFactory.HeaderAcce
     private class LoggerImpl : HttpLoggingInterceptor.Logger {
 
         override fun log(message: String) {
-            Timber.tag(TAG).d(message)
+            Log.d(TAG, message)
+            if(message.contains("error_code")) throw Exception()
         }
 
         companion object {
@@ -47,8 +48,6 @@ abstract class ApiAccessor(private val context: Context) : ApiFactory.HeaderAcce
 
     override fun get(): MutableMap<String, String> {
         val headers = HashMap<String, String>()
-        //headers.put(ApiHeader.KEY_USER_AGENT, "")
-        //headers.put(ApiHeader.KEY_ACCEPT_LANGUAGE, context.getString(R.string.language))
         onCreateHeaders(headers)
         return headers
     }

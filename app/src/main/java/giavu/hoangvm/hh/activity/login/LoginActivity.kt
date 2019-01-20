@@ -17,6 +17,7 @@ import giavu.hoangvm.hh.core.retrofit.JFDApiAccessor
 import giavu.hoangvm.hh.databinding.ActivityLoginBinding
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
+import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.Category
 import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.LoginResponse
@@ -32,6 +33,8 @@ import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.koin.android.ext.android.inject
+
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -65,10 +68,6 @@ class LoginActivity : AppCompatActivity() {
         }
         initializeDataBinding()
         initViewModel()
-        Log.d("Print", "Call oncreate")
-        //fetchCategoris()
-        //fetchQuotes()
-        //getQuoteOfDay()
         login()
     }
 
@@ -86,22 +85,27 @@ class LoginActivity : AppCompatActivity() {
     private fun login() {
         val loginBody = LoginBody(
                 email = "hoangvmh@gmail.com",
-                password = "Hoanghuong2012"
+                password = "22222"
         )
         val body = User(
                 user = loginBody
         )
         JFDApiAccessor(this@LoginActivity).from().using(UserApi::class.java)
-                .login(body)
+                .loginError(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onSuccess = {
-                            Log.d("Test Retrofit", it.toString())
+                        onSuccess = { response ->
+                            Log.d(TAG, "Response: " + response.toString())
+                            //saveUserPreference(response)
                         },
-                        onError = { Log.d("Test Retrofit", it.toString()) }
+                        onError = { Log.d(TAG, "Error " + it.toString()) }
                 )
                 .addTo(compositeDisposable)
+    }
+
+    private fun saveUserPreference(loginResponse: LoginResponse) {
+        UserSharePreference.fromContext(this).updateUserPref(loginResponse)
     }
 
     private fun getQuoteOfDay() {

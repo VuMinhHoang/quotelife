@@ -9,6 +9,8 @@ import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.User
 import giavu.hoangvm.hh.utils.CredentialResult
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
@@ -19,7 +21,9 @@ import org.koin.android.ext.android.inject
  */
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val TAG = LoginViewModel::class.java.simpleName
     private lateinit var navigator: LoginNavigator
+    private val compositeDisposable = CompositeDisposable()
 
     private val userApi: UserApi by application.inject()
     private val _username = MutableLiveData<String>()
@@ -48,23 +52,26 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         val body = User(
                 user = loginBody
         )
-        Log.d("Why", loginBody.email + "-" + loginBody.password)
         userApi.login(body)
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe { navigator.showProgress() }
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { navigator.showProgress() }
                 .doFinally { navigator.hideProgress() }
                 .subscribeBy(
                         onSuccess = { response ->
                             if (response != null) {
+                                Log.d(TAG,response.toString())
                                 navigator.toLogin(response)
                             } else {
-                                Log.d("Test Retrofit", response.toString())
+                                Log.d(TAG, "Response is null")
                             }
 
                         },
-                        onError = { Log.d("Test Retrofit", it.toString()) }
+                        onError = { throwable ->
+                            Log.d(TAG, throwable.toString())
+                        }
                 )
+                .addTo(compositeDisposable = compositeDisposable)
     }
 
     fun subscribeCredentialResult(credentialResult: CredentialResult) {
