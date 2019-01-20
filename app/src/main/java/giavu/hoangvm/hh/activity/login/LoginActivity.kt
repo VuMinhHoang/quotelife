@@ -14,7 +14,7 @@ import giavu.hoangvm.hh.activity.register.RegisterAccountActivity
 import giavu.hoangvm.hh.api.QuotesApi
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.core.retrofit.JFDApiAccessor
-import giavu.hoangvm.hh.databinding.ActivityMainBinding
+import giavu.hoangvm.hh.databinding.ActivityLoginBinding
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.model.Category
@@ -33,15 +33,15 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.koin.android.ext.android.inject
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     companion object {
         fun createIntent(context: Context): Intent {
-            return Intent(context, MainActivity::class.java)
+            return Intent(context, LoginActivity::class.java)
         }
     }
 
-    private val TAG = MainActivity::class.java.simpleName
+    private val TAG = LoginActivity::class.java.simpleName
     private val REQUEST_CODE_SELECT_ACCOUNT = 4
 
 
@@ -49,16 +49,16 @@ class MainActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
     private lateinit var smartLockClient: SmartLockClient
 
-    /*    val viewModel : MainViewModel by lazy {
-            ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
+    /*    val viewModel : LoginViewModel by lazy {
+            ViewModelProviders.of(this@LoginActivity).get(LoginViewModel::class.java)
         }*/
-    private val viewModel: MainViewModel by inject()
+    private val viewModel: LoginViewModel by inject()
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_login)
         initialize()
         if (savedInstanceState == null) {
             smartLockClient.requestCredential(this, onRequestCredentialListener)
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         val body = User(
                 user = loginBody
         )
-        JFDApiAccessor(this@MainActivity).from().using(UserApi::class.java)
+        JFDApiAccessor(this@LoginActivity).from().using(UserApi::class.java)
                 .login(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getQuoteOfDay() {
-        JFDApiAccessor(this@MainActivity).from().using(QuotesApi::class.java)
+        JFDApiAccessor(this@LoginActivity).from().using(QuotesApi::class.java)
                 .getQuoteOfDay()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchQuotes() {
-        JFDApiAccessor(this@MainActivity).from().using(QuotesApi::class.java)
+        JFDApiAccessor(this@LoginActivity).from().using(QuotesApi::class.java)
                 .getQuotes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -133,11 +133,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeDataBinding() {
-        binding = DataBindingUtil.setContentView<ActivityMainBinding>(
-                this@MainActivity, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
+                this@LoginActivity, R.layout.activity_login)
                 .apply {
-                    viewModel = this@MainActivity.viewModel
-                    setLifecycleOwner(this@MainActivity)
+                    viewModel = this@LoginActivity.viewModel
+                    setLifecycleOwner(this@LoginActivity)
                 }
 
     }
@@ -160,30 +160,30 @@ class MainActivity : AppCompatActivity() {
         override fun toLogin(response: LoginResponse) {
             if (response.userToken != null) {
                 Log.d(TAG, "Login")
-                val intent = Intent(this@MainActivity, QuoteActivity::class.java)
+                val intent = Intent(this@LoginActivity, QuoteActivity::class.java)
                 startActivity(intent)
             } else {
-                startActivity(RegisterAccountActivity.createIntent(this@MainActivity))
+                startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
             }
         }
 
         override fun showProgress() {
-            //this@MainActivity.showProgress()
+            //this@LoginActivity.showProgress()
             Log.d(TAG, "showProgress")
-            this@MainActivity.showProgress()
+            this@LoginActivity.showProgress()
         }
 
         override fun hideProgress() {
-            //this@MainActivity.hideProgress()
+            //this@LoginActivity.hideProgress()
             Log.d(TAG, "hideProgress")
-            this@MainActivity.hideProgress()
+            this@LoginActivity.hideProgress()
         }
     }
 
     private val onRequestCredentialListener = object : SmartLockClient.OnRequestCredentialListener {
         override fun shouldResoluteAccountSelect(status: Status) {
             try {
-                status.startResolutionForResult(this@MainActivity, REQUEST_CODE_SELECT_ACCOUNT)
+                status.startResolutionForResult(this@LoginActivity, REQUEST_CODE_SELECT_ACCOUNT)
             } catch (e: IntentSender.SendIntentException) {
                 e.printStackTrace()
             }

@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.dailyquote.QuoteActivity" />
-        <activity android:name=".activity.login.MainActivity" />
+        <activity android:name=".activity.login.LoginActivity" />
         <activity android:name=".activity.register.RegisterAccountActivity"/>
         <service
             android:name=".firebase.JFDFirebaseMessagingService"

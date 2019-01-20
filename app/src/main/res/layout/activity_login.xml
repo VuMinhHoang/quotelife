@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="giavu.hoangvm.hh.activity.login.MainViewModel">
+            type="giavu.hoangvm.hh.activity.login.LoginViewModel">
         </variable>
     </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

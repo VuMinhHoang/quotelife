@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import giavu.hoangvm.hh.R
-import giavu.hoangvm.hh.activity.login.MainActivity
+import giavu.hoangvm.hh.activity.login.LoginActivity
 import giavu.hoangvm.hh.usecase.CategoryUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -48,7 +48,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun loadActivity() {
-        startActivity(MainActivity.createIntent(this@SplashActivity))
+        startActivity(LoginActivity.createIntent(this@SplashActivity))
         this@SplashActivity.finish()
     }
 }

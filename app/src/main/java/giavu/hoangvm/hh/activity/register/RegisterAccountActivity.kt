@@ -8,7 +8,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import giavu.hoangvm.hh.R
-import giavu.hoangvm.hh.activity.login.MainActivity
+import giavu.hoangvm.hh.activity.login.LoginActivity
 import giavu.hoangvm.hh.databinding.ActivityRegisterAccountBinding
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
@@ -76,7 +76,7 @@ class RegisterAccountActivity : AppCompatActivity() {
         }
 
         override fun toLogin() {
-            startActivity(MainActivity.createIntent(this@RegisterAccountActivity))
+            startActivity(LoginActivity.createIntent(this@RegisterAccountActivity))
         }
     }
 

@@ -1,6 +1,6 @@
 package giavu.hoangvm.hh.di
 
-import giavu.hoangvm.hh.activity.login.MainViewModel
+import giavu.hoangvm.hh.activity.login.LoginViewModel
 import giavu.hoangvm.hh.activity.register.RegisterAccountViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.ext.koin.viewModel
@@ -14,7 +14,7 @@ class ViewModelModule {
 
     val module: Module = org.koin.dsl.module.module {
         viewModel {
-            MainViewModel(application = androidApplication())
+            LoginViewModel(application = androidApplication())
         }
         viewModel {
             RegisterAccountViewModel(application = androidApplication())

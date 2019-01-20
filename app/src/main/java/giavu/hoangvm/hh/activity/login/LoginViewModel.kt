@@ -17,7 +17,7 @@ import org.koin.android.ext.android.inject
  * @Author: Hoang Vu
  * @Date:   2018/12/15
  */
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     private lateinit var navigator: LoginNavigator
 
