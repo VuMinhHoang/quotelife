@@ -2,6 +2,8 @@ package giavu.hoangvm.hh.core.retrofit
 
 import android.content.Context
 import android.util.Log
+import com.google.gson.Gson
+import giavu.hoangvm.hh.exeption.ResponseError
 import okhttp3.ConnectionPool
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.*
@@ -38,7 +40,9 @@ abstract class ApiAccessor(private val context: Context) : ApiFactory.HeaderAcce
 
         override fun log(message: String) {
             Log.d(TAG, message)
-            if(message.contains("error_code")) throw Exception()
+            if(message.contains("error_code")){
+              throw Gson().fromJson(message, ResponseError::class.java)
+            }
         }
 
         companion object {

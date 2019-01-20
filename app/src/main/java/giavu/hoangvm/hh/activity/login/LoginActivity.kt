@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
                 user = loginBody
         )
         JFDApiAccessor(this@LoginActivity).from().using(UserApi::class.java)
-                .loginError(body)
+                .login(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
