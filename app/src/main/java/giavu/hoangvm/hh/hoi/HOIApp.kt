@@ -23,8 +23,10 @@ open class HOIApp : Application() {
         super.onCreate()
         KoinInitializer(this).initialize()
         FirebaseApp.initializeApp(this)
-        //val intent = Intent(applicationContext, MainActivity::class.java)
-        //startActivity(intent)
+        initialize()
+    }
+
+    private fun initialize() {
         initFcm()
     }
 
