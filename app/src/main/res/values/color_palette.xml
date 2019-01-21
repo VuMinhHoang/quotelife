@@ -6,6 +6,13 @@
     <color name="gray300">#D6D6D6</color>
     <color name="gray100">#F5F5F5</color>
 
+    <color name="grayish_blue900">#2E3440</color>
+    <color name="grayish_blue700">#515A6F</color>
+    <color name="grayish_blue500">#7582A0</color>
+    <color name="grayish_blue300">#C7CDD9</color>
+    <color name="grayish_blue100">#F1F2F5</color>
+
+
     <!-- theme colors -->
     <color name="jtx_blue">#192F60</color>
     <color name="jtx_blue_light">#304470</color>

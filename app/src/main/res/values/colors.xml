@@ -4,10 +4,13 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="ac">#0079CE</color>
+    <color name="tc">#4D4D4D</color>
     <color name="transparent_ripple">@color/nac</color>
     <color name="nac">#663C4246</color>
     <color name="white">#FFFFFF</color>
     <color name="colorTransparent">#00000000</color>
+    <color name="semiActiveBackground">#E6EDF1</color>
+    <color name="semiActiveBorder">#D4DADE</color>
 
     <color name="main_disabled_on_light_background">@color/gray300</color>
     <color name="main_primary_button_background">@color/jtx_blue</color>
@@ -15,4 +18,8 @@
     <color name="main_primary_button_text">@color/white</color>
     <color name="main_disabled_on_dark_background">@color/jtx_blue</color>
     <color name="main_disabled_text">@color/white</color>
+    <color name="sub_disabled_on_light_background">@color/gray300</color>
+    <color name="sub_primary_button_background">@color/grayish_blue100</color>
+    <color name="sub_primary_button_corner">@color/grayish_blue300</color>
+    <color name="sub_primary_button_background_on_pressed">@color/grayish_blue300</color>
 </resources>

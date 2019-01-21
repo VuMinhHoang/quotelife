@@ -13,6 +13,26 @@
         <item name="android:lineSpacingExtra">5sp</item>
     </style>
 
+    <style name="Body">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+    </style>
+
+    <style name="Note">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="DialogButtonNormal" parent="DialogButtonActive">
+        <item name="android:textStyle">normal</item>
+        <item name="android:lines">2</item>
+    </style>
+
+    <style name="DialogButtonActive" parent="MainPrimaryButton">
+        <item name="android:background">@drawable/selector_btn_semi_active</item>
+        <item name="android:textColor">@color/ac</item>
+    </style>
+
     <style name="MainPrimaryButton" parent="@style/Widget.AppCompat.Button.Borderless">
         <item name="android:background">@drawable/main_primary_button_background_status_list</item>
         <item name="android:textAppearance">@style/HeadLine</item>
@@ -25,6 +45,13 @@
         <item name="android:background">@color/white</item>
         <item name="android:paddingLeft">@dimen/space_16dp</item>
         <item name="android:paddingRight">@dimen/space_10dp</item>
+    </style>
+
+    <style name="SubPrimaryButton" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/sub_primary_button_background_status_list</item>
+        <item name="android:textAppearance">@style/Body</item>
+        <item name="android:textColor">@drawable/sub_primary_button_text_color_status_list</item>
+        <item name="android:layout_height">@dimen/button_height</item>
     </style>
 
 </resources>

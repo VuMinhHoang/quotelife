@@ -17,4 +17,8 @@
     <string name="input_password_sample">Password</string>
     <string name="action_register">Register</string>
     <string name="already_has_account">Already has account</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_decide">Set</string>
+    <string name="dialog_ok">OK</string>
+
 </resources>
