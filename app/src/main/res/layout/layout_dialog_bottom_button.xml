@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/space_16dp"
+    android:paddingStart="@dimen/space_8dp"
+    android:paddingEnd="@dimen/space_8dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingBottom="@dimen/space_16dp">
+
+    <Button
+        android:id="@+id/negative_btn"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_8dp"
+        android:layout_marginEnd="@dimen/space_8dp"
+        android:singleLine="true"
+        android:text="@string/dialog_cancel"
+        style="@style/SubPrimaryButton"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/positive_btn"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_8dp"
+        android:layout_marginEnd="@dimen/space_8dp"
+        android:singleLine="true"
+        android:text="@string/dialog_decide"
+        style="@style/MainPrimaryButton"
+        />
+
+    <Button
+        android:id="@+id/neutral_btn"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_8dp"
+        android:layout_marginEnd="@dimen/space_8dp"
+        android:singleLine="true"
+        android:text="@string/dialog_ok"
+        style="@style/DialogButtonNormal"
+        android:visibility="gone"
+        />
+
+</LinearLayout>
