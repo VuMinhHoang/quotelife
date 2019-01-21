@@ -81,6 +81,9 @@ dependencies {
     implementation "com.airbnb.android:lottie:${LOTTIE_VERSIOIN}"
     implementation "com.jakewharton.timber:timber:${TIMBER_VERSION}"
 
+    implementation 'com.github.arturogutierrez:badges:1.0.5@aar'
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+
     debugImplementation "com.facebook.stetho:stetho:${STETHO_VERSION}"
     debugImplementation "com.facebook.stetho:stetho-okhttp3:${STETHO_VERSION}"
 }
