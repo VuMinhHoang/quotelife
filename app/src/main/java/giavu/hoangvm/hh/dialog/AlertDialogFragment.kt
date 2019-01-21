@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import giavu.hoangvm.hh.R
+import giavu.hoangvm.hh.utils.StringUtils
 
-import jp.co.nikko_data.japantaxi.R
-import jp.co.nikko_data.japantaxi.utils.StringUtils
 
 class AlertDialogFragment : BaseDialogFragment() {
 

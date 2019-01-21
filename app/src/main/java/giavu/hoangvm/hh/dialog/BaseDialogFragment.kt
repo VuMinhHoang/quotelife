@@ -160,9 +160,11 @@ open class BaseDialogFragment : DialogFragment(), ArgumentChangedListener {
 
         }
         try {
-            val eventFactory = arguments?.getSerializable(BUTTON_EVENT_FACTORY) as DialogButtonEventFactory<*>
+            val eventFactory = arguments?.getSerializable(BUTTON_EVENT_FACTORY)?.let { event ->
+                event as DialogButtonEventFactory<*>
+            }
             appendExtraData(data)?.let { itent ->
-                val event = eventFactory.createEvent(whichButton, itent)
+                val event = eventFactory?.createEvent(whichButton, itent)
                 EventBus.getDefault().post(event)
                 return
             }

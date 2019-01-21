@@ -15,8 +15,10 @@ import giavu.hoangvm.hh.api.QuotesApi
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.core.retrofit.JFDApiAccessor
 import giavu.hoangvm.hh.databinding.ActivityLoginBinding
+import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
+import giavu.hoangvm.hh.exeption.ResponseError
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.Category
 import giavu.hoangvm.hh.model.LoginBody
@@ -68,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
         }
         initializeDataBinding()
         initViewModel()
-        login()
+        //login()
     }
 
     private fun initialize() {
@@ -169,6 +171,14 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
             }
+        }
+
+        override fun toShowError(error: ResponseError) {
+            AlertDialogFragment.Builder()
+                    .setTitle(error.errorCode)
+                    .setMessage(error.messageError)
+                    .setPositiveButtonText("OK")
+                    .show(supportFragmentManager)
         }
 
         override fun showProgress() {

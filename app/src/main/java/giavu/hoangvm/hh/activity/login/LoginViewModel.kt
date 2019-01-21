@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import giavu.hoangvm.hh.api.UserApi
+import giavu.hoangvm.hh.dialog.AlertDialogFragment
+import giavu.hoangvm.hh.exeption.ResponseError
 import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.User
 import giavu.hoangvm.hh.utils.CredentialResult
@@ -67,8 +69,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                             }
 
                         },
-                        onError = { throwable ->
-                            Log.d(TAG, throwable.toString())
+                        onError = { error ->
+                            if (error is ResponseError) {
+                                navigator.toShowError(error)
+                            }
                         }
                 )
                 .addTo(compositeDisposable = compositeDisposable)

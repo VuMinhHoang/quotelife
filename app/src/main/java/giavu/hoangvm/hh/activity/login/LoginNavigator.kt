@@ -1,5 +1,6 @@
 package giavu.hoangvm.hh.activity.login
 
+import giavu.hoangvm.hh.exeption.ResponseError
 import giavu.hoangvm.hh.model.LoginResponse
 
 /**
@@ -8,6 +9,7 @@ import giavu.hoangvm.hh.model.LoginResponse
  */
 interface LoginNavigator {
     fun toLogin(response: LoginResponse)
+    fun toShowError(error: ResponseError)
     fun showProgress()
     fun hideProgress()
 }
