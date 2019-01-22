@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
         if (userSession.isEmpty()) {
             return
         }
-        userApi.getUser(userSession)
+        userApi.getUser()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
