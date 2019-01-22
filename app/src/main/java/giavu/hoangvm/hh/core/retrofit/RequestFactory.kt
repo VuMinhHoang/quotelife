@@ -48,10 +48,19 @@ class RequestFactory(private val headers: Map<String, String>, private val reque
     }
 
     private fun isUserTokenRequired(): Boolean {
-        if(request.url().toString().contains("users")
-                && request.method() == "GET" ) {
-            Timber.d("Get user information")
-            return true
+        when(request.url().toString()) {
+            NeedUserTokenUrl.GET_USER.url -> {
+                if(request.method() == HttpMethodEnum.GET.method){
+                    Timber.d("Get user")
+                    return true
+                }
+            }
+            NeedUserTokenUrl.DELETE_USER.url -> {
+                if(request.method() == HttpMethodEnum.DELETE.method) {
+                    Timber.d("Logout")
+                    return true
+                }
+            }
         }
         return false
     }
