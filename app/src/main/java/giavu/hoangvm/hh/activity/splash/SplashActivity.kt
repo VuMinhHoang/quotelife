@@ -4,19 +4,21 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import giavu.hoangvm.hh.R
+import giavu.hoangvm.hh.activity.dailyquote.QuoteActivity
 import giavu.hoangvm.hh.activity.login.LoginActivity
+import giavu.hoangvm.hh.api.UserApi
+import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.usecase.CategoryUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
-import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class SplashActivity : AppCompatActivity() {
 
     private val categoryUseCase: CategoryUseCase by inject()
+    private val userApi: UserApi by inject()
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,22 +36,40 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun checkLocalData() {
-        categoryUseCase.getCategory()
+        val userSession = UserSharePreference.fromContext(this@SplashActivity)
+                .getUserSession()
+
+        val email = UserSharePreference.fromContext(this@SplashActivity)
+                .getUserEmail()
+        if (userSession.isEmpty()) {
+            return
+        }
+        userApi.getUser(userSession)
                 .subscribeOn(Schedulers.io())
-                .delay(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onSuccess = { listCategory ->
-                            Timber.d("Everything done:%s", listCategory.size.toString())
-                            loadActivity()
+                        onSuccess = { response ->
+                            if (response.account_details.email == email) {
+                                loadActivity(true)
+                            }else{
+                                loadActivity(false)
+                            }
                         },
-                        onError = Timber::w
+                        onError = {
+                            loadActivity(false)
+                        }
                 )
     }
 
-    private fun loadActivity() {
-        startActivity(LoginActivity.createIntent(this@SplashActivity))
-        this@SplashActivity.finish()
+    private fun loadActivity(isLogined: Boolean) {
+        if (isLogined) {
+            startActivity(QuoteActivity.createIntent(this@SplashActivity))
+            this@SplashActivity.finish()
+        } else {
+            startActivity(LoginActivity.createIntent(this@SplashActivity))
+            this@SplashActivity.finish()
+        }
+
     }
 
 }
