@@ -120,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
     }
-    
+
     private val navigator = object : LoginNavigator {
         override fun toLogin(response: LoginResponse) {
             if (response.userToken != null) {
