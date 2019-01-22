@@ -8,6 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.databinding.ActivityQuoteBinding
+import giavu.hoangvm.hh.dialog.hideProgress
+import giavu.hoangvm.hh.dialog.showProgress
+import timber.log.Timber
 
 class QuoteActivity : AppCompatActivity() {
 
@@ -29,7 +32,7 @@ class QuoteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQuoteBinding
 
     private fun initViewModel() {
-        viewModel.initialize()
+        viewModel.initialize(navigator = navigator)
     }
 
     private fun initializeDataBinding() {
@@ -40,5 +43,23 @@ class QuoteActivity : AppCompatActivity() {
                     setLifecycleOwner(this@QuoteActivity)
                 }
 
+    }
+
+    private val navigator = object : QuoteNavigator {
+        override fun showProgress() {
+            this@QuoteActivity.showProgress()
+        }
+
+        override fun hideProgress() {
+            this@QuoteActivity.hideProgress()
+        }
+
+        override fun toLogout(message: String) {
+            Timber.d(message)
+        }
+
+        override fun toError(e: Throwable) {
+            Timber.d(e)
+        }
     }
 }
