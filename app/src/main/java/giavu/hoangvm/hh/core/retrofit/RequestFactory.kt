@@ -3,6 +3,7 @@ package giavu.hoangvm.hh.core.retrofit
 import giavu.hoangvm.hh.core.graphql.ApiHeader
 import okhttp3.Headers
 import okhttp3.Request
+import timber.log.Timber
 
 
 /**
@@ -17,6 +18,9 @@ class RequestFactory(private val headers: Map<String, String>, private val reque
         builder.headers(Headers.of(headers))
         if (!isAuthRequired()) {
             builder.removeHeader(ApiHeader.KEY_AUTHORIZATION)
+        }
+        if(!isUserTokenRequired()) {
+            builder.removeHeader(ApiHeader.KEY_USER_AGENT)
         }
 
         /*
@@ -41,6 +45,15 @@ class RequestFactory(private val headers: Map<String, String>, private val reque
             return false
         }
         return true
+    }
+
+    private fun isUserTokenRequired(): Boolean {
+        if(request.url().toString().contains("users")
+                && request.method() == "GET" ) {
+            Timber.d("Get user information")
+            return true
+        }
+        return false
     }
 
 }
