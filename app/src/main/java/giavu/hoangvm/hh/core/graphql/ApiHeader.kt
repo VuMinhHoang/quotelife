@@ -6,7 +6,7 @@ package giavu.hoangvm.hh.core.graphql
  */
 class ApiHeader {
     companion object {
-        val KEY_USER_AGENT = "User-agent"
+        val KEY_USER_AGENT = "User-Token"
         val KEY_ACCEPT_LANGUAGE = "Accept-Language"
         val KEY_ACCEPT = "Accept"
         val CONTENT_TYPE = "Content-Type"
