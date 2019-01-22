@@ -12,7 +12,6 @@ import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.dailyquote.QuoteActivity
 import giavu.hoangvm.hh.activity.register.RegisterAccountActivity
 import giavu.hoangvm.hh.api.QuotesApi
-import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.core.retrofit.JFDApiAccessor
 import giavu.hoangvm.hh.databinding.ActivityLoginBinding
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
@@ -20,10 +19,7 @@ import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.exeption.ResponseError
 import giavu.hoangvm.hh.helper.UserSharePreference
-import giavu.hoangvm.hh.model.Category
-import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.LoginResponse
-import giavu.hoangvm.hh.model.User
 import giavu.hoangvm.hh.usecase.CategoryUseCase
 import giavu.hoangvm.hh.utils.CredentialResult
 import giavu.hoangvm.hh.utils.SmartLockClient
@@ -70,7 +66,6 @@ class LoginActivity : AppCompatActivity() {
         }
         initializeDataBinding()
         initViewModel()
-        //login()
     }
 
     private fun initialize() {
@@ -81,29 +76,6 @@ class LoginActivity : AppCompatActivity() {
         viewModel.apply(
                 navigator = navigator
         )
-    }
-
-
-    private fun login() {
-        val loginBody = LoginBody(
-                email = "hoangvmh@gmail.com",
-                password = "22222"
-        )
-        val body = User(
-                user = loginBody
-        )
-        JFDApiAccessor(this@LoginActivity).from().using(UserApi::class.java)
-                .login(body)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = { response ->
-                            Log.d(TAG, "Response: " + response.toString())
-                            //saveUserPreference(response)
-                        },
-                        onError = { Log.d(TAG, "Error " + it.toString()) }
-                )
-                .addTo(compositeDisposable)
     }
 
     private fun saveUserPreference(loginResponse: LoginResponse) {
@@ -123,6 +95,7 @@ class LoginActivity : AppCompatActivity() {
                 )
                 .addTo(compositeDisposable)
     }
+
 
     private fun fetchQuotes() {
         JFDApiAccessor(this@LoginActivity).from().using(QuotesApi::class.java)
@@ -147,24 +120,11 @@ class LoginActivity : AppCompatActivity() {
                 }
 
     }
-
-    private fun onSuccess(result: List<Category>) {
-        Log.d("Print string:%s", result.toString())
-    }
-
-    private fun fetchCategoris() {
-        categoryUseCase.getCategory()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(onSuccess = {
-                    onSuccess(it)
-                })
-                .addTo(compositeDisposable)
-    }
-
+    
     private val navigator = object : LoginNavigator {
         override fun toLogin(response: LoginResponse) {
             if (response.userToken != null) {
+                UserSharePreference.fromContext(this@LoginActivity).updateUserPref(response)
                 Log.d(TAG, "Login")
                 val intent = Intent(this@LoginActivity, QuoteActivity::class.java)
                 startActivity(intent)
@@ -182,13 +142,11 @@ class LoginActivity : AppCompatActivity() {
         }
 
         override fun showProgress() {
-            //this@LoginActivity.showProgress()
             Log.d(TAG, "showProgress")
             this@LoginActivity.showProgress()
         }
 
         override fun hideProgress() {
-            //this@LoginActivity.hideProgress()
             Log.d(TAG, "hideProgress")
             this@LoginActivity.hideProgress()
         }
