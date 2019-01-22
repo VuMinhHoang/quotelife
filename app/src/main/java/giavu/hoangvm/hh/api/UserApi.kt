@@ -4,7 +4,6 @@ import giavu.hoangvm.hh.model.*
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 /**
@@ -19,5 +18,5 @@ interface UserApi {
     fun register(@Body body: RegUser): Single<RegisterResponse>
 
     @GET("users")
-    fun getUser(@Header("User-Token") userSession: String): Single<UserResponse>
+    fun getUser(): Single<UserResponse>
 }
