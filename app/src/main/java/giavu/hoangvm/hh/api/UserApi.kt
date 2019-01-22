@@ -3,6 +3,7 @@ package giavu.hoangvm.hh.api
 import giavu.hoangvm.hh.model.*
 import io.reactivex.Single
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 
@@ -16,6 +17,9 @@ interface UserApi {
 
     @POST("users")
     fun register(@Body body: RegUser): Single<RegisterResponse>
+
+    @DELETE("session")
+    fun logout(): Single<String>
 
     @GET("users")
     fun getUser(): Single<UserResponse>
