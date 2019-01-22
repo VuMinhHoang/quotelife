@@ -1,5 +1,7 @@
 package giavu.hoangvm.hh.activity.dailyquote
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -8,6 +10,12 @@ import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.databinding.ActivityQuoteBinding
 
 class QuoteActivity : AppCompatActivity() {
+
+    companion object {
+        fun createIntent(context: Context): Intent {
+            return Intent(context, QuoteActivity::class.java)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
