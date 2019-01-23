@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.arturogutierrez:badges:1.0.5@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/badges-1.0.5.aar/a15bec4bb5be1d179952fa1b3e4d825e/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/badges-1.0.5.aar/a15bec4bb5be1d179952fa1b3e4d825e/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.arturogutierrez/badges/1.0.5/efab91b7c7847cde6a3dafedfd2157d6403d58d8/badges-1.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
