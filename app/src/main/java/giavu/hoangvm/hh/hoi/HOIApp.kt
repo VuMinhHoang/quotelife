@@ -3,6 +3,7 @@ package giavu.hoangvm.hh.hoi
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.webkit.WebView
@@ -15,6 +16,7 @@ import com.google.firebase.FirebaseApp
 import giavu.hoangvm.hh.BuildConfig
 import giavu.hoangvm.hh.firebase.FcmToken
 import giavu.hoangvm.hh.firebase.FcmTokenStore
+import giavu.hoangvm.hh.notify.NotificationChannelRegister
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -47,6 +49,7 @@ open class HOIApp : Application() {
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         KoinInitializer(this).initialize()
         FirebaseApp.initializeApp(this)
+        registerNotificationChannelIfNeeds()
         initialize()
     }
 
@@ -74,6 +77,12 @@ open class HOIApp : Application() {
     private fun observeFcmToken() {
         fcmTokenStore.token.observeForever { token ->
             Log.d("Token", token)
+        }
+    }
+
+    private fun registerNotificationChannelIfNeeds() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannelRegister(this).registerAll()
         }
     }
 
