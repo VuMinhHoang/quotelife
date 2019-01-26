@@ -3,7 +3,7 @@ package giavu.hoangvm.hh.core.retrofit
 import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
-import giavu.hoangvm.hh.exeption.ResponseError
+import giavu.hoangvm.hh.exception.ResponseError
 import okhttp3.ConnectionPool
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.*

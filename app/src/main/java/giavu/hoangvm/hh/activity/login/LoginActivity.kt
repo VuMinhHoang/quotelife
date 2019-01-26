@@ -17,7 +17,7 @@ import giavu.hoangvm.hh.databinding.ActivityLoginBinding
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
-import giavu.hoangvm.hh.exeption.ResponseError
+import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.usecase.CategoryUseCase

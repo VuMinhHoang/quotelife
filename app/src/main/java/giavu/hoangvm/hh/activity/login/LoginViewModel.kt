@@ -5,8 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import giavu.hoangvm.hh.api.UserApi
-import giavu.hoangvm.hh.dialog.AlertDialogFragment
-import giavu.hoangvm.hh.exeption.ResponseError
+import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.User
 import giavu.hoangvm.hh.utils.CredentialResult

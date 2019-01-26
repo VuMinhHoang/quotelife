@@ -1,4 +1,4 @@
-package giavu.hoangvm.hh.exeption
+package giavu.hoangvm.hh.exception
 
 /**
  * @Author: Hoang Vu

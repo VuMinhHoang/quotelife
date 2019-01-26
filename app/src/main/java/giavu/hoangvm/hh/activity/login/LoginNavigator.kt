@@ -1,6 +1,6 @@
 package giavu.hoangvm.hh.activity.login
 
-import giavu.hoangvm.hh.exeption.ResponseError
+import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.model.LoginResponse
 
 /**
