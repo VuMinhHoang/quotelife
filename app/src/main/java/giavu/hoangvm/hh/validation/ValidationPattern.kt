@@ -12,5 +12,5 @@ object ValidationPattern {
             "\\A\\s*[^@\\s]{1,64}" + "\\@" + "((?:[-\\p{L}\\d]+\\.)+\\p{L}{2,})\\s*\\z"
     )
     val KANA_NAME = Pattern.compile("\\A[ァ-ー\\s]{1,20}\\z")
-    val PASSWORD = Pattern.compile("\\w{6,20}$")
+    val PASSWORD = Pattern.compile("\\{6,20}$")
 }

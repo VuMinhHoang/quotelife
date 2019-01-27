@@ -78,6 +78,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 .addTo(compositeDisposable = compositeDisposable)
     }
 
+    fun register() {
+        navigator.toRegister()
+    }
+
     fun subscribeCredentialResult(credentialResult: CredentialResult) {
         _username.value = credentialResult.id
         _password.value = credentialResult.password

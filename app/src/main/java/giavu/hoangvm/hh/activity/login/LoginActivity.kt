@@ -26,7 +26,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.koin.android.ext.android.inject
 
 
-
 class LoginActivity : AppCompatActivity() {
 
     companion object {
@@ -100,9 +99,17 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             } else {
-                startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
-                finish()
+                AlertDialogFragment.Builder()
+                        .setTitle("Network error")
+                        .setMessage("Please check your network connection !")
+                        .setPositiveButtonText("OK")
+                        .show(supportFragmentManager)
             }
+        }
+
+        override fun toRegister() {
+            startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
+            finish()
         }
 
         override fun toShowError(error: ResponseError) {

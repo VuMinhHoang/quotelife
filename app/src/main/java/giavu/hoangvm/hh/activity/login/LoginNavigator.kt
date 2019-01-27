@@ -9,6 +9,7 @@ import giavu.hoangvm.hh.model.LoginResponse
  */
 interface LoginNavigator {
     fun toLogin(response: LoginResponse)
+    fun toRegister()
     fun toShowError(error: ResponseError)
     fun showProgress()
     fun hideProgress()
