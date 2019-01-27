@@ -9,7 +9,6 @@
 
     <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -18,7 +17,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    
 
     <application
         android:name=".hoi.HOIApp"
@@ -37,20 +35,28 @@
         </activity>
         <activity android:name=".activity.dailyquote.QuoteActivity" />
         <activity android:name=".activity.login.LoginActivity" />
-        <activity android:name=".activity.register.RegisterAccountActivity"/>
+        <activity android:name=".activity.register.RegisterAccountActivity" />
+
         <service
             android:name=".firebase.JFDFirebaseMessagingService"
             tools:ignore="ExportedService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <receiver android:name=".notify.DailyQuoteReceiver" >
+        <receiver
+            android:name=".notify.DailyQuoteReceiver"
+            android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".notify.QuoteReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

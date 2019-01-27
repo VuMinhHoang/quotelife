@@ -21,4 +21,6 @@
     <string name="dialog_decide">Set</string>
     <string name="dialog_ok">OK</string>
 
+    <string name="boot_completed">boot_completed</string>
+
 </resources>
