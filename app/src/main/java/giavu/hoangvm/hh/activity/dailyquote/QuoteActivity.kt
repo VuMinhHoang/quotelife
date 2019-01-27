@@ -3,6 +3,7 @@ package giavu.hoangvm.hh.activity.dailyquote
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -24,6 +25,14 @@ class QuoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeDataBinding()
         initViewModel()
+        initializeActionBar()
+    }
+
+    private fun initializeActionBar() {
+        val actionBar: ActionBar? = supportActionBar
+        actionBar?.apply {
+            actionBar.setTitle("Quote")
+        }
     }
 
     val viewModel: QuoteViewModel by lazy {
