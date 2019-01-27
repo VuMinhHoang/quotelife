@@ -2,16 +2,11 @@ package giavu.hoangvm.hh.hoi
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.webkit.WebView
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import com.facebook.stetho.Stetho
-import com.github.arturogutierrez.Badges
-import com.github.arturogutierrez.BadgesNotSupportedException
 import com.google.firebase.FirebaseApp
 import giavu.hoangvm.hh.BuildConfig
 import giavu.hoangvm.hh.firebase.FcmToken
@@ -38,6 +33,7 @@ open class HOIApp : Application() {
     override fun onCreate() {
         super.onCreate()
         if(BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
             Stetho.initialize(
                     Stetho.newInitializerBuilder(this)
                             .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))

@@ -15,6 +15,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 /**
  * @Author: Hoang Vu
@@ -36,7 +37,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun onUsernameTextChanged(text: CharSequence) {
-        Log.d("Hoang", text.toString())
+        Timber.d("Username:%s", text.toString())
         _username.postValue(text.toString())
     }
 
