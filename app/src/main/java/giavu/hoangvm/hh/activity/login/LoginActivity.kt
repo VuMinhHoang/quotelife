@@ -128,8 +128,10 @@ class LoginActivity : AppCompatActivity() {
                 Log.d(TAG, "Login")
                 val intent = Intent(this@LoginActivity, QuoteActivity::class.java)
                 startActivity(intent)
+                finish()
             } else {
                 startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
+                finish()
             }
         }
 

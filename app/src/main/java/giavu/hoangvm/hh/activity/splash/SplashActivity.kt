@@ -8,16 +8,15 @@ import giavu.hoangvm.hh.activity.dailyquote.QuoteActivity
 import giavu.hoangvm.hh.activity.login.LoginActivity
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.helper.UserSharePreference
-import giavu.hoangvm.hh.usecase.CategoryUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
 
 class SplashActivity : AppCompatActivity() {
 
-    private val categoryUseCase: CategoryUseCase by inject()
     private val userApi: UserApi by inject()
     private val compositeDisposable = CompositeDisposable()
 
@@ -25,13 +24,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-        //actionBar?.hide()
-        //animation_view.playAnimation()
         initialize()
     }
 
     private fun initialize() {
-        // Temporary implement
         checkLocalData()
     }
 
@@ -41,7 +37,9 @@ class SplashActivity : AppCompatActivity() {
 
         val email = UserSharePreference.fromContext(this@SplashActivity)
                 .getUserEmail()
+
         if (userSession.isEmpty()) {
+            loadActivity(isLogined = false)
             return
         }
         userApi.getUser()
@@ -51,7 +49,7 @@ class SplashActivity : AppCompatActivity() {
                         onSuccess = { response ->
                             if (response.account_details.email == email) {
                                 loadActivity(true)
-                            }else{
+                            } else {
                                 loadActivity(false)
                             }
                         },
@@ -59,6 +57,7 @@ class SplashActivity : AppCompatActivity() {
                             loadActivity(false)
                         }
                 )
+                .addTo(compositeDisposable = compositeDisposable)
     }
 
     private fun loadActivity(isLogined: Boolean) {
@@ -72,4 +71,8 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
+    }
 }
