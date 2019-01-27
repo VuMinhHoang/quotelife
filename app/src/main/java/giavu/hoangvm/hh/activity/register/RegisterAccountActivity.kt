@@ -32,7 +32,6 @@ class RegisterAccountActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_register_account)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         smartLockClient = SmartLockClient(this)
         initializeDataBinding()
@@ -77,6 +76,10 @@ class RegisterAccountActivity : AppCompatActivity() {
 
         override fun toLogin() {
             startActivity(LoginActivity.createIntent(this@RegisterAccountActivity))
+        }
+
+        override fun toError(throwable: Throwable) {
+
         }
     }
 

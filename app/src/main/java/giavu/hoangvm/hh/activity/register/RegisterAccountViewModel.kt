@@ -7,6 +7,9 @@ import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.extension.combineLatest
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
+import giavu.hoangvm.hh.validation.EmailAddressValidator
+import giavu.hoangvm.hh.validation.PasswordValidator
+import giavu.hoangvm.hh.validation.UserNameValidator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -23,6 +26,11 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
 
     private lateinit var navigator: RegisterAccountNavigator
     private val userApi: UserApi by application.inject()
+
+    private val passwordValidator = PasswordValidator()
+    private val emailValidator = EmailAddressValidator()
+    private val userNameValidator = UserNameValidator()
+
     private val compositeDisposable by lazy {
         CompositeDisposable()
     }
@@ -37,7 +45,9 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
     fun initialize(navigator: RegisterAccountNavigator, owner: LifecycleOwner) {
         this.navigator = navigator
         _registerButtonEnabled.value = false
+        _userName.value = ""
         _password.value = ""
+        _email.value = ""
         checkValidInput(owner)
     }
 
@@ -73,8 +83,14 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
                 .doOnSubscribe { navigator.showProgress() }
                 .doFinally { navigator.hideProgress() }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(onError = Timber::w,
-                        onSuccess = { navigator.register(it) })
+                .subscribeBy(
+                        onError = { error ->
+                            navigator.toError(error)
+                        },
+                        onSuccess = { response ->
+                            navigator.register(response)
+                        }
+                )
                 .addTo(compositeDisposable)
     }
 
@@ -87,7 +103,7 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
                     val userName = triple.first
                     val email = triple.second
                     val password = triple.third
-                    (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
+                    userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()
                 }
                 .subscribeBy(
                         onError = Timber::w,

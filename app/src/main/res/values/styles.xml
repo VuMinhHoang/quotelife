@@ -42,7 +42,7 @@
 
     <style name="RegisterAccountItemEditField">
         <item name="android:textSize">14sp</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/jtx_blue</item>
         <item name="android:paddingLeft">@dimen/space_16dp</item>
         <item name="android:paddingRight">@dimen/space_10dp</item>
     </style>
