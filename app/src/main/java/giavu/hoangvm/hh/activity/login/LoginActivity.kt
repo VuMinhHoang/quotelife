@@ -11,8 +11,6 @@ import com.google.android.gms.common.api.Status
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.dailyquote.QuoteActivity
 import giavu.hoangvm.hh.activity.register.RegisterAccountActivity
-import giavu.hoangvm.hh.api.QuotesApi
-import giavu.hoangvm.hh.core.retrofit.JFDApiAccessor
 import giavu.hoangvm.hh.databinding.ActivityLoginBinding
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.hideProgress
@@ -22,11 +20,7 @@ import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.utils.CredentialResult
 import giavu.hoangvm.hh.utils.SmartLockClient
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.koin.android.ext.android.inject
@@ -76,35 +70,6 @@ class LoginActivity : AppCompatActivity() {
         UserSharePreference.fromContext(this).updateUserPref(loginResponse)
     }
 
-    private fun getQuoteOfDay() {
-        JFDApiAccessor(this@LoginActivity).from().using(QuotesApi::class.java)
-                .getQuoteOfDay()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = {
-                            Log.d("Test Retrofit", it.toString())
-                        },
-                        onError = { Log.d("Test Retrofit", it.toString()) }
-                )
-                .addTo(compositeDisposable)
-    }
-
-
-    private fun fetchQuotes() {
-        JFDApiAccessor(this@LoginActivity).from().using(QuotesApi::class.java)
-                .getQuotes()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = {
-                            Log.d("Test Retrofit", it.toString())
-                        },
-                        onError = { Log.d("Test Retrofit", it.toString()) }
-                )
-                .addTo(compositeDisposable)
-    }
-
     private fun initializeDataBinding() {
         binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
                 this@LoginActivity, R.layout.activity_login)
@@ -113,6 +78,16 @@ class LoginActivity : AppCompatActivity() {
                     setLifecycleOwner(this@LoginActivity)
                 }
 
+    }
+
+    private val onRequestCredentialListener = object : SmartLockClient.OnRequestCredentialListener {
+        override fun shouldResoluteAccountSelect(status: Status) {
+            try {
+                status.startResolutionForResult(this@LoginActivity, REQUEST_CODE_SELECT_ACCOUNT)
+            } catch (e: IntentSender.SendIntentException) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private val navigator = object : LoginNavigator {
@@ -146,16 +121,6 @@ class LoginActivity : AppCompatActivity() {
         override fun hideProgress() {
             Log.d(TAG, "hideProgress")
             this@LoginActivity.hideProgress()
-        }
-    }
-
-    private val onRequestCredentialListener = object : SmartLockClient.OnRequestCredentialListener {
-        override fun shouldResoluteAccountSelect(status: Status) {
-            try {
-                status.startResolutionForResult(this@LoginActivity, REQUEST_CODE_SELECT_ACCOUNT)
-            } catch (e: IntentSender.SendIntentException) {
-                e.printStackTrace()
-            }
         }
     }
 
