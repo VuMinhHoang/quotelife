@@ -53,7 +53,10 @@ class LoginActivity : AppCompatActivity() {
         }
         initializeDataBinding()
         initViewModel()
+
     }
+
+
 
     private fun initialize() {
         smartLockClient = SmartLockClient(this)
