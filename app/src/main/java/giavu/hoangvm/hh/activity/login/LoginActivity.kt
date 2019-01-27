@@ -20,7 +20,6 @@ import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
-import giavu.hoangvm.hh.usecase.CategoryUseCase
 import giavu.hoangvm.hh.utils.CredentialResult
 import giavu.hoangvm.hh.utils.SmartLockClient
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,20 +45,15 @@ class LoginActivity : AppCompatActivity() {
     private val REQUEST_CODE_SELECT_ACCOUNT = 4
 
 
-    private val categoryUseCase: CategoryUseCase by inject()
     private val compositeDisposable = CompositeDisposable()
     private lateinit var smartLockClient: SmartLockClient
 
-    /*    val viewModel : LoginViewModel by lazy {
-            ViewModelProviders.of(this@LoginActivity).get(LoginViewModel::class.java)
-        }*/
     private val viewModel: LoginViewModel by inject()
 
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_login)
         initialize()
         if (savedInstanceState == null) {
             smartLockClient.requestCredential(this, onRequestCredentialListener)
@@ -122,9 +116,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private val navigator = object : LoginNavigator {
+
         override fun toLogin(response: LoginResponse) {
             if (response.userToken != null) {
-                UserSharePreference.fromContext(this@LoginActivity).updateUserPref(response)
+                saveUserPreference(response)
                 Log.d(TAG, "Login")
                 val intent = Intent(this@LoginActivity, QuoteActivity::class.java)
                 startActivity(intent)
