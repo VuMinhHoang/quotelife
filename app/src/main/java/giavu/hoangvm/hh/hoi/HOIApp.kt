@@ -84,31 +84,31 @@ open class HOIApp : Application() {
 
     private val activityLifecycleCallbacks = object : Application.ActivityLifecycleCallbacks{
         override fun onActivityPaused(activity: Activity?) {
-            Log.d(TAG, "onActivityPaused")
+            Timber.d("onActivityPaused")
         }
 
         override fun onActivityResumed(activity: Activity?) {
-            Log.d(TAG, "onActivityResumed")
+            Timber.d("onActivityResumed")
         }
 
         override fun onActivityStarted(activity: Activity?) {
-            Log.d(TAG, "onActivityStarted")
+            Timber.d("onActivityStarted")
         }
 
         override fun onActivityDestroyed(activity: Activity?) {
-            Log.d(TAG, "onActivityDestroyed")
+            Timber.d("onActivityDestroyed")
         }
 
         override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
-            Log.d(TAG, "onActivitySaveInstanceState")
+            Timber.d("onActivitySaveInstanceState")
         }
 
         override fun onActivityStopped(activity: Activity?) {
-            Log.d(TAG, "onActivityStopped")
+            Timber.d("onActivityStopped")
         }
 
         override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-            Log.d(TAG, "onActivityCreated")
+            Timber.d("onActivityCreated")
         }
     }
 }
