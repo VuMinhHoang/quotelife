@@ -39,19 +39,4 @@ class QuoteViewModel(application: Application) : AndroidViewModel(application) {
                         })
     }
 
-    fun logout() {
-        userApi.logout()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe { navigator.showProgress() }
-                .doFinally { navigator.hideProgress() }
-                .subscribeBy(onSuccess = {
-                    navigator.toLogout(it)
-                },
-                        onError = {
-                            navigator.toError(it)
-                        })
-
-    }
-
 }

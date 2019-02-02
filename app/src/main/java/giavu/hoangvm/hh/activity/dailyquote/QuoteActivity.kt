@@ -3,12 +3,13 @@ package giavu.hoangvm.hh.activity.dailyquote
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
 import giavu.hoangvm.hh.R
-import giavu.hoangvm.hh.databinding.ActivityQuoteBinding
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import timber.log.Timber
@@ -20,38 +21,43 @@ class QuoteActivity : AppCompatActivity() {
             return Intent(context, QuoteActivity::class.java)
         }
     }
+    private lateinit var mDrawerLayout: DrawerLayout
+    val viewModel: QuoteViewModel by lazy {
+        ViewModelProviders.of(this@QuoteActivity).get(QuoteViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initializeDataBinding()
+        setContentView(R.layout.activity_main)
+        mDrawerLayout = findViewById(R.id.drawer_layout)
         initViewModel()
         initializeActionBar()
     }
 
+
     private fun initializeActionBar() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
             actionBar.setTitle("Quote")
+            setHomeAsUpIndicator(R.drawable.ic_menu_white)
         }
     }
 
-    val viewModel: QuoteViewModel by lazy {
-        ViewModelProviders.of(this@QuoteActivity).get(QuoteViewModel::class.java)
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when(item?.itemId) {
+            android.R.id.home -> {
+                Timber.d("Menu is click")
+                mDrawerLayout.openDrawer(GravityCompat.START)
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
-    private lateinit var binding: ActivityQuoteBinding
+
 
     private fun initViewModel() {
         viewModel.initialize(navigator = navigator)
-    }
-
-    private fun initializeDataBinding() {
-        binding = DataBindingUtil.setContentView<ActivityQuoteBinding>(
-                this@QuoteActivity, R.layout.activity_quote)
-                .apply {
-                    viewModel = this@QuoteActivity.viewModel
-                    setLifecycleOwner(this@QuoteActivity)
-                }
-
     }
 
     private val navigator = object : QuoteNavigator {

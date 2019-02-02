@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-        <variable
-            name="viewModel"
-            type="giavu.hoangvm.hh.activity.dailyquote.QuoteViewModel">
-        </variable>
-    </data>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,15 +8,7 @@
     <TextView
         android:id="@+id/quote"
         android:gravity="center"
-        android:text="@{viewModel.quote}"
+        android:text="Test"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:onClick="@{() -> viewModel.logout()}"/>
-
 </RelativeLayout>
-</layout>
