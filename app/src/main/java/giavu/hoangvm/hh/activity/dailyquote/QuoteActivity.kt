@@ -8,10 +8,12 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
+import kotlinx.android.synthetic.main.activity_quote.*
 import timber.log.Timber
 
 class QuoteActivity : AppCompatActivity() {
@@ -32,6 +34,13 @@ class QuoteActivity : AppCompatActivity() {
         mDrawerLayout = findViewById(R.id.drawer_layout)
         initViewModel()
         initializeActionBar()
+        observerQuote()
+    }
+
+    private fun observerQuote(){
+        viewModel.quote.observe(this, Observer {
+            quote.setText(it)
+        })
     }
 
 

@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import giavu.hoangvm.hh.api.QuotesApi
 import giavu.hoangvm.hh.api.UserApi
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
@@ -23,6 +25,7 @@ class QuoteViewModel(application: Application) : AndroidViewModel(application) {
     private val _quote = MutableLiveData<String>()
     val quote: LiveData<String> = _quote
     private lateinit var navigator: QuoteNavigator
+    private val compositeDisposable = CompositeDisposable()
 
     fun initialize(navigator: QuoteNavigator) {
         this.navigator = navigator
@@ -37,6 +40,7 @@ class QuoteViewModel(application: Application) : AndroidViewModel(application) {
                         onError = {
 
                         })
+            .addTo(compositeDisposable)
     }
 
 }
