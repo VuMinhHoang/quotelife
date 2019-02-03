@@ -43,6 +43,9 @@ abstract class ApiAccessor(private val context: Context) : ApiFactory.HeaderAcce
             if(message.contains("error_code")){
               throw Gson().fromJson(message, ResponseError::class.java)
             }
+            else if(message.contains("HTTP FAILED")) {
+                throw ResponseError("No network", "You are not connected to the Internet")
+            }
         }
 
         companion object {

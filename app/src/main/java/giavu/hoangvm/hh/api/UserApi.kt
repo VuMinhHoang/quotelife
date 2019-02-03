@@ -19,7 +19,7 @@ interface UserApi {
     fun register(@Body body: RegUser): Single<RegisterResponse>
 
     @DELETE("session")
-    fun logout(): Single<String>
+    fun logout(): Single<LogoutResponse>
 
     @GET("users")
     fun getUser(): Single<UserResponse>

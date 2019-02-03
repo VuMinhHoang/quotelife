@@ -11,10 +11,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import giavu.hoangvm.hh.R
+import giavu.hoangvm.hh.activity.login.LoginActivity
+import giavu.hoangvm.hh.api.UserApi
+import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
+import giavu.hoangvm.hh.exception.ResponseError
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_quote.*
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
@@ -24,9 +32,12 @@ class MainActivity : AppCompatActivity() {
             return Intent(context, MainActivity::class.java)
         }
     }
+
     val viewModel: MainViewModel by lazy {
         ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
     }
+
+    private val userApi: UserApi by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         observerQuote()
     }
 
-    private fun observerQuote(){
+    private fun observerQuote() {
         viewModel.quote.observe(this, Observer {
             quote.setText(it)
         })
@@ -54,7 +65,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
+        return when (item?.itemId) {
             android.R.id.home -> {
                 Timber.d("Menu is click")
                 drawer_layout.openDrawer(GravityCompat.START)
@@ -89,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     private val nav = object : NavigationView.OnNavigationItemSelectedListener {
         override fun onNavigationItemSelected(item: MenuItem): Boolean {
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.nav_account -> {
                     Timber.d("Open profile screen")
                 }
@@ -101,6 +112,25 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_logout -> {
                     Timber.d("Logout")
+                    userApi.logout()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSubscribe { showProgress() }
+                        .doFinally { hideProgress() }
+                        .subscribeBy(
+                            onSuccess = {
+                                startActivity(LoginActivity.createIntent(this@MainActivity))
+                                this@MainActivity.finish()
+                            },
+                            onError = { error ->
+                                if (error is ResponseError) {
+                                    AlertDialogFragment.Builder()
+                                        .setTitle(error.errorCode)
+                                        .setMessage(error.messageError)
+                                        .setPositiveButtonText("OK")
+                                        .show(supportFragmentManager)
+                                }
+                            })
                 }
             }
             return true
