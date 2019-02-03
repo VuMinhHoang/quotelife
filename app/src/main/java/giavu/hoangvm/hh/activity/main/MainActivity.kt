@@ -7,12 +7,13 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.navigation.NavigationView
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_quote.*
 import timber.log.Timber
 
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
             return Intent(context, MainActivity::class.java)
         }
     }
-    private lateinit var mDrawerLayout: DrawerLayout
     val viewModel: MainViewModel by lazy {
         ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
     }
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mDrawerLayout = findViewById(R.id.drawer_layout)
+        navigation_view.setNavigationItemSelectedListener(nav)
         initViewModel()
         initializeActionBar()
         observerQuote()
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         return when(item?.itemId) {
             android.R.id.home -> {
                 Timber.d("Menu is click")
-                mDrawerLayout.openDrawer(GravityCompat.START)
+                drawer_layout.openDrawer(GravityCompat.START)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -86,4 +86,25 @@ class MainActivity : AppCompatActivity() {
             Timber.d(e)
         }
     }
+
+    private val nav = object : NavigationView.OnNavigationItemSelectedListener {
+        override fun onNavigationItemSelected(item: MenuItem): Boolean {
+            when(item.itemId) {
+                R.id.nav_account -> {
+                    Timber.d("Open profile screen")
+                }
+                R.id.nav_dailyquote -> {
+                    Timber.d("Daily quote")
+                }
+                R.id.nav_setting -> {
+                    Timber.d("Setting")
+                }
+                R.id.nav_logout -> {
+                    Timber.d("Logout")
+                }
+            }
+            return true
+        }
+    }
+
 }
