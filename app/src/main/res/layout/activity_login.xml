@@ -6,10 +6,10 @@
             type="giavu.hoangvm.hh.activity.login.LoginViewModel">
         </variable>
     </data>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5fb0c9"
+    android:background="@color/bg_login"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="true">
 
@@ -20,79 +20,74 @@
         android:layout_marginBottom="16dp"
         android:layout_marginTop="22dp"
         android:gravity="center_horizontal"
-        android:text="Account Login"
+        android:text="Login"
         android:textColor="#fff"
         android:textSize="26sp"
         android:textStyle="bold" />
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_title"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="70dp"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <LinearLayout
+    <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="30dp">
 
-            <EditText
+        <EditText
                 android:id="@+id/username"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:drawableTint="#FF4081"
+                android:drawableTint="@color/line_color"
+                android:textColor="@color/white"
                 android:hint="User Name"
+                android:drawablePadding="10dp"
+                android:textColorHint="@color/border_button"
                 android:drawableStart="@drawable/ic_id_mail_white"
                 android:inputType="textEmailAddress"
                 android:onTextChanged="@{(text, start, before, count) -> viewModel.onUsernameTextChanged(text)}"
                 android:singleLine="true" />
 
-            <EditText
+        <EditText
                 android:id="@+id/password"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:drawableTint="#FF4081"
+                android:drawableTint="@color/line_color"
+                android:textColor="@color/white"
+                android:textColorHint="@color/border_button"
                 android:hint="Password"
+                android:drawablePadding="10dp"
                 android:drawableStart="@drawable/ic_lock_white"
                 android:inputType="textPassword"
                 android:onTextChanged="@{(text, start, before, count) -> viewModel.onPasswordTextChanged(text)}"
                 android:singleLine="true" />
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:paddingTop="5dp"
+                android:textColor="@color/white"
                 android:text="Forgot Password?" />
 
 
-            <Button
+        <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="22dp"
-                android:background="#d67601"
+                android:background="@color/line_color"
                 android:text="Sign in"
                 android:textAllCaps="false"
                 android:onClick="@{() -> viewModel.login()}"
-                android:textColor="#fff"
+                android:textColor="@color/bg_login"
                 android:textSize="18sp" />
 
-            <TextView
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:paddingTop="5dp"
+                android:textColor="@color/white"
                 android:onClick="@{() -> viewModel.register()}"
                 android:text="Create an account" />
-        </LinearLayout>
-    </RelativeLayout>
-</RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
 </layout>
