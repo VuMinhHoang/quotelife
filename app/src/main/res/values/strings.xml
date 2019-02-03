@@ -23,4 +23,10 @@
 
     <string name="boot_completed">boot_completed</string>
 
+    <string name="menu_account">My profile</string>
+    <string name="menu_dailyquote">Daily Quote</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_logout">Logout</string>
+
+
 </resources>
