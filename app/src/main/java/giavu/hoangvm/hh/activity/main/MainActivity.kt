@@ -1,4 +1,4 @@
-package giavu.hoangvm.hh.activity.dailyquote
+package giavu.hoangvm.hh.activity.main
 
 import android.content.Context
 import android.content.Intent
@@ -16,16 +16,16 @@ import giavu.hoangvm.hh.dialog.showProgress
 import kotlinx.android.synthetic.main.activity_quote.*
 import timber.log.Timber
 
-class QuoteActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     companion object {
         fun createIntent(context: Context): Intent {
-            return Intent(context, QuoteActivity::class.java)
+            return Intent(context, MainActivity::class.java)
         }
     }
     private lateinit var mDrawerLayout: DrawerLayout
-    val viewModel: QuoteViewModel by lazy {
-        ViewModelProviders.of(this@QuoteActivity).get(QuoteViewModel::class.java)
+    val viewModel: MainViewModel by lazy {
+        ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,13 +69,13 @@ class QuoteActivity : AppCompatActivity() {
         viewModel.initialize(navigator = navigator)
     }
 
-    private val navigator = object : QuoteNavigator {
+    private val navigator = object : MainNavigator {
         override fun showProgress() {
-            this@QuoteActivity.showProgress()
+            this@MainActivity.showProgress()
         }
 
         override fun hideProgress() {
-            this@QuoteActivity.hideProgress()
+            this@MainActivity.hideProgress()
         }
 
         override fun toLogout(message: String) {

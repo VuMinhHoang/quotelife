@@ -1,4 +1,4 @@
-package giavu.hoangvm.hh.activity.dailyquote
+package giavu.hoangvm.hh.activity.main
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -17,17 +17,17 @@ import org.koin.android.ext.android.inject
  * @Author: Hoang Vu
  * @Date:   2019/01/05
  */
-class QuoteViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val quoteApi: QuotesApi by application.inject()
     private val userApi: UserApi by application.inject()
 
     private val _quote = MutableLiveData<String>()
     val quote: LiveData<String> = _quote
-    private lateinit var navigator: QuoteNavigator
+    private lateinit var navigator: MainNavigator
     private val compositeDisposable = CompositeDisposable()
 
-    fun initialize(navigator: QuoteNavigator) {
+    fun initialize(navigator: MainNavigator) {
         this.navigator = navigator
 
         quoteApi.getQuoteOfDay()

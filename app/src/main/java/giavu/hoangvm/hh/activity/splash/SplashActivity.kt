@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import giavu.hoangvm.hh.R
-import giavu.hoangvm.hh.activity.dailyquote.QuoteActivity
+import giavu.hoangvm.hh.activity.main.MainActivity
 import giavu.hoangvm.hh.activity.login.LoginActivity
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.helper.UserSharePreference
@@ -62,7 +62,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun loadActivity(isLogined: Boolean) {
         if (isLogined) {
-            startActivity(QuoteActivity.createIntent(this@SplashActivity))
+            startActivity(MainActivity.createIntent(this@SplashActivity))
             this@SplashActivity.finish()
         } else {
             startActivity(LoginActivity.createIntent(this@SplashActivity))

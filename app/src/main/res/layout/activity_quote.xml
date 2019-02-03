@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="giavu.hoangvm.hh.activity.dailyquote.QuoteActivity">
+    tools:context="giavu.hoangvm.hh.activity.main.MainActivity">
     
     <TextView
         android:id="@+id/quote"

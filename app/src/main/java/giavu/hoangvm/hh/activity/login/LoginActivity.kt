@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.common.api.Status
 import giavu.hoangvm.hh.R
-import giavu.hoangvm.hh.activity.dailyquote.QuoteActivity
+import giavu.hoangvm.hh.activity.main.MainActivity
 import giavu.hoangvm.hh.activity.register.RegisterAccountActivity
 import giavu.hoangvm.hh.databinding.ActivityLoginBinding
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
             if (response.userToken != null) {
                 saveUserPreference(response)
                 Log.d(TAG, "Login")
-                val intent = Intent(this@LoginActivity, QuoteActivity::class.java)
+                val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {
