@@ -12,7 +12,17 @@
         android:orientation="vertical"
         android:layout_marginTop="@dimen/margin_top_50dp"
         tools:context="giavu.hoangvm.hh.activity.register.RegisterAccountActivity">
-
+        <TextView
+                android:id="@+id/login_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="22dp"
+                android:gravity="center_horizontal"
+                android:text="Quote Life"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:textStyle="bold" />
         <!-- User name -->
         <EditText
             android:id="@+id/username"
