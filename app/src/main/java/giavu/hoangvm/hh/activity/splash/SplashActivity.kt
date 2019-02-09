@@ -3,7 +3,6 @@ package giavu.hoangvm.hh.activity.splash
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
@@ -19,6 +18,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
 
@@ -28,8 +28,12 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         initialize()
+    }
+
+    override fun onResume() {
+        Timber.d("onResume")
+        super.onResume()
     }
 
     private fun initialize() {

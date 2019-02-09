@@ -27,6 +27,9 @@
     <string name="menu_dailyquote">Daily Quote</string>
     <string name="menu_setting">Setting</string>
     <string name="menu_logout">Logout</string>
+    <string name="retry">Retry</string>
+    <string name="network_error_title">No network</string>
+    <string name="network_error_msg">You are not connected to the Internet</string>
 
 
 </resources>
