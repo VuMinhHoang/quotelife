@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import giavu.hoangvm.hh.R
-import giavu.hoangvm.hh.activity.main.MainActivity
 import giavu.hoangvm.hh.activity.login.LoginActivity
+import giavu.hoangvm.hh.activity.main.MainActivity
 import giavu.hoangvm.hh.api.UserApi
+import giavu.hoangvm.hh.dialog.AlertDialogFragment
+import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.helper.UserSharePreference
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -54,7 +56,7 @@ class SplashActivity : AppCompatActivity() {
                             }
                         },
                         onError = {
-                            loadActivity(false)
+                            onError(it)
                         }
                 )
                 .addTo(compositeDisposable = compositeDisposable)
@@ -69,6 +71,16 @@ class SplashActivity : AppCompatActivity() {
             this@SplashActivity.finish()
         }
 
+    }
+
+    private fun onError(throwable: Throwable) {
+        if (throwable is ResponseError) {
+            AlertDialogFragment.Builder()
+                .setTitle(throwable.errorCode)
+                .setMessage(throwable.messageError)
+                .setPositiveButtonText("OK")
+                .show(supportFragmentManager)
+        }
     }
 
     override fun onDestroy() {
