@@ -36,6 +36,19 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "quotelife"
+    productFlavors {
+        dev {
+            dimension "quotelife"
+            applicationIdSuffix ".dev"
+
+        }
+        pro {
+            dimension "quotelife"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
