@@ -15,7 +15,7 @@
     <color name="semiActiveBorder">#D4DADE</color>
 
     <color name="main_disabled_on_light_background">@color/gray300</color>
-    <color name="main_primary_button_background">@color/jtx_blue</color>
+    <color name="main_primary_button_background">@color/btn_bg</color>
     <color name="main_primary_button_background_on_pressed">@color/jtx_blue_dark</color>
     <color name="main_primary_button_text">@color/white</color>
     <color name="main_disabled_on_dark_background">@color/jtx_blue</color>
