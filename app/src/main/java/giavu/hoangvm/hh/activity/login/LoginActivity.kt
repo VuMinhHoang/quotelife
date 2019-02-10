@@ -68,8 +68,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        viewModel.apply(
-                navigator = navigator
+        viewModel.initialize(
+                navigator = navigator,
+                 owner = this@LoginActivity
         )
     }
 

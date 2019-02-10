@@ -1,10 +1,9 @@
 package giavu.hoangvm.hh.activity.register
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import giavu.hoangvm.hh.api.UserApi
-import giavu.hoangvm.hh.extension.combineLatest
+import giavu.hoangvm.hh.extension.combineTripleLatest
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
 import giavu.hoangvm.hh.validation.EmailAddressValidator
@@ -52,7 +51,6 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
     }
 
     fun onUserNameInput(text: CharSequence) {
-        Log.d("Test", "blabla")
         _userName.postValue(text.toString())
     }
 
@@ -62,7 +60,6 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
 
     fun onPasswordInput(text: CharSequence) {
         _password.postValue(text.toString())
-        Log.d("Test", _password.value)
     }
 
     fun gotoLogin() {
@@ -95,7 +92,7 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
     }
 
     private fun checkValidInput(owner: LifecycleOwner) {
-        combineLatest(
+        combineTripleLatest(
                 source1 = _userName.toPublisher(owner),
                 source2 = _email.toPublisher(owner),
                 source3 = _password.toPublisher(owner))

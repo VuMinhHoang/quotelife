@@ -1,12 +1,10 @@
 package giavu.hoangvm.hh.activity.login
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.exception.ResponseError
+import giavu.hoangvm.hh.extension.combinePairLatest
 import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.User
 import giavu.hoangvm.hh.utils.CredentialResult
@@ -24,29 +22,27 @@ import timber.log.Timber
  */
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val TAG = LoginViewModel::class.java.simpleName
     private lateinit var navigator: LoginNavigator
     private val compositeDisposable = CompositeDisposable()
 
     private val userApi: UserApi by application.inject()
     private val _username = MutableLiveData<String>()
     private val _password = MutableLiveData<String>()
-    private val _registerEnabled = MutableLiveData<Boolean>()
+    private val _loginEnabled = MutableLiveData<Boolean>()
 
-    val registerEnabled: LiveData<Boolean>
-        get() = _registerEnabled
+    val loginEnabled: LiveData<Boolean>
+        get() = _loginEnabled
 
-    fun apply(navigator: LoginNavigator) {
+    fun initialize(navigator: LoginNavigator, owner: LifecycleOwner) {
         this.navigator = navigator
+        checkValidInput(owner)
     }
 
     fun onUsernameTextChanged(text: CharSequence) {
-        Timber.d("Username:%s", text.toString())
         _username.postValue(text.toString())
     }
 
     fun onPasswordTextChanged(text: CharSequence) {
-        Log.d("Hoang", text.toString())
         _password.postValue(text.toString())
     }
 
@@ -66,10 +62,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 .subscribeBy(
                         onSuccess = { response ->
                             if (response != null) {
-                                Log.d(TAG,response.toString())
                                 navigator.toLogin(response)
                             } else {
-                                Log.d(TAG, "Response is null")
                             }
 
                         },
@@ -89,6 +83,22 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     fun subscribeCredentialResult(credentialResult: CredentialResult) {
         _username.value = credentialResult.id
         _password.value = credentialResult.password
+    }
+
+    private fun checkValidInput(owner: LifecycleOwner) {
+        combinePairLatest(
+            source1 = _username.toPublisher(owner),
+            source2 = _password.toPublisher(owner))
+            .map { pair ->
+                val userName = pair.first
+                val password = pair.second
+                userName.isNotEmpty() && password.isNotEmpty()
+            }
+            .subscribeBy(
+                onError = Timber::w,
+                onNext = { _loginEnabled.postValue(it) }
+            )
+            .addTo(compositeDisposable)
     }
 
 }
