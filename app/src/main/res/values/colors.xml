@@ -28,4 +28,5 @@
     <color name="bg_login">#383737</color>
     <color name="border_button">#C1C0C0</color>
     <color name="line_color">#FFEE59</color>
+    <color name="bg_app">#0c1f23</color>
 </resources>
