@@ -17,7 +17,17 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="100dp">
+            android:paddingTop="50dp">
+        <TextView
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="50sp"
+                android:text="Sign In"
+                android:textColor="@color/btn_bg"
+                android:fontFamily="@font/wallpoet_regular"/>
 
         <EditText
                 android:id="@+id/username"
@@ -61,11 +71,11 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="22dp"
-                android:background="@color/border_button"
+                style="@style/MainPrimaryButton"
                 android:text="Sign in"
                 android:textAllCaps="false"
                 android:onClick="@{() -> viewModel.login()}"
-                android:textColor="@color/bg_login"
+                android:enabled="@{viewModel.registerEnabled}"
                 android:textSize="18sp" />
 
         <TextView
@@ -73,8 +83,8 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="5dp"
                 android:gravity="center_horizontal"
-                android:textColor="@color/black"
                 android:onClick="@{() -> viewModel.register()}"
+                android:textColor="@color/colorPrimary"
                 android:text="No account yet? Create one" />
     </LinearLayout>
 </LinearLayout>

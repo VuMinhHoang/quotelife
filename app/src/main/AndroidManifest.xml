@@ -37,8 +37,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.main.MainActivity" />
-        <activity android:name=".activity.login.LoginActivity"
-            android:theme="@style/AppTheme.SplashActionBar"/>
+        <activity android:name=".activity.login.LoginActivity"/>
         <activity android:name=".activity.register.RegisterAccountActivity" />
 
         <service

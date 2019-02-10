@@ -29,4 +29,5 @@
     <color name="border_button">#C1C0C0</color>
     <color name="line_color">#FFEE59</color>
     <color name="bg_app">#0c1f23</color>
+    <color name="btn_bg">#067087</color>
 </resources>

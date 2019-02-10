@@ -3,6 +3,7 @@ package giavu.hoangvm.hh.activity.login
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.exception.ResponseError
@@ -30,7 +31,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val userApi: UserApi by application.inject()
     private val _username = MutableLiveData<String>()
     private val _password = MutableLiveData<String>()
+    private val _registerEnabled = MutableLiveData<Boolean>()
 
+    val registerEnabled: LiveData<Boolean>
+        get() = _registerEnabled
 
     fun apply(navigator: LoginNavigator) {
         this.navigator = navigator
