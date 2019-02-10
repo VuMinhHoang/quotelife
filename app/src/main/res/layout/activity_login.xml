@@ -9,16 +9,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_app"
+    android:background="@color/white"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="true">
-
-    <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/ic_background"/>
 
     <LinearLayout
             android:layout_width="fill_parent"
@@ -30,8 +23,8 @@
                 android:id="@+id/username"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:drawableTint="@color/bg_login"
-                android:textColor="@color/white"
+                android:drawableTint="@color/bg_app"
+                android:textColor="@color/black"
                 android:hint="User Name"
                 android:drawablePadding="10dp"
                 android:textColorHint="@color/border_button"
@@ -45,8 +38,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:drawableTint="@color/bg_login"
-                android:textColor="@color/white"
+                android:drawableTint="@color/bg_app"
+                android:textColor="@color/black"
                 android:textColorHint="@color/border_button"
                 android:hint="Password"
                 android:drawablePadding="10dp"

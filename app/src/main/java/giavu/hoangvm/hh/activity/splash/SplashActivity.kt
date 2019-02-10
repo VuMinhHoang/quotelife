@@ -47,7 +47,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
         val email = UserSharePreference.fromContext(this@SplashActivity)
                 .getUserEmail()
 
-        /*if (userSession.isEmpty()) {
+/*        if (userSession.isEmpty()) {
             loadActivity(isLogined = false)
             return
         }*/
@@ -88,15 +88,16 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
                     .setMessage(throwable.messageError)
                     .setPositiveButtonText("Retry")
                     .show(supportFragmentManager)
-                    .setTargetFragment(null, TAG_RETRY_DIALOG)
+                    .setTarget(this, TAG_RETRY_DIALOG)
             }
             is ResponseSuccessErrorCode -> {
-                AlertDialogFragment.Builder()
+                loadActivity(isLogined = false)
+                /*AlertDialogFragment.Builder()
                     .setTitle(throwable.errorCode)
                     .setMessage(throwable.messageError)
                     .setPositiveButtonText("OK")
                     .show(supportFragmentManager)
-                    .setTargetFragment(null,TAG_NOT_RETRY_DIALOG)
+                    .setTarget(this,TAG_NOT_RETRY_DIALOG)*/
             }
         }
     }
@@ -106,9 +107,9 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
             Dialog.BUTTON_POSITIVE -> {
                 if(requestCode == TAG_RETRY_DIALOG){
                     checkLocalData()
-                } else if(requestCode == TAG_NOT_RETRY_DIALOG) {
+                }/* else if(requestCode == TAG_NOT_RETRY_DIALOG) {
                     loadActivity(isLogined = false)
-                }
+                }*/
 
             }
             else -> {
