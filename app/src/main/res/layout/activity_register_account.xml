@@ -27,36 +27,59 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:paddingStart="@dimen/space_16dp"
+                android:textStyle="bold"
+                android:paddingEnd="@dimen/space_10dp"
+                android:text="@string/input_name_sample"
         />
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_account_item_edit_view_height"
-            android:hint="@string/input_name_sample"
+            android:hint="Eg: vegeta87"
+            android:textStyle="italic"
             android:background="@drawable/bg_top_bottom_divider_edit_text"
             android:inputType="text"
             android:onTextChanged="@{(text, start, before, count) -> viewModel.onUserNameInput(text)}"
             style="@style/RegisterAccountItemEditField"/>
 
         <!-- Email -->
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_30dp"
+                android:paddingStart="@dimen/space_16dp"
+                android:textStyle="bold"
+                android:paddingEnd="@dimen/space_10dp"
+                android:text="@string/input_email_sample"
+        />
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_account_item_edit_view_height"
             android:background="@drawable/bg_top_bottom_divider_edit_text"
-            android:hint="@string/input_email_sample"
+            android:textStyle="italic"
+            android:hint="Eg: vegeta@gmail.com"
             android:inputType="textEmailAddress"
             android:onTextChanged="@{(text, start, before, count) -> viewModel.onEmailInput(text)}"
             style="@style/RegisterAccountItemEditField"/>
 
         <!-- Password -->
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_30dp"
+                android:paddingStart="@dimen/space_16dp"
+                android:textStyle="bold"
+                android:paddingEnd="@dimen/space_10dp"
+                android:text="@string/input_password_sample"
+        />
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="@dimen/register_account_item_edit_view_height"
+            android:textStyle="italic"
             android:background="@drawable/bg_top_bottom_divider_edit_text"
-            android:hint="@string/input_password_sample"
             android:inputType="textPassword"
             android:onTextChanged="@{(text, start, before, count) -> viewModel.onPasswordInput(text)}"
             style="@style/RegisterAccountItemEditField"/>
