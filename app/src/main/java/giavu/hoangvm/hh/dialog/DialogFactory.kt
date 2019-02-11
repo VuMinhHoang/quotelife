@@ -1,13 +1,42 @@
 package giavu.hoangvm.hh.dialog
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import giavu.hoangvm.hh.exception.ResponseError
+import giavu.hoangvm.hh.exception.ResponseSuccessErrorCode
 
 /**
  * @Author: Hoang Vu
  * @Date:   2019/01/06
  */
 class DialogFactory {
+
+    fun create(activity: AppCompatActivity, throwable: Throwable): AlertDialogFragment {
+        return when (throwable) {
+            is ResponseError -> {
+                AlertDialogFragment.Builder()
+                    .setTitle(throwable.errorCode)
+                    .setMessage(throwable.messageError)
+                    .setPositiveButtonText("Retry")
+                    .show(activity.supportFragmentManager)
+            }
+            is ResponseSuccessErrorCode -> {
+                AlertDialogFragment.Builder()
+                    .setTitle(throwable.errorCode)
+                    .setMessage(throwable.messageError)
+                    .setPositiveButtonText("OK")
+                    .show(activity.supportFragmentManager)
+            }
+            else -> {
+                AlertDialogFragment.Builder()
+                    .setMessage("Unknown error")
+                    .setPositiveButtonText("Retry")
+                    .show(activity.supportFragmentManager)
+            }
+        }
+    }
+
 
     fun <T : BaseDialogFragment> show(
             manager: FragmentManager, clazz: Class<T>): T {

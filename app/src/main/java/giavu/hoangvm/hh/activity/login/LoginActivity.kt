@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.common.api.Status
@@ -13,9 +12,9 @@ import giavu.hoangvm.hh.activity.main.MainActivity
 import giavu.hoangvm.hh.activity.register.RegisterAccountActivity
 import giavu.hoangvm.hh.databinding.ActivityLoginBinding
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
+import giavu.hoangvm.hh.dialog.DialogFactory
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
-import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.utils.CredentialResult
@@ -97,7 +96,6 @@ class LoginActivity : AppCompatActivity() {
         override fun toLogin(response: LoginResponse) {
             if (response.userToken != null) {
                 saveUserPreference(response)
-                Log.d(TAG, "Login")
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -115,21 +113,15 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        override fun toShowError(error: ResponseError) {
-            AlertDialogFragment.Builder()
-                .setTitle(error.errorCode)
-                .setMessage(error.messageError)
-                .setPositiveButtonText("OK")
-                .show(supportFragmentManager)
+        override fun toShowError(error: Throwable) {
+            DialogFactory().create(this@LoginActivity,error)
         }
 
         override fun showProgress() {
-            Log.d(TAG, "showProgress")
             this@LoginActivity.showProgress()
         }
 
         override fun hideProgress() {
-            Log.d(TAG, "hideProgress")
             this@LoginActivity.hideProgress()
         }
     }

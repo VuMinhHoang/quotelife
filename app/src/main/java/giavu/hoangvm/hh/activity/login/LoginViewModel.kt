@@ -3,7 +3,6 @@ package giavu.hoangvm.hh.activity.login
 import android.app.Application
 import androidx.lifecycle.*
 import giavu.hoangvm.hh.api.UserApi
-import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.extension.combinePairLatest
 import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.User
@@ -68,9 +67,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
                         },
                         onError = { error ->
-                            if (error is ResponseError) {
-                                navigator.toShowError(error)
-                            }
+                            navigator.toShowError(error)
                         }
                 )
                 .addTo(compositeDisposable = compositeDisposable)
