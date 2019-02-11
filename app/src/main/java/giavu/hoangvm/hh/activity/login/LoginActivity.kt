@@ -48,19 +48,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initialize()
-        initializeActionBar()
         if (savedInstanceState == null) {
             smartLockClient.requestCredential(this, onRequestCredentialListener)
         }
         initializeDataBinding()
         initViewModel()
 
-    }
-
-    private fun initializeActionBar() {
-        actionBar?.let {
-
-        }
     }
 
     private fun initialize() {
