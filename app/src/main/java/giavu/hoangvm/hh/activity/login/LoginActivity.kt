@@ -62,8 +62,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         viewModel.initialize(
-                navigator = navigator,
-                 owner = this@LoginActivity
+            navigator = navigator,
+            owner = this@LoginActivity
         )
     }
 
@@ -73,11 +73,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initializeDataBinding() {
         binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
-                this@LoginActivity, R.layout.activity_login)
-                .apply {
-                    viewModel = this@LoginActivity.viewModel
-                    setLifecycleOwner(this@LoginActivity)
-                }
+            this@LoginActivity, R.layout.activity_login
+        )
+            .apply {
+                viewModel = this@LoginActivity.viewModel
+                setLifecycleOwner(this@LoginActivity)
+            }
 
     }
 
@@ -102,10 +103,10 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             } else {
                 AlertDialogFragment.Builder()
-                        .setTitle("Network error")
-                        .setMessage("Please check your network connection !")
-                        .setPositiveButtonText("OK")
-                        .show(supportFragmentManager)
+                    .setTitle("Network error")
+                    .setMessage("Please check your network connection !")
+                    .setPositiveButtonText("OK")
+                    .show(supportFragmentManager)
             }
         }
 
@@ -116,10 +117,10 @@ class LoginActivity : AppCompatActivity() {
 
         override fun toShowError(error: ResponseError) {
             AlertDialogFragment.Builder()
-                    .setTitle(error.errorCode)
-                    .setMessage(error.messageError)
-                    .setPositiveButtonText("OK")
-                    .show(supportFragmentManager)
+                .setTitle(error.errorCode)
+                .setMessage(error.messageError)
+                .setPositiveButtonText("OK")
+                .show(supportFragmentManager)
         }
 
         override fun showProgress() {

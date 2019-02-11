@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.exception.ResponseError
+import giavu.hoangvm.hh.extension.combinePairLatest
 import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.User
 import giavu.hoangvm.hh.utils.CredentialResult
@@ -34,6 +35,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
     fun initialize(navigator: LoginNavigator, owner: LifecycleOwner) {
         this.navigator = navigator
+        checkValidInput(owner)
     }
 
     fun onUsernameTextChanged(text: CharSequence) {
@@ -83,4 +85,19 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         _password.value = credentialResult.password
     }
 
+    private fun checkValidInput(owner: LifecycleOwner) {
+        combinePairLatest(
+            source1 = _username.toPublisher(owner),
+            source2 = _password.toPublisher(owner))
+            .map { pair ->
+                val userName = pair.first
+                val password = pair.second
+                userName.isNotEmpty() && password.isNotEmpty()
+            }
+            .subscribeBy(
+                onError = Timber::w,
+                onNext = { _loginEnabled.postValue(it) }
+            )
+            .addTo(compositeDisposable)
+    }
 }
