@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
+import giavu.hoangvm.hh.activity.quotelist.QuoteListActivity
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.hideProgress
@@ -106,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_dailyquote -> {
                     Timber.d("Daily quote")
+                    startActivity(QuoteListActivity.createIntent(this@MainActivity))
                 }
                 R.id.nav_setting -> {
                     Timber.d("Setting")
