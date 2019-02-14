@@ -1,5 +1,8 @@
 <resources>
-    <string name="savesave">./apollo-codegen download-schema https://api.yelp.com/v3/graphql --output schema.json --header "Authorization: Bearer 3jrKho3XbBsFoKEBYxp1mpfelkxZtKxMTMUj5L6mfNsbZrtshVMOPOypHcDJSN38-zhP-Y_tHoi95EZLeVwUJgG3AFyvu76AkmSAE8uh4HVpLQfIWndMTPOG9ocKXHYx"</string>
+    <string name="savesave">./apollo-codegen download-schema https://api.yelp.com/v3/graphql --output schema.json
+        --header "Authorization: Bearer
+        3jrKho3XbBsFoKEBYxp1mpfelkxZtKxMTMUj5L6mfNsbZrtshVMOPOypHcDJSN38-zhP-Y_tHoi95EZLeVwUJgG3AFyvu76AkmSAE8uh4HVpLQfIWndMTPOG9ocKXHYx"
+    </string>
     <string name="app_name">Quotes</string>
     <string name="language">en</string>
     <string name="app_scheme">https</string>
@@ -7,7 +10,9 @@
     <string name="sport_base_url">sportsop-soccer-sports-open-data-v1.p.mashape.com</string>
     <string name="sport_apikey">ftHoprj6CGmshGTkHN641OnT91qxp1odrEjjsnukrGxRpG2liY</string>
     <string name="client_id">xcMc1qYPaNFaBxC07gIIsA</string>
-    <string name="app_api_key">3jrKho3XbBsFoKEBYxp1mpfelkxZtKxMTMUj5L6mfNsbZrtshVMOPOypHcDJSN38-zhP-Y_tHoi95EZLeVwUJgG3AFyvu76AkmSAE8uh4HVpLQfIWndMTPOG9ocKXHYx</string>
+    <string name="app_api_key">
+        3jrKho3XbBsFoKEBYxp1mpfelkxZtKxMTMUj5L6mfNsbZrtshVMOPOypHcDJSN38-zhP-Y_tHoi95EZLeVwUJgG3AFyvu76AkmSAE8uh4HVpLQfIWndMTPOG9ocKXHYx
+    </string>
     <string name="quote_header">Authorization</string>
     <string name="quote_api_key">Token token=f343dee03cb02b63a724fc4de7b2816f</string>
     <string name="quote_url">favqs.com/api/</string>
@@ -24,7 +29,7 @@
     <string name="boot_completed">boot_completed</string>
 
     <string name="menu_account">My profile</string>
-    <string name="menu_dailyquote">Daily Quote</string>
+    <string name="menu_dailyquote">Quotes</string>
     <string name="menu_setting">Setting</string>
     <string name="menu_logout">Logout</string>
     <string name="retry">Retry</string>
