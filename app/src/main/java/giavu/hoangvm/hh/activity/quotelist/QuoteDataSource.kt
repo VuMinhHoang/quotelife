@@ -18,7 +18,7 @@ class QuoteDataSource(
     private val quotesApi: QuotesApi,
     private val compositeDisposable: CompositeDisposable
 ): PageKeyedDataSource<String, Response>() {
-    
+
     override fun loadInitial(params: LoadInitialParams<String>, callback: LoadInitialCallback<String, Response>) {
         quotesApi.getQuotes(params.requestedLoadSize)
             .subscribeOn(Schedulers.io())
