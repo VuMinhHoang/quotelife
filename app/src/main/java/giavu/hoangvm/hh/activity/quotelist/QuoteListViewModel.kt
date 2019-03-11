@@ -3,6 +3,7 @@ package giavu.hoangvm.hh.activity.quotelist
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import giavu.hoangvm.hh.api.QuotesApi
@@ -32,5 +33,12 @@ class QuoteListViewModel(application: Application): AndroidViewModel(application
 
     fun retry() {
         quoteDataSourceFactory.quoteDataSourceLiveData.value?.retry()
+    }
+
+    fun getState(): LiveData<State> = Transformations.switchMap<QuoteDataSource,
+            State>(quoteDataSourceFactory.quoteDataSourceLiveData, QuoteDataSource::state)
+
+    fun listIsEmpty(): Boolean {
+        return quoteList.value?.isEmpty() ?: true
     }
 }
