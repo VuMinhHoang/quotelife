@@ -3,7 +3,7 @@ package giavu.hoangvm.hh.activity.quotelist
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import giavu.hoangvm.hh.api.QuotesApi
-import giavu.hoangvm.hh.model.Response
+import giavu.hoangvm.hh.model.Quote
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -13,10 +13,11 @@ import io.reactivex.disposables.CompositeDisposable
 class QuoteDataSourceFactory(
     private val quotesApi: QuotesApi,
     private val compositeDisposable: CompositeDisposable
-): DataSource.Factory<String, Response>() {
+): DataSource.Factory<Int, Quote>() {
 
-    private val quoteDataSourceLiveData = MutableLiveData<QuoteDataSource>()
-    override fun create(): DataSource<String, Response> {
+    val quoteDataSourceLiveData = MutableLiveData<QuoteDataSource>()
+
+    override fun create(): DataSource<Int, Quote> {
         val quoteDataSource = QuoteDataSource(quotesApi = quotesApi, compositeDisposable = compositeDisposable)
         quoteDataSourceLiveData.postValue(quoteDataSource)
         return quoteDataSource
