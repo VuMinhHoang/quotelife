@@ -15,6 +15,8 @@ class QuoteListAdapter(private val retry: () -> Unit): PagedListAdapter<Quote, R
     private val DATA_VIEW_TYPE = 1
     private val FOOTER_VIEW_TYPE = 2
 
+    private var state = State.LOADING
+
     companion object {
         val quoteDiffCallBack = object : DiffUtil.ItemCallback<Quote>() {
             override fun areItemsTheSame(oldItem: Quote, newItem: Quote): Boolean {
@@ -47,5 +49,10 @@ class QuoteListAdapter(private val retry: () -> Unit): PagedListAdapter<Quote, R
 
     override fun getItemCount(): Int {
         return super.getItemCount()
+    }
+
+    fun setState(state: State) {
+        this.state = state
+        notifyItemChanged(super.getItemCount())
     }
 }
