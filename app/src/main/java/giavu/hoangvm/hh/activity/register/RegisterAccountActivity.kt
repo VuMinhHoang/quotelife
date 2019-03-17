@@ -16,6 +16,7 @@ import giavu.hoangvm.hh.model.RegisterResponse
 import giavu.hoangvm.hh.utils.SmartLockClient
 import kotlinx.android.synthetic.main.activity_register_account.*
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class RegisterAccountActivity : AppCompatActivity() {
 
@@ -79,7 +80,7 @@ class RegisterAccountActivity : AppCompatActivity() {
         }
 
         override fun toError(throwable: Throwable) {
-
+            Timber.d(throwable)
         }
     }
 
