@@ -44,8 +44,8 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
         val userSession = UserSharePreference.fromContext(this@SplashActivity)
                 .getUserSession()
 
-        val email = UserSharePreference.fromContext(this@SplashActivity)
-                .getUserEmail()
+        val userName = UserSharePreference.fromContext(this@SplashActivity)
+                .getUserName()
 
 /*        if (userSession.isEmpty()) {
             loadActivity(isLogined = false)
@@ -56,7 +56,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onSuccess = { response ->
-                            if (response.account_details.email == email) {
+                            if (response.login == userName) {
                                 loadActivity(true)
                             } else {
                                 loadActivity(false)

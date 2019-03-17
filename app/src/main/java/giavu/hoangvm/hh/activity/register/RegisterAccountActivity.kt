@@ -10,6 +10,7 @@ import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
 import giavu.hoangvm.hh.activity.main.MainActivity
 import giavu.hoangvm.hh.databinding.ActivityRegisterAccountBinding
+import giavu.hoangvm.hh.dialog.DialogFactory
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.helper.UserSharePreference
@@ -85,6 +86,7 @@ class RegisterAccountActivity : AppCompatActivity() {
 
         override fun toError(throwable: Throwable) {
             Timber.d(throwable)
+            DialogFactory().create(this@RegisterAccountActivity,throwable)
         }
     }
 
