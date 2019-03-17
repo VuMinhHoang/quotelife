@@ -3,16 +3,17 @@ package giavu.hoangvm.hh.activity.register
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
+import giavu.hoangvm.hh.activity.main.MainActivity
 import giavu.hoangvm.hh.databinding.ActivityRegisterAccountBinding
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
-import giavu.hoangvm.hh.model.RegisterResponse
+import giavu.hoangvm.hh.helper.UserSharePreference
+import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.utils.SmartLockClient
 import kotlinx.android.synthetic.main.activity_register_account.*
 import org.koin.android.ext.android.inject
@@ -67,10 +68,13 @@ class RegisterAccountActivity : AppCompatActivity() {
             this@RegisterAccountActivity.hideProgress()
         }
 
-        override fun register(response: RegisterResponse) {
+        override fun register(response: LoginResponse) {
             response.userToken?.let {
                 if (it.isNotEmpty()) {
-                    Log.d("Register", "Done")
+                    UserSharePreference.fromContext(this@RegisterAccountActivity).updateUserPref(response)
+                    val intent = Intent(this@RegisterAccountActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
         }

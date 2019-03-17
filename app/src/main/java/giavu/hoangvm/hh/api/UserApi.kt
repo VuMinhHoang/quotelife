@@ -16,7 +16,7 @@ interface UserApi {
     fun login(@Body body: User): Single<LoginResponse>
 
     @POST("users")
-    fun register(@Body body: RegUser): Single<RegisterResponse>
+    fun register(@Body body: RegUser): Single<LoginResponse>
 
     @DELETE("session")
     fun logout(): Single<LogoutResponse>
