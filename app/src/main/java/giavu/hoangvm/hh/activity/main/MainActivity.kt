@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observerQuote() {
         viewModel.quote.observe(this, Observer {
-            quote.setText(it)
+            quote.text = it
         })
     }
 
