@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            actionBar.setTitle("Quote")
+            actionBar.title = "Quote"
             setHomeAsUpIndicator(R.drawable.ic_menu_white)
         }
     }
