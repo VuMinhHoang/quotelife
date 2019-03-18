@@ -17,6 +17,7 @@ class QuoteViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun bind(quote: Quote?) {
         if(quote != null) {
             itemView.quote_body.text = quote.body
+            itemView.author.text = quote.author
         }
     }
 
