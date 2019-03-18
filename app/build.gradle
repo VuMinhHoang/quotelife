@@ -13,6 +13,9 @@ android {
         debug {
             storeFile file('debug.keystore')
         }
+        release {
+            storeFile file('release.keystore')
+        }
     }
 
     compileSdkVersion COMPILE_SDK_VERSION
