@@ -18,6 +18,7 @@ class QuoteViewHolder(view: View): RecyclerView.ViewHolder(view) {
         if(quote != null) {
             itemView.quote_body.text = quote.body
             itemView.author.text = quote.author
+            itemView.up_vote.text = quote.upvotes_count.toString()
         }
     }
 
