@@ -17,6 +17,8 @@ import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
+import giavu.hoangvm.hh.tracker.Event
+import giavu.hoangvm.hh.tracker.FirebaseTracker
 import giavu.hoangvm.hh.utils.CredentialResult
 import giavu.hoangvm.hh.utils.SmartLockClient
 import io.reactivex.disposables.CompositeDisposable
@@ -35,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
 
     private val TAG = LoginActivity::class.java.simpleName
     private val REQUEST_CODE_SELECT_ACCOUNT = 4
+    private val tracker: FirebaseTracker by inject()
 
 
     private val compositeDisposable = CompositeDisposable()
@@ -99,6 +102,8 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
+                tracker.track(Event.LoginSuccess)
+
             } else {
                 AlertDialogFragment.Builder()
                     .setTitle("Network error")

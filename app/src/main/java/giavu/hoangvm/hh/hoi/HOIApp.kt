@@ -12,6 +12,8 @@ import giavu.hoangvm.hh.BuildConfig
 import giavu.hoangvm.hh.firebase.FcmToken
 import giavu.hoangvm.hh.firebase.FcmTokenStore
 import giavu.hoangvm.hh.notify.NotificationChannelRegister
+import giavu.hoangvm.hh.tracker.Event
+import giavu.hoangvm.hh.tracker.FirebaseTracker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -29,6 +31,7 @@ open class HOIApp : Application() {
 
     private val TAG = HOIApp::class.java.simpleName
     private val fcmTokenStore: FcmTokenStore by inject()
+    private val tracker: FirebaseTracker by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -47,6 +50,7 @@ open class HOIApp : Application() {
         FirebaseApp.initializeApp(this)
         registerNotificationChannelIfNeeds()
         initialize()
+        tracker.track(Event.FirstOpen)
     }
 
     private fun initialize() {
