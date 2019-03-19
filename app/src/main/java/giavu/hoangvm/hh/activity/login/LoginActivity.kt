@@ -119,6 +119,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         override fun toShowError(error: Throwable) {
+            tracker.track(Event.LoginFailure)
             DialogFactory().create(this@LoginActivity,error)
         }
 
