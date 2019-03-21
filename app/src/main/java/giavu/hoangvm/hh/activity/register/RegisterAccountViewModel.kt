@@ -34,6 +34,7 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
         CompositeDisposable()
     }
     private val _userName = MutableLiveData<String>()
+    private val _userNameError = MutableLiveData<String>()
     private val _email = MutableLiveData<String>()
     private val _password = MutableLiveData<String>()
     private val _registerButtonEnabled = MutableLiveData<Boolean>()
@@ -41,25 +42,34 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
     val registerButtonEnabled: LiveData<Boolean>
         get() = _registerButtonEnabled
 
+    val userNameError: LiveData<String>
+        get() = _userNameError
+
     fun initialize(navigator: RegisterAccountNavigator, owner: LifecycleOwner) {
         this.navigator = navigator
         _registerButtonEnabled.value = false
         _userName.value = ""
         _password.value = ""
         _email.value = ""
+        _userNameError.value = null
         checkValidInput(owner)
     }
 
     fun onUserNameInput(text: CharSequence) {
-        _userName.postValue(text.toString())
+        _userName.value = text.toString()
+        if(text.toString().length > 10) {
+            _userNameError.value = "Please input user name"
+        }else{
+            _userNameError.value = null
+        }
     }
 
     fun onEmailInput(text: CharSequence) {
-        _email.postValue(text.toString())
+        _email.value = text.toString()
     }
 
     fun onPasswordInput(text: CharSequence) {
-        _password.postValue(text.toString())
+        _password.value = text.toString()
     }
 
     fun gotoLogin() {
