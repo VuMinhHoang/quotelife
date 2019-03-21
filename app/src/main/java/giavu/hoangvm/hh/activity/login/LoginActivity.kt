@@ -116,6 +116,7 @@ class LoginActivity : AppCompatActivity() {
         override fun toRegister() {
             startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
             finish()
+            tracker.track(Event.IMPSRegister)
         }
 
         override fun toShowError(error: Throwable) {

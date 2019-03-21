@@ -18,6 +18,8 @@ import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.exception.ResponseError
+import giavu.hoangvm.hh.tracker.Event
+import giavu.hoangvm.hh.tracker.FirebaseTracker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val userApi: UserApi by inject()
+    private val tracker: FirebaseTracker by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_logout -> {
                     Timber.d("Logout")
+                    tracker.track(Event.TapLogout)
                     userApi.logout()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
