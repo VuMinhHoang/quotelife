@@ -115,6 +115,9 @@ dependencies {
     implementation 'com.github.arturogutierrez:badges:1.0.5@aar'
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     debugImplementation "com.facebook.stetho:stetho:${STETHO_VERSION}"
     debugImplementation "com.facebook.stetho:stetho-okhttp3:${STETHO_VERSION}"
 }
