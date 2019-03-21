@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+                name="viewModel"
+                type="giavu.hoangvm.hh.activity.register.RequireRegisterViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_height="match_parent"
+                  tools:context="giavu.hoangvm.hh.activity.register.RequireRegisterFragment">
+
+        <!-- User name -->
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/space_16dp"
+                android:textStyle="bold"
+                android:paddingEnd="@dimen/space_10dp"
+                android:text="@string/input_name_sample"
+        />
+        <giavu.hoangvm.hh.view.FixedBgColorTextInputLayout
+                android:id="@+id/usernameLayout"
+                app:hintEnabled="false"
+                app:errorText="@{viewModel.userNameError}"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/register_account_item_edit_view_height"
+                    android:hint="Eg: vegeta87"
+                    android:textStyle="italic"
+                    android:background="@drawable/bg_top_bottom_divider_edit_text"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onUserNameInput(text)}"
+                    style="@style/RegisterAccountItemEditField"/>
+        </giavu.hoangvm.hh.view.FixedBgColorTextInputLayout>
+
+        <!-- Email -->
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_30dp"
+                android:paddingStart="@dimen/space_16dp"
+                android:textStyle="bold"
+                android:paddingEnd="@dimen/space_10dp"
+                android:text="@string/input_email_sample"
+        />
+        <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_account_item_edit_view_height"
+                android:background="@drawable/bg_top_bottom_divider_edit_text"
+                android:textStyle="italic"
+                android:hint="Eg: vegeta@gmail.com"
+                android:inputType="textEmailAddress"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.onEmailInput(text)}"
+                style="@style/RegisterAccountItemEditField"/>
+
+        <!-- Password -->
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_30dp"
+                android:paddingStart="@dimen/space_16dp"
+                android:textStyle="bold"
+                android:paddingEnd="@dimen/space_10dp"
+                android:text="@string/input_password_sample"
+        />
+        <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_account_item_edit_view_height"
+                android:textStyle="italic"
+                android:background="@drawable/bg_top_bottom_divider_edit_text"
+                android:inputType="textPassword"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.onPasswordInput(text)}"
+                style="@style/RegisterAccountItemEditField"/>
+
+    </LinearLayout>
+</layout>

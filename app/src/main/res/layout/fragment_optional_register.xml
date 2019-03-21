@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:orientation="vertical"
+              android:layout_height="match_parent"
+              tools:context="giavu.hoangvm.hh.activity.register.RequireRegisterFragment">
+
+    <!-- User name -->
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/space_16dp"
+            android:textStyle="bold"
+            android:paddingEnd="@dimen/space_10dp"
+            android:text="Gender(Optional)"
+    />
+    <giavu.hoangvm.hh.view.FixedBgColorTextInputLayout
+            android:id="@+id/genderLayout"
+            app:hintEnabled="false"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/genderText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/register_account_item_edit_view_height"
+                android:hint="Eg: vegeta87"
+                android:textStyle="italic"
+                android:background="@drawable/bg_top_bottom_divider_edit_text"
+                android:inputType="text"
+                android:lines="1"
+                style="@style/RegisterAccountItemEditField"/>
+    </giavu.hoangvm.hh.view.FixedBgColorTextInputLayout>
+
+</LinearLayout>
