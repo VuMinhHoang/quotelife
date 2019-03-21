@@ -23,98 +23,40 @@
                 android:textColor="@color/btn_bg"
                 android:fontFamily="@font/wallpoet_regular"
                 android:textSize="50sp"/>
-        <!-- User name -->
-        <TextView
+        <FrameLayout
+                android:id="@+id/register_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/space_16dp"
-                android:textStyle="bold"
-                android:paddingEnd="@dimen/space_10dp"
-                android:text="@string/input_name_sample"
-        />
-        <giavu.hoangvm.hh.view.FixedBgColorTextInputLayout
-                android:id="@+id/usernameLayout"
-                app:hintEnabled="false"
-                app:errorText="@{viewModel.userNameError}"
-                app:counterEnabled="true"
-                app:counterMaxLength="20"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+        </FrameLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/margin_top_50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/username"
+            <!-- Register -->
+            <Button
+                    android:id="@+id/button_register"
+                    style="@style/MainPrimaryButton"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/register_account_item_edit_view_height"
-                    android:hint="Eg: vegeta87"
-                    android:textStyle="italic"
-                    android:background="@drawable/bg_top_bottom_divider_edit_text"
-                    android:inputType="text"
-                    android:lines="1"
-                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onUserNameInput(text)}"
-                    style="@style/RegisterAccountItemEditField"/>
-        </giavu.hoangvm.hh.view.FixedBgColorTextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/dimen_16dp"
+                    android:onClick="@{() -> viewModel.register()}"
+                    android:enabled="@{viewModel.registerButtonEnabled}"
+                    android:text="@string/action_register" />
 
-        <!-- Email -->
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_30dp"
-                android:paddingStart="@dimen/space_16dp"
-                android:textStyle="bold"
-                android:paddingEnd="@dimen/space_10dp"
-                android:text="@string/input_email_sample"
-        />
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/register_account_item_edit_view_height"
-            android:background="@drawable/bg_top_bottom_divider_edit_text"
-            android:textStyle="italic"
-            android:hint="Eg: vegeta@gmail.com"
-            android:inputType="textEmailAddress"
-            android:onTextChanged="@{(text, start, before, count) -> viewModel.onEmailInput(text)}"
-            style="@style/RegisterAccountItemEditField"/>
-
-        <!-- Password -->
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top_30dp"
-                android:paddingStart="@dimen/space_16dp"
-                android:textStyle="bold"
-                android:paddingEnd="@dimen/space_10dp"
-                android:text="@string/input_password_sample"
-        />
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/register_account_item_edit_view_height"
-            android:textStyle="italic"
-            android:background="@drawable/bg_top_bottom_divider_edit_text"
-            android:inputType="textPassword"
-            android:onTextChanged="@{(text, start, before, count) -> viewModel.onPasswordInput(text)}"
-            style="@style/RegisterAccountItemEditField"/>
-
-        <!-- Register -->
-        <Button
-            android:id="@+id/button_register"
-            style="@style/MainPrimaryButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="@dimen/dimen_16dp"
-            android:onClick="@{() -> viewModel.register()}"
-            android:enabled="@{viewModel.registerButtonEnabled}"
-            android:text="@string/action_register" />
-
-        <TextView
-            android:id="@+id/hasAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:onClick="@{() -> viewModel.gotoLogin()}"
-            android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/margin_top_50dp"
-            android:text="@string/already_has_account" />
+            <TextView
+                    android:id="@+id/hasAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:onClick="@{() -> viewModel.gotoLogin()}"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/margin_top_50dp"
+                    android:text="@string/already_has_account" />
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

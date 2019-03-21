@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
 import giavu.hoangvm.hh.activity.main.MainActivity
@@ -15,30 +16,34 @@ import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
-import giavu.hoangvm.hh.utils.SmartLockClient
-import kotlinx.android.synthetic.main.activity_register_account.*
 import org.koin.android.ext.android.inject
 import timber.log.Timber
+import java.util.*
 
 class RegisterAccountActivity : AppCompatActivity() {
 
     companion object {
-        private const val REQUEST_CODE_SMART_LOCK = 1
         fun createIntent(context: Context): Intent {
             return Intent(context, RegisterAccountActivity::class.java)
         }
     }
 
-    private lateinit var smartLockClient: SmartLockClient
+    private val mode: Boolean by lazy {
+        when(Locale.getDefault().language) {
+            "en" -> true
+            else -> false
+        }
+    }
+
     private val viewModel: RegisterAccountViewModel by inject()
     private lateinit var dataBinding: ActivityRegisterAccountBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
-        smartLockClient = SmartLockClient(this)
         initializeDataBinding()
         initializeViewModel()
+        initFragment()
 
     }
 
@@ -59,6 +64,14 @@ class RegisterAccountActivity : AppCompatActivity() {
         )
     }
 
+    private fun initFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.register_container,
+                RequireRegisterFragment()
+            ).commitNow()
+    }
+
 
     private val navigator = object : RegisterAccountNavigator {
         override fun showProgress() {
@@ -73,12 +86,18 @@ class RegisterAccountActivity : AppCompatActivity() {
             response.userToken?.let {
                 if (it.isNotEmpty()) {
                     UserSharePreference.fromContext(this@RegisterAccountActivity).updateUserPref(response)
-                    val intent = Intent(this@RegisterAccountActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    if(mode) {
+                        replaceFragment()
+                    }else{
+                        val intent = Intent(this@RegisterAccountActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+
                 }
             }
         }
+
 
         override fun toLogin() {
             startActivity(LoginActivity.createIntent(this@RegisterAccountActivity))
@@ -89,22 +108,9 @@ class RegisterAccountActivity : AppCompatActivity() {
             DialogFactory().create(this@RegisterAccountActivity,throwable)
         }
     }
-
-    private fun onCompleteRegisterAccount() {
-
-        smartLockClient.saveCredential(
-                this,
-                email.text.toString(),
-                password.text.toString(),
-                REQUEST_CODE_SMART_LOCK,
-                object : SmartLockClient.OnSaveSmartLockListener {
-                    override fun onSuccess() {
-
-                    }
-
-                    override fun onFailure() {
-
-                    }
-                })
+    private fun replaceFragment() {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.register_container, OptionalRegisterFragment())
+        fragmentTransaction.commit()
     }
 }

@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.lifecycle.*
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.extension.combineTripleLatest
+import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
+import giavu.hoangvm.hh.model.Response
 import giavu.hoangvm.hh.validation.EmailAddressValidator
 import giavu.hoangvm.hh.validation.PasswordValidator
 import giavu.hoangvm.hh.validation.UserNameValidator
@@ -33,51 +35,28 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
     private val compositeDisposable by lazy {
         CompositeDisposable()
     }
-    private val _userName = MutableLiveData<String>()
-    private val _userNameError = MutableLiveData<String>()
-    private val _email = MutableLiveData<String>()
-    private val _password = MutableLiveData<String>()
+
     private val _registerButtonEnabled = MutableLiveData<Boolean>()
 
     val registerButtonEnabled: LiveData<Boolean>
         get() = _registerButtonEnabled
 
-    val userNameError: LiveData<String>
-        get() = _userNameError
+
 
     fun initialize(navigator: RegisterAccountNavigator, owner: LifecycleOwner) {
         this.navigator = navigator
-        _registerButtonEnabled.value = false
-        _userName.value = ""
-        _password.value = ""
-        _email.value = ""
-        _userNameError.value = null
-        checkValidInput(owner)
+        _registerButtonEnabled.value = true
     }
 
-    fun onUserNameInput(text: CharSequence) {
-        _userName.value = text.toString()
-        if(text.toString().length > 10) {
-            _userNameError.value = "Please input user name"
-        }else{
-            _userNameError.value = null
-        }
-    }
 
-    fun onEmailInput(text: CharSequence) {
-        _email.value = text.toString()
-    }
-
-    fun onPasswordInput(text: CharSequence) {
-        _password.value = text.toString()
-    }
 
     fun gotoLogin() {
         navigator.toLogin()
     }
 
     fun register() {
-        val body = RegBody(
+        navigator.register(LoginResponse("fdfad","",""))
+        /*val body = RegBody(
                 login = _userName.value,
                 email = _email.value,
                 password = _password.value
@@ -98,25 +77,8 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
                             navigator.register(response)
                         }
                 )
-                .addTo(compositeDisposable)
+                .addTo(compositeDisposable)*/
     }
 
-    private fun checkValidInput(owner: LifecycleOwner) {
-        combineTripleLatest(
-                source1 = _userName.toPublisher(owner),
-                source2 = _email.toPublisher(owner),
-                source3 = _password.toPublisher(owner))
-                .map { triple ->
-                    val userName = triple.first
-                    val email = triple.second
-                    val password = triple.third
-                    userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()
-                }
-                .subscribeBy(
-                        onError = Timber::w,
-                        onNext = { _registerButtonEnabled.postValue(it) }
-                )
-                .addTo(compositeDisposable)
-    }
 
 }
