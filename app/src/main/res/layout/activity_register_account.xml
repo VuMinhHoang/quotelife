@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="viewModel"
@@ -32,16 +32,26 @@
                 android:paddingEnd="@dimen/space_10dp"
                 android:text="@string/input_name_sample"
         />
-        <EditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/register_account_item_edit_view_height"
-            android:hint="Eg: vegeta87"
-            android:textStyle="italic"
-            android:background="@drawable/bg_top_bottom_divider_edit_text"
-            android:inputType="text"
-            android:onTextChanged="@{(text, start, before, count) -> viewModel.onUserNameInput(text)}"
-            style="@style/RegisterAccountItemEditField"/>
+        <giavu.hoangvm.hh.view.FixedBgColorTextInputLayout
+                android:id="@+id/usernameLayout"
+                app:hintEnabled="false"
+                app:errorText="@{viewModel.userNameError}"
+                app:counterEnabled="true"
+                app:counterMaxLength="20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/register_account_item_edit_view_height"
+                    android:hint="Eg: vegeta87"
+                    android:textStyle="italic"
+                    android:background="@drawable/bg_top_bottom_divider_edit_text"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onUserNameInput(text)}"
+                    style="@style/RegisterAccountItemEditField"/>
+        </giavu.hoangvm.hh.view.FixedBgColorTextInputLayout>
 
         <!-- Email -->
         <TextView
