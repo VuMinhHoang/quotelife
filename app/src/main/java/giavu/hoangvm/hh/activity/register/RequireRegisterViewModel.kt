@@ -21,16 +21,19 @@ class RequireRegisterViewModel: ViewModel() {
     val userNameError: LiveData<String>
         get() = _userNameError
 
+    val isValidate: MutableLiveData<Boolean> = MutableLiveData()
 
     fun initialize(owner: LifecycleOwner) {
         _userName.value = ""
         _password.value = ""
         _email.value = ""
         _userNameError.value = null
+        isValidate.value = false
         checkValidInput(owner)
     }
 
     fun onUserNameInput(text: CharSequence) {
+        Timber.d("Username:%s",text.toString())
         _userName.value = text.toString()
         if(text.toString().length > 10) {
             _userNameError.value = "Please input user name"
@@ -40,10 +43,12 @@ class RequireRegisterViewModel: ViewModel() {
     }
 
     fun onEmailInput(text: CharSequence) {
+        Timber.d("Email:%s",text.toString())
         _email.value = text.toString()
     }
 
     fun onPasswordInput(text: CharSequence) {
+        Timber.d("Password:%s",text.toString())
         _password.value = text.toString()
     }
 
@@ -59,8 +64,12 @@ class RequireRegisterViewModel: ViewModel() {
                 userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()
             }
             .subscribeBy(
-                onError = Timber::w,
-                onNext = { Timber.d("Check Ok") }
+                onError = {
+                    Timber.d("Error validate")
+                    isValidate.value = false},
+                onNext = {
+                    Timber.d("Validate OK:%s", it.toString())
+                    isValidate.value = it }
             )
             .addTo(compositeDisposable)
     }

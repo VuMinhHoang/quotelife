@@ -36,16 +36,12 @@ class RegisterAccountViewModel(application: Application) : AndroidViewModel(appl
         CompositeDisposable()
     }
 
-    private val _registerButtonEnabled = MutableLiveData<Boolean>()
 
-    val registerButtonEnabled: LiveData<Boolean>
-        get() = _registerButtonEnabled
-
-
+    val registerButtonEnabled: MutableLiveData<Boolean> = MutableLiveData()
 
     fun initialize(navigator: RegisterAccountNavigator, owner: LifecycleOwner) {
         this.navigator = navigator
-        _registerButtonEnabled.value = true
+        registerButtonEnabled.value = false
     }
 
 
