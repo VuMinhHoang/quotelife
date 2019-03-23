@@ -35,6 +35,8 @@
     <string name="retry">Retry</string>
     <string name="network_error_title">No network</string>
     <string name="network_error_msg">You are not connected to the Internet</string>
-
+    <string name="error_username">Must contain only letters numbers and underscores</string>
+    <string name="error_email">Must be a valid email address</string>
+    <string name="error_password">Length must be between 5 and 120 characters</string>
 
 </resources>
