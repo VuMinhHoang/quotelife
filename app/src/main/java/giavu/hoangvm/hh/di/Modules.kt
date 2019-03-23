@@ -14,6 +14,7 @@ class Modules {
             UseCaseModule().module,
             ApiModule().module,
             ViewModelModule().module,
-            LocalDataStoreModule().module
+            LocalDataStoreModule().module,
+            CommonModule().module
     )
 }
