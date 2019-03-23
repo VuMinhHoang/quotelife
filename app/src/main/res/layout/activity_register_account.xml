@@ -27,15 +27,16 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/space_16dp"
+                android:layout_marginStart="@dimen/space_16dp"
                 android:textStyle="bold"
-                android:paddingEnd="@dimen/space_10dp"
                 android:text="@string/input_name_sample"
         />
         <giavu.hoangvm.hh.view.FixedBgColorTextInputLayout
                 android:id="@+id/usernameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 app:hintEnabled="false"
                 app:errorText="@{viewModel.userNameError}"
                 app:counterEnabled="true"
@@ -58,15 +59,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top_30dp"
-                android:paddingStart="@dimen/space_16dp"
+                android:layout_marginStart="@dimen/space_16dp"
                 android:textStyle="bold"
-                android:paddingEnd="@dimen/space_10dp"
                 android:text="@string/input_email_sample"
         />
         <giavu.hoangvm.hh.view.FixedBgColorTextInputLayout
                 android:id="@+id/emailLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 app:hintEnabled="false"
                 app:errorText="@{viewModel.emailError}">
             <com.google.android.material.textfield.TextInputEditText
@@ -87,13 +89,14 @@
                 android:layout_marginTop="@dimen/margin_top_30dp"
                 android:paddingStart="@dimen/space_16dp"
                 android:textStyle="bold"
-                android:paddingEnd="@dimen/space_10dp"
                 android:text="@string/input_password_sample"
         />
         <giavu.hoangvm.hh.view.FixedBgColorTextInputLayout
                 android:id="@+id/passwordLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginEnd="@dimen/space_16dp"
                 app:hintEnabled="false"
                 app:errorText="@{viewModel.passwordError}">
             <com.google.android.material.textfield.TextInputEditText
