@@ -97,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginEnd="@dimen/space_16dp"
+                app:passwordToggleEnabled="true"
                 app:hintEnabled="false"
                 app:errorText="@{viewModel.passwordError}">
             <com.google.android.material.textfield.TextInputEditText
