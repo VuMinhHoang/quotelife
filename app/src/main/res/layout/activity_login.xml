@@ -2,90 +2,90 @@
 <layout>
     <data>
         <variable
-            name="viewModel"
-            type="giavu.hoangvm.hh.activity.login.LoginViewModel">
+                name="viewModel"
+                type="giavu.hoangvm.hh.activity.login.LoginViewModel">
         </variable>
     </data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:scrollbarAlwaysDrawVerticalTrack="true">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:background="@color/white"
+                  android:orientation="vertical"
+                  android:scrollbarAlwaysDrawVerticalTrack="true">
 
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="50dp">
-        <TextView
-                android:paddingTop="50dp"
-                android:paddingBottom="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="50sp"
-                android:text="Sign In"
-                android:textColor="@color/btn_bg"
-                android:fontFamily="@font/wallpoet_regular"/>
-
-        <EditText
-                android:id="@+id/username"
+        <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:drawableTint="@color/bg_app"
-                android:textColor="@color/black"
-                android:hint="User Name"
-                android:drawablePadding="10dp"
-                android:textColorHint="@color/border_button"
-                android:drawableStart="@drawable/ic_id_mail_white"
-                android:inputType="textEmailAddress"
-                android:onTextChanged="@{(text, start, before, count) -> viewModel.onUsernameTextChanged(text)}"
-                android:singleLine="true" />
+                android:orientation="vertical"
+                android:paddingTop="50dp">
+            <TextView
+                    android:paddingTop="50dp"
+                    android:paddingBottom="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="50sp"
+                    android:text="@string/label_sign_in"
+                    android:textColor="@color/btn_bg"
+                    android:fontFamily="@font/wallpoet_regular"/>
 
-        <EditText
-                android:id="@+id/password"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:drawableTint="@color/bg_app"
-                android:textColor="@color/black"
-                android:textColorHint="@color/border_button"
-                android:hint="Password"
-                android:drawablePadding="10dp"
-                android:drawableStart="@drawable/ic_lock_white"
-                android:inputType="textPassword"
-                android:onTextChanged="@{(text, start, before, count) -> viewModel.onPasswordTextChanged(text)}"
-                android:singleLine="true" />
+            <EditText
+                    android:id="@+id/username"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/bg_app"
+                    android:textColor="@color/black"
+                    android:hint="@string/input_name_sample"
+                    android:drawablePadding="10dp"
+                    android:textColorHint="@color/border_button"
+                    android:drawableStart="@drawable/ic_id_mail_white"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.username}"
+                    android:singleLine="true"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:paddingTop="5dp"
-                android:textColor="@color/white"
-                android:text="Forgot Password?" />
+            <EditText
+                    android:id="@+id/password"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:drawableTint="@color/bg_app"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/border_button"
+                    android:hint="@string/input_password_sample"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/ic_lock_white"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.password}"
+                    android:singleLine="true"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/white"
+                    android:text="@string/label_forgot_password"/>
 
 
-        <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="22dp"
-                style="@style/MainPrimaryButton"
-                android:text="Sign in"
-                android:textAllCaps="false"
-                android:onClick="@{() -> viewModel.login()}"
-                android:enabled="@{viewModel.loginEnabled}"
-                android:textSize="18sp" />
+            <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="22dp"
+                    style="@style/MainPrimaryButton"
+                    android:text="@string/label_sign_in"
+                    android:textAllCaps="false"
+                    android:onClick="@{() -> viewModel.login()}"
+                    android:enabled="@{viewModel.viewState.loginBtnEnable}"
+                    android:textSize="18sp"/>
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:gravity="center_horizontal"
-                android:onClick="@{() -> viewModel.register()}"
-                android:textColor="@color/colorPrimary"
-                android:text="No account yet? Create one" />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:gravity="center_horizontal"
+                    android:onClick="@{() -> viewModel.register()}"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/label_no_account"/>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 </layout>
