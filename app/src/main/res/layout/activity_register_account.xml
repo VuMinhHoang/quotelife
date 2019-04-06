@@ -38,7 +38,7 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginEnd="@dimen/space_16dp"
                 app:hintEnabled="false"
-                app:error="@{viewModel.userNameError}"
+                app:error="@{viewModel.viewSate.userNameError}"
                 app:counterEnabled="true"
                 app:counterMaxLength="20">
             <com.google.android.material.textfield.TextInputEditText
@@ -50,7 +50,7 @@
                     android:background="@drawable/bg_top_bottom_divider_edit_text"
                     android:inputType="text"
                     android:lines="1"
-                    android:text="@={viewModel}"
+                    android:text="@={viewModel.userName}"
                     style="@style/RegisterAccountItemEditField"/>
         </giavu.hoangvm.hh.view.FixedBgColorTextInputLayout>
 
@@ -70,7 +70,7 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginEnd="@dimen/space_16dp"
                 app:hintEnabled="false"
-                app:error="@{viewModel.emailError}">
+                app:error="@{viewModel.viewSate.emailError}">
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                     android:background="@drawable/bg_top_bottom_divider_edit_text"
                     android:inputType="textEmailAddress"
                     android:lines="1"
-                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onEmailInput(text)}"
+                    android:text="@={viewModel.email}"
                     style="@style/RegisterAccountItemEditField"/>
         </giavu.hoangvm.hh.view.FixedBgColorTextInputLayout>
         <!-- Password -->
@@ -99,7 +99,7 @@
                 android:layout_marginEnd="@dimen/space_16dp"
                 app:passwordToggleEnabled="true"
                 app:hintEnabled="false"
-                app:error="@{viewModel.passwordError}">
+                app:error="@{viewModel.viewSate.passwordError}">
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                     android:background="@drawable/bg_top_bottom_divider_edit_text"
                     android:inputType="textPassword"
                     android:lines="1"
-                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onPasswordInput(text)}"
+                    android:text="@={viewModel.password}"
                     style="@style/RegisterAccountItemEditField"/>
         </giavu.hoangvm.hh.view.FixedBgColorTextInputLayout>
 
@@ -121,7 +121,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/dimen_16dp"
             android:onClick="@{() -> viewModel.register()}"
-            android:enabled="@{viewModel.registerButtonEnabled}"
+            android:enabled="@{viewModel.viewState.registerBtnEnabled}"
             android:text="@string/action_register" />
 
         <TextView

@@ -30,6 +30,13 @@ class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, a
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
+    val viewState = RegisterAccountViewState(
+        _userName = userName,
+        _email = email,
+        _password = password,
+        _resourceProvider = resourceProvider
+    )
+
     fun initialize(navigator: RegisterAccountNavigator, owner: LifecycleOwner) {
         this.navigator = navigator
     }

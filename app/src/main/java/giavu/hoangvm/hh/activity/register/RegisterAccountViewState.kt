@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
+import giavu.hoangvm.hh.helper.ResourceProvider
 import giavu.hoangvm.hh.validation.ValidationPattern
 import java.util.regex.Pattern
 
@@ -14,7 +15,8 @@ import java.util.regex.Pattern
 class RegisterAccountViewState(
     private val _userName: LiveData<String>,
     private val _email: LiveData<String>,
-    private val _password: LiveData<String>
+    private val _password: LiveData<String>,
+    private val _resourceProvider: ResourceProvider
 ) {
     private val EMPTY = ""
     private val userNameValidator = RegisterFieldValidator(ValidationPattern.USERNAME)
