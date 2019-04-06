@@ -39,4 +39,8 @@
     <string name="error_email">Must be a valid email address</string>
     <string name="error_password">Length must be between 5 and 120 characters</string>
 
+    <string name="label_sign_up">Sign up</string>
+    <string name="user_name_hint">Eg: vegeta</string>
+    <string name="email_hint">Eg: vegeta@gmail.com</string>
+
 </resources>

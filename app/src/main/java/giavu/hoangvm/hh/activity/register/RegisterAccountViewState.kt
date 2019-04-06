@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
+import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.helper.ResourceProvider
 import giavu.hoangvm.hh.validation.ValidationPattern
 import java.util.regex.Pattern
@@ -37,25 +38,25 @@ class RegisterAccountViewState(
 
     val userNameError: LiveData<String> = Transformations.map(isUserValid) {
         when (it) {
+            ValidationStatus.Ignore,
             ValidationStatus.Valid -> EMPTY
-            ValidationStatus.InValid,
-            ValidationStatus.Ignore -> "Must be a user name"
+            ValidationStatus.InValid -> _resourceProvider.getString(R.string.error_username)
         }
     }
 
     val emailError: LiveData<String> = Transformations.map(isEmailValid) {
         when (it) {
+            ValidationStatus.Ignore,
             ValidationStatus.Valid -> EMPTY
-            ValidationStatus.InValid,
-            ValidationStatus.Ignore -> "Must be an email address"
+            ValidationStatus.InValid ->  _resourceProvider.getString(R.string.error_email)
         }
     }
 
     val passwordError: LiveData<String> = Transformations.map(isPasswordValid) {
         when (it) {
+            ValidationStatus.Ignore,
             ValidationStatus.Valid -> EMPTY
-            ValidationStatus.InValid,
-            ValidationStatus.Ignore -> "Length must 6 - 20"
+            ValidationStatus.InValid -> _resourceProvider.getString(R.string.error_password)
         }
     }
 
