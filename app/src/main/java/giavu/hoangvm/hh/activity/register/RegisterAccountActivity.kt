@@ -15,7 +15,6 @@ import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
-import giavu.hoangvm.hh.utils.SmartLockClient
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -53,7 +52,6 @@ class RegisterAccountActivity : AppCompatActivity() {
     private fun initializeViewModel() {
         viewModel.initialize(navigator = navigator)
     }
-
 
     private val navigator = object : RegisterAccountNavigator {
         override fun showProgress() {
