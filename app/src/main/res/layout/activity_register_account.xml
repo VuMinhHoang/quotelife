@@ -38,7 +38,7 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginEnd="@dimen/space_16dp"
                 app:hintEnabled="false"
-                app:errorText="@{viewModel.userNameError}"
+                app:error="@{viewModel.userNameError}"
                 app:counterEnabled="true"
                 app:counterMaxLength="20">
             <com.google.android.material.textfield.TextInputEditText
@@ -70,7 +70,7 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginEnd="@dimen/space_16dp"
                 app:hintEnabled="false"
-                app:errorText="@{viewModel.emailError}">
+                app:error="@{viewModel.emailError}">
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
@@ -98,9 +98,8 @@
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginEnd="@dimen/space_16dp"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleDrawable="@drawable/bg_password_toggle"
                 app:hintEnabled="false"
-                app:errorText="@{viewModel.passwordError}">
+                app:error="@{viewModel.passwordError}">
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
