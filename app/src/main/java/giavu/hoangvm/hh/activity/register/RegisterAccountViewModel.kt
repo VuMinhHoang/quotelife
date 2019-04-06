@@ -1,9 +1,8 @@
 package giavu.hoangvm.hh.activity.register
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.helper.ResourceProvider
 import giavu.hoangvm.hh.model.RegBody
@@ -13,17 +12,14 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import org.koin.android.ext.android.inject
 
 /**
  * @Author: Hoang Vu
  * @Date:   2019/01/14
  */
-class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, application: Application) :
-    AndroidViewModel(application) {
+class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, private val userApi: UserApi) : ViewModel(){
 
     private lateinit var navigator: RegisterAccountNavigator
-    private val userApi: UserApi by application.inject()
 
     private val compositeDisposable by lazy { CompositeDisposable() }
     val userName = MutableLiveData<String>()
@@ -68,5 +64,10 @@ class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, a
                 }
             )
             .addTo(compositeDisposable)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }

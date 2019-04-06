@@ -17,7 +17,7 @@ class ViewModelModule {
             LoginViewModel(application = androidApplication())
         }
         viewModel {
-            RegisterAccountViewModel(resourceProvider = get(), application = androidApplication())
+            RegisterAccountViewModel(resourceProvider = get(), userApi = get())
         }
     }
 }
