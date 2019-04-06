@@ -50,7 +50,7 @@
                     android:background="@drawable/bg_top_bottom_divider_edit_text"
                     android:inputType="text"
                     android:lines="1"
-                    android:onTextChanged="@{(text, start, before, count) -> viewModel.onUserNameInput(text)}"
+                    android:text="@={viewModel}"
                     style="@style/RegisterAccountItemEditField"/>
         </giavu.hoangvm.hh.view.FixedBgColorTextInputLayout>
 
