@@ -33,7 +33,7 @@ class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, p
         _resourceProvider = resourceProvider
     )
 
-    fun initialize(navigator: RegisterAccountNavigator, owner: LifecycleOwner) {
+    fun initialize(navigator: RegisterAccountNavigator) {
         this.navigator = navigator
     }
 

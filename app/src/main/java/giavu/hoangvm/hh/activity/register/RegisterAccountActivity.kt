@@ -16,7 +16,6 @@ import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.utils.SmartLockClient
-import kotlinx.android.synthetic.main.activity_register_account.*
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -29,14 +28,12 @@ class RegisterAccountActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var smartLockClient: SmartLockClient
     private val viewModel: RegisterAccountViewModel by inject()
     private lateinit var dataBinding: ActivityRegisterAccountBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
-        smartLockClient = SmartLockClient(this)
         initializeDataBinding()
         initializeViewModel()
 
@@ -44,19 +41,17 @@ class RegisterAccountActivity : AppCompatActivity() {
 
     private fun initializeDataBinding() {
         dataBinding = DataBindingUtil.setContentView<ActivityRegisterAccountBinding>(
-                this, R.layout.activity_register_account)
-                .apply {
-                    viewModel = this@RegisterAccountActivity.viewModel
-                    setLifecycleOwner(this@RegisterAccountActivity)
-                }
+            this, R.layout.activity_register_account
+        )
+            .apply {
+                viewModel = this@RegisterAccountActivity.viewModel
+                setLifecycleOwner(this@RegisterAccountActivity)
+            }
 
     }
 
     private fun initializeViewModel() {
-        viewModel.initialize(
-                navigator = navigator,
-                owner = this@RegisterAccountActivity
-        )
+        viewModel.initialize(navigator = navigator)
     }
 
 
@@ -86,25 +81,7 @@ class RegisterAccountActivity : AppCompatActivity() {
 
         override fun toError(throwable: Throwable) {
             Timber.d(throwable)
-            DialogFactory().create(this@RegisterAccountActivity,throwable)
+            DialogFactory().create(this@RegisterAccountActivity, throwable)
         }
-    }
-
-    private fun onCompleteRegisterAccount() {
-
-        smartLockClient.saveCredential(
-                this,
-                email.text.toString(),
-                password.text.toString(),
-                REQUEST_CODE_SMART_LOCK,
-                object : SmartLockClient.OnSaveSmartLockListener {
-                    override fun onSuccess() {
-
-                    }
-
-                    override fun onFailure() {
-
-                    }
-                })
     }
 }
