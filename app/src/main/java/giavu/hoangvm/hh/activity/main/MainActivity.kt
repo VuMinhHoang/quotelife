@@ -8,7 +8,6 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
@@ -36,9 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    val viewModel: MainViewModel by lazy {
-        ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
-    }
+    val viewModel: MainViewModel by inject()
 
     private val userApi: UserApi by inject()
     private val tracker: FirebaseTracker by inject()
