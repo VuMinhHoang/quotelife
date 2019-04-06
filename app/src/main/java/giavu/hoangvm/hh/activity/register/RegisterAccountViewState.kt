@@ -21,7 +21,7 @@ class RegisterAccountViewState(
 ) {
     private val EMPTY = ""
     private val userNameValidator = RegisterFieldValidator(ValidationPattern.USERNAME)
-    private val emailValidator = RegisterFieldValidator(ValidationPattern.EMAIL_ADDRESS)
+    private val emailValidator = RegisterFieldValidator(ValidationPattern.EMAIL)
     private val passwordValidator = RegisterFieldValidator(ValidationPattern.PASSWORD)
 
     private val isUserValid: LiveData<ValidationStatus> = Transformations.map(_userName) {
