@@ -19,11 +19,8 @@ import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.tracker.Event
 import giavu.hoangvm.hh.tracker.FirebaseTracker
-import giavu.hoangvm.hh.utils.CredentialResult
 import giavu.hoangvm.hh.utils.SmartLockClient
 import io.reactivex.disposables.CompositeDisposable
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 import org.koin.android.ext.android.inject
 
 
@@ -41,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
 
 
     private val compositeDisposable = CompositeDisposable()
-    private lateinit var smartLockClient: SmartLockClient
 
     private val viewModel: LoginViewModel by inject()
 
@@ -50,22 +46,16 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initialize()
-        if (savedInstanceState == null) {
-            smartLockClient.requestCredential(this, onRequestCredentialListener)
-        }
-        initializeDataBinding()
-        initViewModel()
-
     }
 
     private fun initialize() {
-        smartLockClient = SmartLockClient(this)
+        initializeDataBinding()
+        initViewModel()
     }
 
     private fun initViewModel() {
         viewModel.initialize(
-            navigator = navigator,
-            owner = this@LoginActivity
+            navigator = navigator
         )
     }
 
@@ -121,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
 
         override fun toShowError(error: Throwable) {
             tracker.track(Event.LoginFailure)
-            DialogFactory().create(this@LoginActivity,error)
+            DialogFactory().create(this@LoginActivity, error)
         }
 
         override fun showProgress() {
@@ -133,21 +123,12 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    @Subscribe
-    fun onRequestCredentialResult(credentialResult: CredentialResult) {
-        viewModel.subscribeCredentialResult(credentialResult = credentialResult)
-    }
-
     override fun onStart() {
         super.onStart()
-        EventBus.getDefault().register(this)
-        smartLockClient.subscribe()
     }
 
     override fun onStop() {
         super.onStop()
-        EventBus.getDefault().unregister(this)
-        smartLockClient.unsubscribe()
     }
 
     override fun onDestroy() {
