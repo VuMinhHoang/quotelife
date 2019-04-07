@@ -10,6 +10,11 @@ apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'kotlin-kapt'
 
+apply from: '../dependencies.gradle'
+// Required as JUnit 5 doesn't support android modules out of the box.
+apply plugin: "de.mannodermaus.android-junit5"
+
+
 android {
     signingConfigs {
         debug {
@@ -61,6 +66,16 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    testOptions {
+        junitPlatform {
+            filters {
+                engines {
+                    include 'spek2'
+                }
+            }
+        }
     }
 }
 
@@ -118,3 +133,5 @@ dependencies {
     debugImplementation "com.facebook.stetho:stetho:${STETHO_VERSION}"
     debugImplementation "com.facebook.stetho:stetho-okhttp3:${STETHO_VERSION}"
 }
+
+dependenciesLoader.loadTestLibraries()
