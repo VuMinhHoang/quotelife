@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import giavu.hoangvm.hh.helper.ResourceProvider
 import giavu.hoangvm.hh.mockLiveDataTaskExecutor
-import giavu.hoangvm.hh.mockRxScheduler
 import io.mockk.mockk
 import io.mockk.spyk
 import io.mockk.verify
@@ -17,7 +16,6 @@ import org.spekframework.spek2.style.gherkin.Feature
  */
 object RegisterAccountViewStateTest : Spek({
     mockLiveDataTaskExecutor()
-    mockRxScheduler()
 
     Feature(description = "RegisterAccountViewState") {
 
@@ -53,7 +51,7 @@ object RegisterAccountViewStateTest : Spek({
                 password.value = ""
             }
             Then(description = "Register button is disabled") {
-                verify { spkRegisterBtnEnabled.onChanged(false) }
+                verify(timeout = 200L) { spkRegisterBtnEnabled.onChanged(false) }
             }
         }
 
@@ -68,7 +66,7 @@ object RegisterAccountViewStateTest : Spek({
                 password.value = "test123456"
             }
             Then(description = "Register button is disabled") {
-                verify { spkRegisterBtnEnabled.onChanged(true) }
+                verify(timeout = 200L) { spkRegisterBtnEnabled.onChanged(true) }
             }
         }
     }
