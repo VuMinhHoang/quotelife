@@ -1,7 +1,6 @@
 package giavu.hoangvm.hh.activity.register
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,8 +10,6 @@ import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
@@ -25,24 +22,24 @@ class RegisterAccountViewModel(
     private val userApi: UserApi
 ) : ViewModel() {
 
-    sealed class RegisterResult {
-        class Success(val response: LoginResponse) : RegisterResult()
-        class Failure(val throwable: Throwable) : RegisterResult()
-    }
-
+    private val _successResult: MutableLiveData<LoginResponse> = MutableLiveData()
+    private val _failureResult: MutableLiveData<Throwable> = MutableLiveData()
     private val _showProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _hideProgressRequest: MutableLiveData<Unit> = MutableLiveData()
-    private val _registerResult: MutableLiveData<RegisterResult> = MutableLiveData()
     private val _gotoLogin: MutableLiveData<Unit> = MutableLiveData()
+
+
+    val successResult: LiveData<LoginResponse>
+        get() = _successResult
+
+    val failureResult: LiveData<Throwable>
+        get() = _failureResult
 
     val showProgressRequest: LiveData<Unit>
         get() = _showProgressRequest
 
     val hideProgressRequest: LiveData<Unit>
         get() = _hideProgressRequest
-
-    val registerResult: LiveData<RegisterResult>
-        get() = _registerResult
 
     val gotoLogin: LiveData<Unit>
         get() = _gotoLogin
@@ -79,10 +76,10 @@ class RegisterAccountViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onError = { error ->
-                    _registerResult.value = RegisterResult.Failure(error)
+                    _failureResult.value = error
                 },
                 onSuccess = { response ->
-                    _registerResult.value = RegisterResult.Success(response)
+                    _successResult.value = response
                 }
             )
     }

@@ -54,15 +54,9 @@ class RegisterAccountActivity : AppCompatActivity() {
             gotoLogin.observe(this@RegisterAccountActivity, Observer {
                 startActivity(LoginActivity.createIntent(this@RegisterAccountActivity))
             })
-            registerResult.observe(this@RegisterAccountActivity, Observer { result ->
-                when (result) {
-                    is RegisterAccountViewModel.RegisterResult.Success -> {
-                        gotoMainScreen(result.response)
-                    }
-                    is RegisterAccountViewModel.RegisterResult.Failure -> {
-                        DialogFactory().create(this@RegisterAccountActivity, result.throwable)
-                    }
-                }
+            successResult.observe(this@RegisterAccountActivity, Observer { gotoMainScreen(it) })
+            failureResult.observe(this@RegisterAccountActivity, Observer {
+                DialogFactory().create(this@RegisterAccountActivity, it)
             })
         }
     }
