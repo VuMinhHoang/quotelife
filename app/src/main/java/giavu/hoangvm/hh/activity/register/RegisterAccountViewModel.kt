@@ -1,5 +1,6 @@
 package giavu.hoangvm.hh.activity.register
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +22,6 @@ class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, p
 
     private lateinit var navigator: RegisterAccountNavigator
 
-    private val compositeDisposable by lazy { CompositeDisposable() }
     val userName = MutableLiveData<String>()
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
@@ -41,6 +41,7 @@ class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, p
         navigator.toLogin()
     }
 
+    @SuppressLint("CheckResult")
     fun register() {
         val body = RegBody(
             login = userName.value,
@@ -63,11 +64,6 @@ class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, p
                     navigator.register(response)
                 }
             )
-            .addTo(compositeDisposable)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
-    }
 }
