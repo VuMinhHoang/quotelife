@@ -39,6 +39,7 @@ object RegisterAccountViewStateTest : Spek({
         viewState.registerBtnEnabled.observeForever(spkRegisterBtnEnabled)
         viewState.userNameError.observeForever(spkUserNameError)
         viewState.emailError.observeForever(spkEmailError)
+        viewState.passwordError.observeForever(spkPasswordError)
 
         Scenario(description = "Initialize") {
             Given(description = "User Name is empty") {
