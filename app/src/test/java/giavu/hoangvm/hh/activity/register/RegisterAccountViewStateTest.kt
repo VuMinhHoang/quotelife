@@ -2,6 +2,7 @@ package giavu.hoangvm.hh.activity.register
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.helper.ResourceProvider
 import giavu.hoangvm.hh.mockLiveDataTaskExecutor
 import io.mockk.mockk
@@ -39,6 +40,7 @@ object RegisterAccountViewStateTest : Spek({
         viewState.registerBtnEnabled.observeForever(spkRegisterBtnEnabled)
         viewState.userNameError.observeForever(spkUserNameError)
         viewState.emailError.observeForever(spkEmailError)
+        viewState.passwordError.observeForever(spkPasswordError)
 
         Scenario(description = "Initialize") {
             Given(description = "User Name is empty") {
@@ -55,7 +57,7 @@ object RegisterAccountViewStateTest : Spek({
             }
         }
 
-        Scenario(description = "Valid input fields") {
+        Scenario(description = "Enable register button when input fields are valid") {
             Given(description = "User Name is test") {
                 username.value = "test"
             }
@@ -65,8 +67,32 @@ object RegisterAccountViewStateTest : Spek({
             And(description = "Password is test123456") {
                 password.value = "test123456"
             }
-            Then(description = "Register button is disabled") {
+            Then(description = "Register button is enabled") {
                 verify(timeout = 200L) { spkRegisterBtnEnabled.onChanged(true) }
+            }
+        }
+
+        Scenario(description = "Showing error when input fields are invalid") {
+            Given(description = "Input invalid user name") {
+                username.value = "@#$%123asd"
+            }
+            And(description = "Input invalid email") {
+                email.value = "test@gmail.c"
+            }
+            And(description = "Input invalid password") {
+                password.value = "123"
+            }
+            Then(description = "Register button is disabled") {
+                verify(timeout = 200L) { spkRegisterBtnEnabled.onChanged(false) }
+            }
+            And(description = "Show user name error") {
+                verify(timeout = 200L) { spkUserNameError.onChanged(resourceProvider.getString(R.string.error_username)) }
+            }
+            And(description = "Show email error") {
+                verify(timeout = 200L) { spkEmailError.onChanged(resourceProvider.getString(R.string.error_email)) }
+            }
+            And(description = "Show password error") {
+                verify(timeout = 200L) { spkPasswordError.onChanged(resourceProvider.getString(R.string.error_password)) }
             }
         }
     }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
 import giavu.hoangvm.hh.activity.main.MainActivity
@@ -16,12 +17,10 @@ import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 class RegisterAccountActivity : AppCompatActivity() {
 
     companion object {
-        private const val REQUEST_CODE_SMART_LOCK = 1
         fun createIntent(context: Context): Intent {
             return Intent(context, RegisterAccountActivity::class.java)
         }
@@ -34,8 +33,7 @@ class RegisterAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         initializeDataBinding()
-        initializeViewModel()
-
+        observeViewModel()
     }
 
     private fun initializeDataBinding() {
@@ -49,37 +47,28 @@ class RegisterAccountActivity : AppCompatActivity() {
 
     }
 
-    private fun initializeViewModel() {
-        viewModel.initialize(navigator = navigator)
+    private fun observeViewModel() {
+        with(viewModel) {
+            showProgressRequest.observe(this@RegisterAccountActivity, Observer { showProgress() })
+            hideProgressRequest.observe(this@RegisterAccountActivity, Observer { hideProgress() })
+            gotoLogin.observe(this@RegisterAccountActivity, Observer {
+                startActivity(LoginActivity.createIntent(this@RegisterAccountActivity))
+            })
+            successResult.observe(this@RegisterAccountActivity, Observer { gotoMainScreen(it) })
+            failureResult.observe(this@RegisterAccountActivity, Observer {
+                DialogFactory().create(this@RegisterAccountActivity, it)
+            })
+        }
     }
 
-    private val navigator = object : RegisterAccountNavigator {
-        override fun showProgress() {
-            this@RegisterAccountActivity.showProgress()
-        }
-
-        override fun hideProgress() {
-            this@RegisterAccountActivity.hideProgress()
-        }
-
-        override fun register(response: LoginResponse) {
-            response.userToken?.let {
-                if (it.isNotEmpty()) {
-                    UserSharePreference.fromContext(this@RegisterAccountActivity).updateUserPref(response)
-                    val intent = Intent(this@RegisterAccountActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
+    private fun gotoMainScreen(response: LoginResponse) {
+        response.userToken?.let {
+            if (it.isNotEmpty()) {
+                UserSharePreference.fromContext(this@RegisterAccountActivity).updateUserPref(response)
+                val intent = Intent(this@RegisterAccountActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-        }
-
-        override fun toLogin() {
-            startActivity(LoginActivity.createIntent(this@RegisterAccountActivity))
-        }
-
-        override fun toError(throwable: Throwable) {
-            Timber.d(throwable)
-            DialogFactory().create(this@RegisterAccountActivity, throwable)
         }
     }
 }

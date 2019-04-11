@@ -12,13 +12,14 @@ import java.util.concurrent.TimeUnit
  * @Date:   2019/04/07
  */
 
-fun <T> LiveData<T>.debounce(duration: Long = 200L) = MediatorLiveData<T>().also { mediatorLiveData ->
-    var disposable: Disposable? = null
+fun <T> LiveData<T>.debounce(duration: Long = 200L, timeUnit: TimeUnit = TimeUnit.MILLISECONDS) =
+    MediatorLiveData<T>().also { mediatorLiveData ->
+        var disposable: Disposable? = null
 
-    mediatorLiveData.addSource(this) {
-        disposable?.dispose()
-        disposable = Completable.timer(duration, TimeUnit.MILLISECONDS)
-            .onErrorComplete()
-            .subscribeBy(onComplete = { mediatorLiveData.postValue(it) })
+        mediatorLiveData.addSource(this) {
+            disposable?.dispose()
+            disposable = Completable.timer(duration, timeUnit)
+                .onErrorComplete()
+                .subscribeBy(onComplete = { mediatorLiveData.postValue(it) })
+        }
     }
-}

@@ -1,15 +1,15 @@
 package giavu.hoangvm.hh.activity.register
 
-import androidx.lifecycle.LifecycleOwner
+import android.annotation.SuppressLint
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.helper.ResourceProvider
+import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
@@ -17,11 +17,33 @@ import io.reactivex.schedulers.Schedulers
  * @Author: Hoang Vu
  * @Date:   2019/01/14
  */
-class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, private val userApi: UserApi) : ViewModel(){
+class RegisterAccountViewModel(
+    resourceProvider: ResourceProvider,
+    private val userApi: UserApi
+) : ViewModel() {
 
-    private lateinit var navigator: RegisterAccountNavigator
+    private val _successResult: MutableLiveData<LoginResponse> = MutableLiveData()
+    private val _failureResult: MutableLiveData<Throwable> = MutableLiveData()
+    private val _showProgressRequest: MutableLiveData<Unit> = MutableLiveData()
+    private val _hideProgressRequest: MutableLiveData<Unit> = MutableLiveData()
+    private val _gotoLogin: MutableLiveData<Unit> = MutableLiveData()
 
-    private val compositeDisposable by lazy { CompositeDisposable() }
+
+    val successResult: LiveData<LoginResponse>
+        get() = _successResult
+
+    val failureResult: LiveData<Throwable>
+        get() = _failureResult
+
+    val showProgressRequest: LiveData<Unit>
+        get() = _showProgressRequest
+
+    val hideProgressRequest: LiveData<Unit>
+        get() = _hideProgressRequest
+
+    val gotoLogin: LiveData<Unit>
+        get() = _gotoLogin
+
     val userName = MutableLiveData<String>()
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
@@ -33,14 +55,11 @@ class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, p
         _resourceProvider = resourceProvider
     )
 
-    fun initialize(navigator: RegisterAccountNavigator) {
-        this.navigator = navigator
-    }
-
     fun gotoLogin() {
-        navigator.toLogin()
+        _gotoLogin.value = Unit
     }
 
+    @SuppressLint("CheckResult")
     fun register() {
         val body = RegBody(
             login = userName.value,
@@ -52,22 +71,17 @@ class RegisterAccountViewModel(private val resourceProvider: ResourceProvider, p
         )
         userApi.register(user)
             .subscribeOn(Schedulers.io())
-            .doOnSubscribe { navigator.showProgress() }
-            .doFinally { navigator.hideProgress() }
+            .doOnSubscribe { _showProgressRequest.value = Unit }
+            .doFinally { _hideProgressRequest.value = Unit }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onError = { error ->
-                    navigator.toError(error)
+                    _failureResult.value = error
                 },
                 onSuccess = { response ->
-                    navigator.register(response)
+                    _successResult.value = response
                 }
             )
-            .addTo(compositeDisposable)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
-    }
 }

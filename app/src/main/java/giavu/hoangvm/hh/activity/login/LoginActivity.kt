@@ -2,11 +2,10 @@ package giavu.hoangvm.hh.activity.login
 
 import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.google.android.gms.common.api.Status
+import androidx.lifecycle.Observer
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.main.MainActivity
 import giavu.hoangvm.hh.activity.register.RegisterAccountActivity
@@ -19,25 +18,19 @@ import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.tracker.Event
 import giavu.hoangvm.hh.tracker.FirebaseTracker
-import giavu.hoangvm.hh.utils.SmartLockClient
-import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 
 
 class LoginActivity : AppCompatActivity() {
 
     companion object {
+
         fun createIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)
         }
     }
 
-    private val TAG = LoginActivity::class.java.simpleName
-    private val REQUEST_CODE_SELECT_ACCOUNT = 4
     private val tracker: FirebaseTracker by inject()
-
-
-    private val compositeDisposable = CompositeDisposable()
 
     private val viewModel: LoginViewModel by inject()
 
@@ -50,17 +43,17 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initialize() {
         initializeDataBinding()
-        initViewModel()
+        observeViewModel()
     }
 
-    private fun initViewModel() {
-        viewModel.initialize(
-            navigator = navigator
-        )
-    }
-
-    private fun saveUserPreference(loginResponse: LoginResponse) {
-        UserSharePreference.fromContext(this).updateUserPref(loginResponse)
+    private fun observeViewModel() {
+        with(viewModel) {
+            showProgressRequest.observe(this@LoginActivity, Observer { showProgress() })
+            hideProgressRequest.observe(this@LoginActivity, Observer { hideProgress() })
+            successResult.observe(this@LoginActivity, Observer { onLoginComplete(it) })
+            failureResult.observe(this@LoginActivity, Observer { onError(it) })
+            registerEvent.observe(this@LoginActivity, Observer { toRegister() })
+        }
     }
 
     private fun initializeDataBinding() {
@@ -74,66 +67,35 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private val onRequestCredentialListener = object : SmartLockClient.OnRequestCredentialListener {
-        override fun shouldResoluteAccountSelect(status: Status) {
-            try {
-                status.startResolutionForResult(this@LoginActivity, REQUEST_CODE_SELECT_ACCOUNT)
-            } catch (e: IntentSender.SendIntentException) {
-                e.printStackTrace()
-            }
-        }
+    private fun saveUserPreference(loginResponse: LoginResponse) {
+        UserSharePreference.fromContext(this).updateUserPref(loginResponse)
     }
 
-    private val navigator = object : LoginNavigator {
+    private fun toRegister() {
+        startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
+        finish()
+        tracker.track(Event.IMPSRegister)
+    }
 
-        override fun toLogin(response: LoginResponse) {
-            if (response.userToken != null) {
-                saveUserPreference(response)
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-                tracker.track(Event.LoginSuccess)
-
-            } else {
-                AlertDialogFragment.Builder()
-                    .setTitle("Network error")
-                    .setMessage("Please check your network connection !")
-                    .setPositiveButtonText("OK")
-                    .show(supportFragmentManager)
-            }
-        }
-
-        override fun toRegister() {
-            startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
+    private fun onLoginComplete(response: LoginResponse) {
+        if (response.userToken != null) {
+            saveUserPreference(response)
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
             finish()
-            tracker.track(Event.IMPSRegister)
-        }
+            tracker.track(Event.LoginSuccess)
 
-        override fun toShowError(error: Throwable) {
-            tracker.track(Event.LoginFailure)
-            DialogFactory().create(this@LoginActivity, error)
-        }
-
-        override fun showProgress() {
-            this@LoginActivity.showProgress()
-        }
-
-        override fun hideProgress() {
-            this@LoginActivity.hideProgress()
+        } else {
+            AlertDialogFragment.Builder()
+                .setTitle("Network error")
+                .setMessage("Please check your network connection !")
+                .setPositiveButtonText("OK")
+                .show(supportFragmentManager)
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun onError(error: Throwable) {
+        tracker.track(Event.LoginFailure)
+        DialogFactory().create(this@LoginActivity, error)
     }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        compositeDisposable.dispose()
-        super.onDestroy()
-    }
-
 }
