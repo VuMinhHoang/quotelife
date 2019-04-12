@@ -9,8 +9,6 @@ import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.User
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 

@@ -42,31 +42,31 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
 
     private fun checkLocalData() {
         val userSession = UserSharePreference.fromContext(this@SplashActivity)
-                .getUserSession()
+            .getUserSession()
 
         val userName = UserSharePreference.fromContext(this@SplashActivity)
-                .getUserName()
+            .getUserName()
 
-/*        if (userSession.isEmpty()) {
+        if (userSession.isEmpty()) {
             loadActivity(isLogined = false)
             return
-        }*/
+        }
         userApi.getUser()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = { response ->
-                            if (response.login == userName) {
-                                loadActivity(true)
-                            } else {
-                                loadActivity(false)
-                            }
-                        },
-                        onError = {
-                            onError(it)
-                        }
-                )
-                .addTo(compositeDisposable = compositeDisposable)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = { response ->
+                    if (response.login == userName) {
+                        loadActivity(true)
+                    } else {
+                        loadActivity(false)
+                    }
+                },
+                onError = {
+                    onError(it)
+                }
+            )
+            .addTo(compositeDisposable = compositeDisposable)
     }
 
     private fun loadActivity(isLogined: Boolean) {
@@ -105,7 +105,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
     override fun onDialogResult(requestCode: Int, whichButton: Int, data: Intent?) {
         when (whichButton) {
             Dialog.BUTTON_POSITIVE -> {
-                if(requestCode == TAG_RETRY_DIALOG){
+                if (requestCode == TAG_RETRY_DIALOG) {
                     checkLocalData()
                 }/* else if(requestCode == TAG_NOT_RETRY_DIALOG) {
                     loadActivity(isLogined = false)

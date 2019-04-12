@@ -7,23 +7,26 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.navigation.NavigationView
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
 import giavu.hoangvm.hh.activity.quotelist.QuoteListActivity
 import giavu.hoangvm.hh.api.UserApi
+import giavu.hoangvm.hh.databinding.ActivityQuoteBinding
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
+import giavu.hoangvm.hh.dialog.DialogFactory
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.tracker.Event
 import giavu.hoangvm.hh.tracker.FirebaseTracker
+import giavu.hoangvm.hh.utils.ResultState
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_quote.*
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     val viewModel: MainViewModel by inject()
+    private lateinit var viewDataBinding: ActivityQuoteBinding
 
     private val userApi: UserApi by inject()
     private val tracker: FirebaseTracker by inject()
@@ -44,17 +48,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigation_view.setNavigationItemSelectedListener(nav)
-        initViewModel()
+        initialize()
+        observeViewModel()
+    }
+
+    private fun initialize() {
         initializeActionBar()
-        observerQuote()
+        initDataBinding()
+        initViewModel()
     }
 
-    private fun observerQuote() {
-        viewModel.quote.observe(this, Observer {
-            quote.text = it
-        })
+    private fun initDataBinding() {
+        viewDataBinding = DataBindingUtil.setContentView<ActivityQuoteBinding>(
+            this, R.layout.activity_quote
+        ).apply {
+            viewModel = this@MainActivity.viewModel
+            setLifecycleOwner(this@MainActivity)
+        }
     }
 
+    private fun initViewModel() {
+        viewModel.initialize()
+    }
 
     private fun initializeActionBar() {
         val actionBar: ActionBar? = supportActionBar
@@ -62,6 +77,19 @@ class MainActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             actionBar.title = "Quote"
             setHomeAsUpIndicator(R.drawable.ic_menu_white)
+        }
+    }
+
+    private fun observeViewModel() {
+        with(viewModel) {
+            showProgressRequest.observe(this@MainActivity, Observer { showProgress() })
+            hideProgressRequest.observe(this@MainActivity, Observer { hideProgress() })
+            resultRequest.observe(this@MainActivity, Observer { state ->
+                when (state) {
+                    is ResultState.Success -> { }
+                    is ResultState.Failure -> DialogFactory().create(this@MainActivity, state.throwable)
+                }
+            })
         }
     }
 
@@ -73,29 +101,6 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-
-    private fun initViewModel() {
-        viewModel.initialize(navigator = navigator)
-    }
-
-    private val navigator = object : MainNavigator {
-        override fun showProgress() {
-            this@MainActivity.showProgress()
-        }
-
-        override fun hideProgress() {
-            this@MainActivity.hideProgress()
-        }
-
-        override fun toLogout(message: String) {
-            Timber.d(message)
-        }
-
-        override fun toError(e: Throwable) {
-            Timber.d(e)
         }
     }
 
