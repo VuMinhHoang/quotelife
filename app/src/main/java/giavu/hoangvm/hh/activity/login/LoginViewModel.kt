@@ -1,9 +1,7 @@
 package giavu.hoangvm.hh.activity.login
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.LoginResponse
@@ -25,7 +23,7 @@ class LoginViewModel(private val userApi: UserApi) : ViewModel() {
     private val _registerEvent: MutableLiveData<Unit> = MutableLiveData()
 
     val status: LiveData<Status<LoginResponse>>
-            get() = _status
+        get() = _status
 
     val showProgressRequest: LiveData<Unit>
         get() = _showProgressRequest
@@ -39,10 +37,15 @@ class LoginViewModel(private val userApi: UserApi) : ViewModel() {
     val username = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    val viewState = LoginViewState(
-        _userName = username,
-        _password = password
-    )
+    val loginBtnEnable: LiveData<Boolean> = MediatorLiveData<Boolean>().apply {
+
+        val observer: Observer<String> = Observer {
+            this.value = username.value.orEmpty().isNotEmpty()
+                    && password.value.orEmpty().isNotEmpty()
+        }
+        addSource(username, observer)
+        addSource(password, observer)
+    }
 
     @SuppressLint("CheckResult")
     fun login() {
