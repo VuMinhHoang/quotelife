@@ -9,6 +9,7 @@ import giavu.hoangvm.hh.helper.ResourceProvider
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
+import giavu.hoangvm.hh.utils.State
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -22,18 +23,13 @@ class RegisterAccountViewModel(
     private val userApi: UserApi
 ) : ViewModel() {
 
-    private val _successResult: MutableLiveData<LoginResponse> = MutableLiveData()
-    private val _failureResult: MutableLiveData<Throwable> = MutableLiveData()
+    private val _state: MutableLiveData<State<LoginResponse>> = MutableLiveData()
     private val _showProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _hideProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _gotoLogin: MutableLiveData<Unit> = MutableLiveData()
 
-
-    val successResult: LiveData<LoginResponse>
-        get() = _successResult
-
-    val failureResult: LiveData<Throwable>
-        get() = _failureResult
+    val state: LiveData<State<LoginResponse>>
+        get() = _state
 
     val showProgressRequest: LiveData<Unit>
         get() = _showProgressRequest
@@ -75,11 +71,11 @@ class RegisterAccountViewModel(
             .doFinally { _hideProgressRequest.value = Unit }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onError = { error ->
-                    _failureResult.value = error
-                },
                 onSuccess = { response ->
-                    _successResult.value = response
+                    _state.value = State.Success(response)
+                },
+                onError = { error ->
+                    _state.value = State.Failure(error)
                 }
             )
     }
