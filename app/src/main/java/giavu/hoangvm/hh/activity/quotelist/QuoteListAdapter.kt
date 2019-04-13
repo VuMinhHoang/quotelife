@@ -5,6 +5,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import giavu.hoangvm.hh.model.Quote
+import giavu.hoangvm.hh.utils.State
 
 /**
  * @Author: Hoang Vu

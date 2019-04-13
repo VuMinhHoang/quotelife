@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.main.MainActivity
-import giavu.hoangvm.hh.activity.register.RegisterAccountActivity
+import giavu.hoangvm.hh.activity.register.RegisterActivity
 import giavu.hoangvm.hh.databinding.ActivityLoginBinding
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.DialogFactory
@@ -18,6 +18,7 @@ import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.tracker.Event
 import giavu.hoangvm.hh.tracker.FirebaseTracker
+import giavu.hoangvm.hh.utils.Status
 import org.koin.android.ext.android.inject
 
 
@@ -50,8 +51,12 @@ class LoginActivity : AppCompatActivity() {
         with(viewModel) {
             showProgressRequest.observe(this@LoginActivity, Observer { showProgress() })
             hideProgressRequest.observe(this@LoginActivity, Observer { hideProgress() })
-            successResult.observe(this@LoginActivity, Observer { onLoginComplete(it) })
-            failureResult.observe(this@LoginActivity, Observer { onError(it) })
+            status.observe(this@LoginActivity, Observer { state ->
+                when (state) {
+                    is Status.Success -> onLoginComplete(state.data)
+                    is Status.Failure -> onError(state.throwable)
+                }
+            })
             registerEvent.observe(this@LoginActivity, Observer { toRegister() })
         }
     }
@@ -72,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun toRegister() {
-        startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
+        startActivity(RegisterActivity.createIntent(this@LoginActivity))
         finish()
         tracker.track(Event.IMPSRegister)
     }

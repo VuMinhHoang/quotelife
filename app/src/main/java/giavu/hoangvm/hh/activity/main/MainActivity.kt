@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-
     private fun initializeActionBar() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.apply {

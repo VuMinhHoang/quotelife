@@ -18,7 +18,7 @@ import org.spekframework.spek2.style.gherkin.Feature
 object RegisterAccountViewStateTest : Spek({
     mockLiveDataTaskExecutor()
 
-    Feature(description = "RegisterAccountViewState") {
+    Feature(description = "RegisterViewState") {
 
         val spkUserNameError: Observer<String> = spyk()
         val spkEmailError: Observer<String> = spyk()
@@ -31,7 +31,7 @@ object RegisterAccountViewStateTest : Spek({
         val email = MutableLiveData<String>()
         val password = MutableLiveData<String>()
 
-        val viewState = RegisterAccountViewState(
+        val viewState = RegisterViewState(
             _userName = username,
             _email = email,
             _password = password,

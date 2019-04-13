@@ -25,15 +25,17 @@ class MainViewModel(private val quotesApi: QuotesApi) : ViewModel() {
         this.navigator = navigator
 
         quotesApi.getQuoteOfDay()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = { response ->
-                            _quote.postValue(response.quote.body)
-                        },
-                        onError = {
-
-                        })
+            .doOnSubscribe { navigator.showProgress() }
+            .doFinally { navigator.hideProgress() }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = { response ->
+                    _quote.postValue(response.quote.body)
+                },
+                onError = {
+                    navigator.toError(it)
+                })
             .addTo(compositeDisposable)
     }
 

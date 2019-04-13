@@ -1,4 +1,4 @@
-package giavu.hoangvm.hh.activity.quotelist
+package giavu.hoangvm.hh.utils
 
 /**
  * @Author: Hoang Vu

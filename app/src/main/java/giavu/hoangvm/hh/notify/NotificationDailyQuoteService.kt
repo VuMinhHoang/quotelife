@@ -11,7 +11,7 @@ import java.util.*
 class NotificationDailyQuoteService : IntentService("NotificationDailyQuoteService") {
 
     companion object {
-        val BOOT_COMPLETED = "boot_completed"
+        const val BOOT_COMPLETED = "boot_completed"
     }
 
     override fun onHandleIntent(intent: Intent?) {

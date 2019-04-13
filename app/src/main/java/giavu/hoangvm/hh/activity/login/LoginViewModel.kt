@@ -1,16 +1,13 @@
 package giavu.hoangvm.hh.activity.login
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.model.LoginBody
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.User
+import giavu.hoangvm.hh.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
@@ -20,17 +17,13 @@ import io.reactivex.schedulers.Schedulers
  */
 class LoginViewModel(private val userApi: UserApi) : ViewModel() {
 
-    private val _successResult: MutableLiveData<LoginResponse> = MutableLiveData()
-    private val _failureResult: MutableLiveData<Throwable> = MutableLiveData()
+    private val _status: MutableLiveData<Status<LoginResponse>> = MutableLiveData()
     private val _showProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _hideProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _registerEvent: MutableLiveData<Unit> = MutableLiveData()
 
-    val successResult: LiveData<LoginResponse>
-        get() = _successResult
-
-    val failureResult: LiveData<Throwable>
-        get() = _failureResult
+    val status: LiveData<Status<LoginResponse>>
+        get() = _status
 
     val showProgressRequest: LiveData<Unit>
         get() = _showProgressRequest
@@ -44,10 +37,15 @@ class LoginViewModel(private val userApi: UserApi) : ViewModel() {
     val username = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    val viewState = LoginViewState(
-        _userName = username,
-        _password = password
-    )
+    val loginBtnEnable: LiveData<Boolean> = MediatorLiveData<Boolean>().apply {
+
+        val observer: Observer<String> = Observer {
+            this.value = username.value.orEmpty().isNotEmpty()
+                    && password.value.orEmpty().isNotEmpty()
+        }
+        addSource(username, observer)
+        addSource(password, observer)
+    }
 
     @SuppressLint("CheckResult")
     fun login() {
@@ -65,14 +63,10 @@ class LoginViewModel(private val userApi: UserApi) : ViewModel() {
             .doFinally { _hideProgressRequest.value = Unit }
             .subscribeBy(
                 onSuccess = { response ->
-                    if (response != null) {
-                        _successResult.value = response
-                    } else {
-                        _successResult.value = null
-                    }
+                    _status.value = Status.Success(response)
                 },
                 onError = { error ->
-                    _failureResult.value = error
+                    _status.value = Status.Failure(error)
                 }
             )
     }
