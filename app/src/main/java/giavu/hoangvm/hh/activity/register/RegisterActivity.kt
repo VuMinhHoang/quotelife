@@ -19,15 +19,15 @@ import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.utils.Status
 import org.koin.android.ext.android.inject
 
-class RegisterAccountActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
     companion object {
         fun createIntent(context: Context): Intent {
-            return Intent(context, RegisterAccountActivity::class.java)
+            return Intent(context, RegisterActivity::class.java)
         }
     }
 
-    private val viewModel: RegisterAccountViewModel by inject()
+    private val viewModel: RegisterViewModel by inject()
     private lateinit var dataBinding: ActivityRegisterAccountBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,23 +42,23 @@ class RegisterAccountActivity : AppCompatActivity() {
             this, R.layout.activity_register_account
         )
             .apply {
-                viewModel = this@RegisterAccountActivity.viewModel
-                setLifecycleOwner(this@RegisterAccountActivity)
+                viewModel = this@RegisterActivity.viewModel
+                setLifecycleOwner(this@RegisterActivity)
             }
 
     }
 
     private fun observeViewModel() {
         with(viewModel) {
-            showProgressRequest.observe(this@RegisterAccountActivity, Observer { showProgress() })
-            hideProgressRequest.observe(this@RegisterAccountActivity, Observer { hideProgress() })
-            gotoLogin.observe(this@RegisterAccountActivity, Observer {
-                startActivity(LoginActivity.createIntent(this@RegisterAccountActivity))
+            showProgressRequest.observe(this@RegisterActivity, Observer { showProgress() })
+            hideProgressRequest.observe(this@RegisterActivity, Observer { hideProgress() })
+            gotoLogin.observe(this@RegisterActivity, Observer {
+                startActivity(LoginActivity.createIntent(this@RegisterActivity))
             })
-            status.observe(this@RegisterAccountActivity, Observer { state ->
+            status.observe(this@RegisterActivity, Observer { state ->
                 when (state) {
                     is Status.Success -> gotoMainScreen(state.data)
-                    is Status.Failure -> DialogFactory().create(this@RegisterAccountActivity, state.throwable)
+                    is Status.Failure -> DialogFactory().create(this@RegisterActivity, state.throwable)
                 }
             })
         }
@@ -67,8 +67,8 @@ class RegisterAccountActivity : AppCompatActivity() {
     private fun gotoMainScreen(response: LoginResponse) {
         response.userToken?.let {
             if (it.isNotEmpty()) {
-                UserSharePreference.fromContext(this@RegisterAccountActivity).updateUserPref(response)
-                val intent = Intent(this@RegisterAccountActivity, MainActivity::class.java)
+                UserSharePreference.fromContext(this@RegisterActivity).updateUserPref(response)
+                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

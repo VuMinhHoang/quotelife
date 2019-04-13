@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.main.MainActivity
-import giavu.hoangvm.hh.activity.register.RegisterAccountActivity
+import giavu.hoangvm.hh.activity.register.RegisterActivity
 import giavu.hoangvm.hh.databinding.ActivityLoginBinding
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.DialogFactory
@@ -77,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun toRegister() {
-        startActivity(RegisterAccountActivity.createIntent(this@LoginActivity))
+        startActivity(RegisterActivity.createIntent(this@LoginActivity))
         finish()
         tracker.track(Event.IMPSRegister)
     }

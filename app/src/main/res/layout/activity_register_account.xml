@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="giavu.hoangvm.hh.activity.register.RegisterAccountViewModel"/>
+            type="giavu.hoangvm.hh.activity.register.RegisterViewModel"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/margin_top_50dp"
-        tools:context="giavu.hoangvm.hh.activity.register.RegisterAccountActivity">
+        tools:context="giavu.hoangvm.hh.activity.register.RegisterActivity">
         <TextView
                 android:id="@+id/login_title"
                 android:layout_width="fill_parent"

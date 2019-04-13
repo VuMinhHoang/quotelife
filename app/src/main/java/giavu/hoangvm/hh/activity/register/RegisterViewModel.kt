@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
  * @Author: Hoang Vu
  * @Date:   2019/01/14
  */
-class RegisterAccountViewModel(
+class RegisterViewModel(
     resourceProvider: ResourceProvider,
     private val userApi: UserApi
 ) : ViewModel() {
@@ -44,7 +44,7 @@ class RegisterAccountViewModel(
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    val viewState = RegisterAccountViewState(
+    val viewState = RegisterViewState(
         _userName = userName,
         _email = email,
         _password = password,
