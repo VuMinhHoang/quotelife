@@ -18,6 +18,7 @@ import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.tracker.Event
 import giavu.hoangvm.hh.tracker.FirebaseTracker
+import giavu.hoangvm.hh.utils.State
 import org.koin.android.ext.android.inject
 
 
@@ -50,8 +51,12 @@ class LoginActivity : AppCompatActivity() {
         with(viewModel) {
             showProgressRequest.observe(this@LoginActivity, Observer { showProgress() })
             hideProgressRequest.observe(this@LoginActivity, Observer { hideProgress() })
-            successResult.observe(this@LoginActivity, Observer { onLoginComplete(it) })
-            failureResult.observe(this@LoginActivity, Observer { onError(it) })
+            state.observe(this@LoginActivity, Observer {state ->
+                when (state) {
+                    is State.Success -> onLoginComplete(state.data)
+                    is State.Failure -> onError(state.throwable)
+                }
+            })
             registerEvent.observe(this@LoginActivity, Observer { toRegister() })
         }
     }
