@@ -9,7 +9,7 @@ import giavu.hoangvm.hh.helper.ResourceProvider
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
-import giavu.hoangvm.hh.utils.State
+import giavu.hoangvm.hh.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -23,13 +23,13 @@ class RegisterAccountViewModel(
     private val userApi: UserApi
 ) : ViewModel() {
 
-    private val _state: MutableLiveData<State<LoginResponse>> = MutableLiveData()
+    private val _status: MutableLiveData<Status<LoginResponse>> = MutableLiveData()
     private val _showProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _hideProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _gotoLogin: MutableLiveData<Unit> = MutableLiveData()
 
-    val state: LiveData<State<LoginResponse>>
-        get() = _state
+    val status: LiveData<Status<LoginResponse>>
+        get() = _status
 
     val showProgressRequest: LiveData<Unit>
         get() = _showProgressRequest
@@ -72,10 +72,10 @@ class RegisterAccountViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = { response ->
-                    _state.value = State.Success(response)
+                    _status.value = Status.Success(response)
                 },
                 onError = { error ->
-                    _state.value = State.Failure(error)
+                    _status.value = Status.Failure(error)
                 }
             )
     }

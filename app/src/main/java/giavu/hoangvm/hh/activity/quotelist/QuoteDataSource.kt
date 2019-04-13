@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
 import giavu.hoangvm.hh.api.QuotesApi
 import giavu.hoangvm.hh.model.Quote
+import giavu.hoangvm.hh.utils.State
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

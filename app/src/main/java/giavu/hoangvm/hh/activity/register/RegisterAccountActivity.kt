@@ -16,7 +16,7 @@ import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
-import giavu.hoangvm.hh.utils.State
+import giavu.hoangvm.hh.utils.Status
 import org.koin.android.ext.android.inject
 
 class RegisterAccountActivity : AppCompatActivity() {
@@ -55,10 +55,10 @@ class RegisterAccountActivity : AppCompatActivity() {
             gotoLogin.observe(this@RegisterAccountActivity, Observer {
                 startActivity(LoginActivity.createIntent(this@RegisterAccountActivity))
             })
-            state.observe(this@RegisterAccountActivity, Observer { state ->
+            status.observe(this@RegisterAccountActivity, Observer { state ->
                 when (state) {
-                    is State.Success -> gotoMainScreen(state.data)
-                    is State.Failure -> DialogFactory().create(this@RegisterAccountActivity, state.throwable)
+                    is Status.Success -> gotoMainScreen(state.data)
+                    is Status.Failure -> DialogFactory().create(this@RegisterAccountActivity, state.throwable)
                 }
             })
         }
