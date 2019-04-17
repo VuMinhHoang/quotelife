@@ -7,4 +7,8 @@ Still developing so it has not been release yet !
 - LiveData, Room
 - Stop RxBinding, EventBus, 
 
+##### Task
+- Flavor list quotes
+- Implement menu
+
 
