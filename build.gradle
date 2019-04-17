@@ -7,6 +7,7 @@ buildscript {
     ext.appcompat_version = '1.0.2'
     ext.lifecycle_version = '2.0.0'
     ext.spek_version = '2.0.1'
+    ext.work_version = '2.0.1'
     repositories {
         google()
         jcenter()

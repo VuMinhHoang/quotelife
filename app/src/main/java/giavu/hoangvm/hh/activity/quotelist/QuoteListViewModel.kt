@@ -8,6 +8,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import giavu.hoangvm.hh.api.QuotesApi
 import giavu.hoangvm.hh.model.Quote
+import giavu.hoangvm.hh.utils.State
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 

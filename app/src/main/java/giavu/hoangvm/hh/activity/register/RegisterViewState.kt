@@ -14,7 +14,7 @@ import java.util.regex.Pattern
  * @Author: Hoang Vu
  * @Date:   2019/04/06
  */
-class RegisterAccountViewState(
+class RegisterViewState(
     val _userName: LiveData<String>,
     val _email: LiveData<String>,
     val _password: LiveData<String>,

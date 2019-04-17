@@ -9,6 +9,7 @@ import giavu.hoangvm.hh.helper.ResourceProvider
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
+import giavu.hoangvm.hh.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -17,23 +18,18 @@ import io.reactivex.schedulers.Schedulers
  * @Author: Hoang Vu
  * @Date:   2019/01/14
  */
-class RegisterAccountViewModel(
+class RegisterViewModel(
     resourceProvider: ResourceProvider,
     private val userApi: UserApi
 ) : ViewModel() {
 
-    private val _successResult: MutableLiveData<LoginResponse> = MutableLiveData()
-    private val _failureResult: MutableLiveData<Throwable> = MutableLiveData()
+    private val _status: MutableLiveData<Status<LoginResponse>> = MutableLiveData()
     private val _showProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _hideProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _gotoLogin: MutableLiveData<Unit> = MutableLiveData()
 
-
-    val successResult: LiveData<LoginResponse>
-        get() = _successResult
-
-    val failureResult: LiveData<Throwable>
-        get() = _failureResult
+    val status: LiveData<Status<LoginResponse>>
+        get() = _status
 
     val showProgressRequest: LiveData<Unit>
         get() = _showProgressRequest
@@ -48,7 +44,7 @@ class RegisterAccountViewModel(
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
 
-    val viewState = RegisterAccountViewState(
+    val viewState = RegisterViewState(
         _userName = userName,
         _email = email,
         _password = password,
@@ -75,11 +71,11 @@ class RegisterAccountViewModel(
             .doFinally { _hideProgressRequest.value = Unit }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onError = { error ->
-                    _failureResult.value = error
-                },
                 onSuccess = { response ->
-                    _successResult.value = response
+                    _status.value = Status.Success(response)
+                },
+                onError = { error ->
+                    _status.value = Status.Failure(error)
                 }
             )
     }

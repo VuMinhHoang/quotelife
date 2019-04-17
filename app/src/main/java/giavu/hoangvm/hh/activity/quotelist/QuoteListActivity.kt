@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import giavu.hoangvm.hh.R
+import giavu.hoangvm.hh.utils.State
 import kotlinx.android.synthetic.main.activity_quote_list.*
 
 class QuoteListActivity : AppCompatActivity() {
