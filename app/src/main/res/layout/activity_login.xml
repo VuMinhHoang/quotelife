@@ -84,7 +84,7 @@
 
             <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/high_32dp"
                     android:paddingTop="5dp"
                     android:gravity="center_horizontal"
                     app:onClick="@{() -> viewModel.register()}"
