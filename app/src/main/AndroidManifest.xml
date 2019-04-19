@@ -39,7 +39,8 @@
                 <action android:name="android.intent.action.VIEW"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.main.MainActivity"/>
+        <activity android:name=".activity.main.MainActivity"
+                  android:theme="@style/NavigationStyle"/>
         <activity
                 android:name=".activity.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

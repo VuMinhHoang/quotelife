@@ -62,6 +62,12 @@
     <style name="AppTheme.SplashActionBar" parent="AppTheme.NoActionBar">
         <item name="android:windowBackground">@color/bg_login</item>
     </style>
+    <style name="NavigationStyle" parent="AppTheme">
+        <!-- To Make Navigation Drawer Fill Status Bar and become Transparent Too -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+    </style>
 
 
 </resources>
