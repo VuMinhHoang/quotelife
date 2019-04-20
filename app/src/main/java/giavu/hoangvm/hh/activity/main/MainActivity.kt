@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import com.google.android.material.navigation.NavigationView
+import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
 import giavu.hoangvm.hh.activity.quotelist.QuoteListActivity
@@ -17,6 +19,8 @@ import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.exception.ResponseError
+import giavu.hoangvm.hh.helper.UserSharePreference
+import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.tracker.Event
 import giavu.hoangvm.hh.tracker.FirebaseTracker
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,6 +28,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_quote.*
+import kotlinx.android.synthetic.main.nav_header_menu.*
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -36,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     val viewModel: MainViewModel by inject()
-
+    val userSharePreference: UserSharePreference by inject()
     private val userApi: UserApi by inject()
     private val tracker: FirebaseTracker by inject()
 
@@ -46,10 +51,26 @@ class MainActivity : AppCompatActivity() {
         navigation_view.setNavigationItemSelectedListener(nav)
         initViewModel()
         initializeActionBar()
-        observerQuote()
+        observeQuote()
     }
 
-    private fun observerQuote() {
+    private fun initMenuHeader() {
+        val binding = NavHeaderBinding(
+            userNameText = RxTextView.text(username),
+            userNameVisibility = RxView.visibility(username),
+            emailText = RxTextView.text(email),
+            emailVisibility = RxView.visibility(email)
+        )
+        binding.apply(
+            loginResponse = LoginResponse(
+                userToken = userSharePreference.getUserSession(),
+                login = userSharePreference.getUserName(),
+                email = userSharePreference.getEmail()
+            )
+        )
+    }
+
+    private fun observeQuote() {
         viewModel.quote.observe(this, Observer {
             quote.text = it
         })
@@ -68,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             android.R.id.home -> {
-                Timber.d("Menu is click")
+                initMenuHeader()
                 openDrawer()
                 return true
             }
