@@ -3,6 +3,7 @@ package giavu.hoangvm.hh.activity.quotelist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -39,8 +40,8 @@ class QuoteListActivity : AppCompatActivity() {
         val actionBar: ActionBar? = supportActionBar
         actionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            actionBar.title = "Quotes List"
-            setHomeAsUpIndicator(R.drawable.ico_arrow_left)
+            actionBar.title = "QUOTE LIST"
+            setHomeAsUpIndicator(R.drawable.ic_stat_keyboard_backspace)
         }
     }
 
@@ -64,5 +65,13 @@ class QuoteListActivity : AppCompatActivity() {
                 quoteListAdapter.setState(state ?: State.DONE)
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
