@@ -30,5 +30,6 @@
     <dimen name="profile_height">75dp</dimen>
 
     <dimen name="text_size">32sp</dimen>
+    <dimen name="email_size">14sp</dimen>
 
 </resources>
