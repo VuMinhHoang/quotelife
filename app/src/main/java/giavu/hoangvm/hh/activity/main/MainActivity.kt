@@ -20,6 +20,7 @@ import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
 import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.helper.UserSharePreference
+import giavu.hoangvm.hh.model.BackgroundImages
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.tracker.Event
 import giavu.hoangvm.hh.tracker.FirebaseTracker
@@ -49,9 +50,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigation_view.setNavigationItemSelectedListener(nav)
+        initBackground()
+        initActionBar()
         initViewModel()
-        initializeActionBar()
         observeQuote()
+    }
+
+    private fun initBackground() {
+        val drawableId = BackgroundImages.randomBackground().value
+        val textColor = when(drawableId) {
+            R.drawable.yellow_pencil -> R.color.white
+            R.drawable.green_wall -> R.color.white
+            R.drawable.black_road -> R.color.white
+            else -> R.color.white
+        }
+        quote.setTextColor(textColor)
+        quote_main.background = getDrawable(drawableId)
     }
 
     private fun initMenuHeader() {
@@ -76,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun initializeActionBar() {
+    private fun initActionBar() {
         setSupportActionBar(toolbar)
         val actionBar: ActionBar? = supportActionBar
         actionBar?.apply {
