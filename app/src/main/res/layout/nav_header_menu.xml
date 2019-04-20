@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/nav_header_height"
-                android:background="@color/bg_base_app"
-                android:orientation="vertical"
-                android:theme="@style/NavigationStyle">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingTop="?actionBarSize"
+              android:background="@color/bg_base_app"
+              android:orientation="vertical"
+              android:theme="@style/NavigationStyle">
     <ImageView
             android:layout_width="@dimen/profile_height"
             android:layout_height="@dimen/profile_width"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_profile"/>
     <TextView
-            android:id="@+id/username"
-            android:layout_marginTop="@dimen/space_10dp"
+        android:id="@+id/username"
+        android:layout_marginTop="@dimen/space_10dp"
+        android:gravity="center_horizontal"
+        android:textSize="@dimen/text_size"
+        android:text="vegeta"
+        android:textColor="@color/line_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+            android:id="@+id/email"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:layout_marginBottom="@dimen/space_10dp"
             android:gravity="center_horizontal"
-            android:textSize="@dimen/text_size"
-            android:text="vegeta"
+            android:textSize="@dimen/email_size"
+            android:text="vegeta@gmail.com"
             android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
