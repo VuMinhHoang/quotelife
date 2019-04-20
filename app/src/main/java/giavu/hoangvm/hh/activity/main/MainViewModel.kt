@@ -23,7 +23,6 @@ class MainViewModel(private val quotesApi: QuotesApi) : ViewModel() {
 
     fun initialize(navigator: MainNavigator) {
         this.navigator = navigator
-
         quotesApi.getQuoteOfDay()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
