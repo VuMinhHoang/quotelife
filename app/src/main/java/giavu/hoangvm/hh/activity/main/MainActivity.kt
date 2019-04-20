@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import com.google.android.material.navigation.NavigationView
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             R.drawable.black_road -> R.color.white
             else -> R.color.white
         }
-        quote.setTextColor(textColor)
+        quote.setTextColor(ContextCompat.getColor(this, textColor))
         quote_main.background = getDrawable(drawableId)
     }
 
