@@ -23,12 +23,11 @@ class MainViewModel(private val quotesApi: QuotesApi) : ViewModel() {
 
     fun initialize(navigator: MainNavigator) {
         this.navigator = navigator
-
         quotesApi.getQuoteOfDay()
-            .doOnSubscribe { navigator.showProgress() }
-            .doFinally { navigator.hideProgress() }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { navigator.showProgress() }
+            .doFinally { navigator.hideProgress() }
             .subscribeBy(
                 onSuccess = { response ->
                     _quote.postValue(response.quote.body)

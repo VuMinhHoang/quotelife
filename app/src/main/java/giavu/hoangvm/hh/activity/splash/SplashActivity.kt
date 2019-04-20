@@ -47,10 +47,6 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
         val userName = UserSharePreference.fromContext(this@SplashActivity)
                 .getUserName()
 
-/*        if (userSession.isEmpty()) {
-            loadActivity(isLogined = false)
-            return
-        }*/
         userApi.getUser()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -92,12 +88,6 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
             }
             is ResponseSuccessErrorCode -> {
                 loadActivity(isLogined = false)
-                /*AlertDialogFragment.Builder()
-                    .setTitle(throwable.errorCode)
-                    .setMessage(throwable.messageError)
-                    .setPositiveButtonText("OK")
-                    .show(supportFragmentManager)
-                    .setTarget(this,TAG_NOT_RETRY_DIALOG)*/
             }
         }
     }
@@ -107,10 +97,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
             Dialog.BUTTON_POSITIVE -> {
                 if(requestCode == TAG_RETRY_DIALOG){
                     checkLocalData()
-                }/* else if(requestCode == TAG_NOT_RETRY_DIALOG) {
-                    loadActivity(isLogined = false)
-                }*/
-
+                }
             }
             else -> {
                 finish()
