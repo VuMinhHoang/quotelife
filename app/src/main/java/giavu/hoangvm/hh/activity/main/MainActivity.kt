@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeActionBar() {
+        setSupportActionBar(toolbar)
         val actionBar: ActionBar? = supportActionBar
         actionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
