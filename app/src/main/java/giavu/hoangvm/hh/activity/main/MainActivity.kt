@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         return when (item?.itemId) {
             android.R.id.home -> {
                 Timber.d("Menu is click")
-                drawer_layout.openDrawer(GravityCompat.START)
+                openDrawer()
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -136,8 +136,24 @@ class MainActivity : AppCompatActivity() {
                             })
                 }
             }
+            closeDrawer()
             return true
         }
     }
 
+    private fun closeDrawer() {
+        drawer_layout.closeDrawer(GravityCompat.START)
+    }
+
+    private fun openDrawer() {
+        drawer_layout.openDrawer(GravityCompat.START)
+    }
+
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            closeDrawer()
+            return
+        }
+        super.onBackPressed()
+    }
 }
