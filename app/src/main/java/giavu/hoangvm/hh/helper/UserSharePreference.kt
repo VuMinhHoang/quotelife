@@ -41,5 +41,9 @@ class UserSharePreference(private val context: Context) {
         return prefs.getString(KEY_USER_NAME, "")
     }
 
+    fun getEmail(): String {
+        return prefs.getString(KEY_EMAIL, "")
+    }
+
 
 }
