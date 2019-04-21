@@ -14,6 +14,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
+import giavu.hoangvm.hh.activity.profile.ProfileActivity
 import giavu.hoangvm.hh.activity.quotelist.QuoteListActivity
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
@@ -142,6 +143,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_account -> {
                     Timber.d("Open profile screen")
+                    startActivity(ProfileActivity.createIntent(this@MainActivity))
                 }
                 R.id.nav_dailyquote -> {
                     Timber.d("Daily quote")

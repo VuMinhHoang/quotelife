@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+                name="viewModel"
+                type="giavu.hoangvm.hh.activity.profile.ProfileViewModel">
+        </variable>
+    </data>
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="giavu.hoangvm.hh.activity.profile.ProfileActivity">
+        <RelativeLayout
+                android:layout_marginStart="@dimen/space_10dp"
+                android:layout_marginEnd="@dimen/space_10dp"
+                android:layout_marginTop="@dimen/margin_top_50dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/high_rate">
+            <TextView
+                    android:text="@string/input_name_sample"
+                    android:gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            <TextView
+                    android:id="@+id/user_name"
+                    android:text="@{viewModel.userName}"
+                    android:gravity="center"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            <View android:id="@+id/line1"
+                  android:layout_alignParentBottom="true"
+                  android:background="@color/gray500"
+                  android:layout_height="1dp"
+                  android:layout_width="match_parent"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_marginStart="@dimen/space_10dp"
+                android:layout_marginEnd="@dimen/space_10dp"
+                android:layout_marginTop="@dimen/margin_top_50dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/high_rate">
+            <TextView
+                    android:id="@+id/follower"
+                    android:text="@string/follower"
+                    android:gravity="center"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            <TextView
+                    android:id="@+id/follower_text"
+                    android:text="@{viewModel.follower}"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/space_10dp"
+                    android:layout_toEndOf="@+id/follower"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            <TextView
+                    android:id="@+id/following"
+                    android:text="@string/following"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/dimen_70dp"
+                    android:layout_toEndOf="@+id/follower_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            <TextView
+                    android:id="@+id/following_text"
+                    android:gravity="center"
+                    android:text="@{viewModel.following}"
+                    android:layout_marginStart="@dimen/space_10dp"
+                    android:layout_toEndOf="@+id/following"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            <View android:id="@+id/line2"
+                  android:layout_alignParentBottom="true"
+                  android:background="@color/gray500"
+                  android:layout_height="1dp"
+                  android:layout_width="match_parent"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>
