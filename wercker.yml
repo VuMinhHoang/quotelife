@@ -17,13 +17,7 @@ build:
 
   # https://app.wercker.com/applications/52406677f92d800d4b001f3d/tab/details/
   - script:
-    wercker/android-sdk-update@0.0.14:
-      filter:
-        tools,
-        extra-android-m2repository,
-        extra-google-m2repository,
-  - script:
-    wercker/android-sdk-update@0.0.14:
+      wercker/android-sdk-update@1.0.1:
       filter:
         platform-tools,
         build-tools-28.0.3,
