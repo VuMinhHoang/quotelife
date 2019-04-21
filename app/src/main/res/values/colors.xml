@@ -10,6 +10,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000</color>
     <color name="gold">#B5A25D</color>
+    <color name="yellow">#FFEE59</color>
     <color name="colorTransparent">#00000000</color>
     <color name="semiActiveBackground">#E6EDF1</color>
     <color name="semiActiveBorder">#D4DADE</color>

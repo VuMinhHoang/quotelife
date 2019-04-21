@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import com.google.android.material.navigation.NavigationView
@@ -13,6 +14,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.login.LoginActivity
+import giavu.hoangvm.hh.activity.profile.ProfileActivity
 import giavu.hoangvm.hh.activity.quotelist.QuoteListActivity
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.dialog.AlertDialogFragment
@@ -59,13 +61,15 @@ class MainActivity : AppCompatActivity() {
     private fun initBackground() {
         val drawableId = BackgroundImages.randomBackground().value
         val textColor = when(drawableId) {
-            R.drawable.yellow_pencil -> R.color.white
-            R.drawable.green_wall -> R.color.white
-            R.drawable.black_road -> R.color.white
+            R.drawable.enum_purple -> R.color.yellow
+            R.drawable.enum_green -> R.color.white
+            R.drawable.enum_yellow -> R.color.black
+            R.drawable.enum_black -> R.color.white
+            R.drawable.enum_brown -> R.color.white
             else -> R.color.white
         }
-        quote.setTextColor(textColor)
-        quote_main.background = getDrawable(drawableId)
+        quote.setTextColor(ContextCompat.getColor(this, textColor))
+        background_quote.setBackgroundResource(drawableId)
     }
 
     private fun initMenuHeader() {
@@ -139,6 +143,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_account -> {
                     Timber.d("Open profile screen")
+                    startActivity(ProfileActivity.createIntent(this@MainActivity))
                 }
                 R.id.nav_dailyquote -> {
                     Timber.d("Daily quote")

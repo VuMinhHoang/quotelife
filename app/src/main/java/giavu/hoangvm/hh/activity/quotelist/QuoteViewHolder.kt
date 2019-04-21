@@ -12,13 +12,15 @@ import kotlinx.android.synthetic.main.item_quote.view.*
  * @Author: Hoang Vu
  * @Date:   2019/03/11
  */
-class QuoteViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class QuoteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(quote: Quote?) {
-        if(quote != null) {
+        if (quote != null) {
             itemView.quote_body.text = quote.body
             itemView.author.text = quote.author
+            itemView.favorite_vote.text = quote.favorites_count.toString()
             itemView.up_vote.text = quote.upvotes_count.toString()
+            itemView.down_vote.text = quote.downvotes_count.toString()
         }
     }
 

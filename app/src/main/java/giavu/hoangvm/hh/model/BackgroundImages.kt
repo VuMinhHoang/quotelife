@@ -9,11 +9,11 @@ import java.util.*
  */
 object BackgroundImages {
     enum class Image(val value: Int) {
-        BROWN_PHONE(R.drawable.brown_phone),
-        BROWN_WINDOWS(R.drawable.brown_window),
-        BLACK_ROAD(R.drawable.black_road),
-        GREEN_WALL(R.drawable.green_wall),
-        YELLOW_PENCIL(R.drawable.yellow_pencil)
+        YELLOW(R.drawable.enum_yellow),
+        BROWN(R.drawable.enum_brown),
+        BLACK(R.drawable.enum_black),
+        GREEN(R.drawable.enum_green),
+        PURPLE(R.drawable.enum_purple)
     }
 
     private val values = Image.values()

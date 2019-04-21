@@ -45,5 +45,8 @@
     <string name="label_forgot_password">Forgot Password?</string>
     <string name="label_no_account">No account yet? Create one</string>
     <string name="email_hint">Eg: vegeta@gmail.com</string>
+    <string name="follower">Followers:</string>
+    <string name="following">Following:</string>
+    <string name="pro_user">Pro User:</string>
 
 </resources>
