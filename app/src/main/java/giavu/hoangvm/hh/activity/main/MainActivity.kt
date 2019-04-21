@@ -60,13 +60,15 @@ class MainActivity : AppCompatActivity() {
     private fun initBackground() {
         val drawableId = BackgroundImages.randomBackground().value
         val textColor = when(drawableId) {
-            R.drawable.yellow_pencil -> R.color.bg_base_app
-            R.drawable.green_wall -> R.color.white
-            R.drawable.black_road -> R.color.white
+            R.drawable.enum_purple -> R.color.yellow
+            R.drawable.enum_green -> R.color.white
+            R.drawable.enum_yellow -> R.color.black
+            R.drawable.enum_black -> R.color.white
+            R.drawable.enum_brown -> R.color.white
             else -> R.color.white
         }
         quote.setTextColor(ContextCompat.getColor(this, textColor))
-        quote_main.background = getDrawable(drawableId)
+        background_quote.setBackgroundResource(drawableId)
     }
 
     private fun initMenuHeader() {
