@@ -31,5 +31,7 @@
 
     <dimen name="text_size">32sp</dimen>
     <dimen name="email_size">14sp</dimen>
+    <dimen name="high_rate">30dp</dimen>
+    <dimen name="width_rate">30dp</dimen>
 
 </resources>
