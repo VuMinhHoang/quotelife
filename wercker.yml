@@ -8,11 +8,44 @@ box: openjdk:8-jdk
 # Read more about pipelines on our dev center
 # https://devcenter.wercker.com/development/pipelines/
 build:
-  # Steps make up the actions in your pipeline
-  # Read more about steps on our dev center:
-  # https://devcenter.wercker.com/development/steps/
   steps:
-  # https://github.com/wercker/step-gradle
-  - java/gradle:
-    task: build
-    cache_project_cache: true
+  - script:
+      name: show base information
+      code: |
+        ./gradlew -v
+        echo $ANDROID_HOME
+
+  # https://app.wercker.com/applications/52406677f92d800d4b001f3d/tab/details/
+  - script:
+    wercker/android-sdk-update@0.0.14:
+      filter:
+        tools,
+        extra-android-m2repository,
+        extra-google-m2repository,
+  - script:
+    wercker/android-sdk-update@0.0.14:
+      filter:
+        platform-tools,
+        build-tools-28.0.3,
+        android-28,
+  - script:
+      name: create android-sdk-license
+      code: |
+        mkdir $ANDROID_HOME/licenses
+        echo $ANDROID_SDK_LICENSE > $ANDROID_HOME/licenses/android-sdk-license
+  #- script:
+  #    name: create local.properties
+  #    code: |
+  #      cp /home/apk.secret.properties ./app
+  #      echo sdk.dir=/usr/local/android-sdk-linux > ./local.properties
+  - script:
+      name: run gradle assembleRelease
+      code: |
+        ./gradlew -Dorg.gradle.jvmargs=-Xmx4096m -PfirebasePerformanceInstrumentationEnabled=true --full-stacktrace --project-cache-dir=$WERCKER_CACHE_DIR assembleRelease
+  after-steps:
+  - script:
+      name: inspect build result
+      code: |
+        pwd
+        ls -la ./app/build/outputs/
+        cp -r ./app/build/outputs/* ${WERCKER_REPORT_ARTIFACTS_DIR}
