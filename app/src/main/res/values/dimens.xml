@@ -4,8 +4,11 @@
     <dimen name="space_8dp">8dp</dimen>
     <dimen name="dimen_4dp">4dp</dimen>
     <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_70dp">70dp</dimen>
     <dimen name="space_16dp">16dp</dimen>
     <dimen name="space_10dp">10dp</dimen>
+    <dimen name="high_32dp">32dp</dimen>
+    <dimen name="profile_size">80dp</dimen>
 
     <dimen name="margin_top_50dp">50dp</dimen>
     <dimen name="margin_top_30dp">30dp</dimen>
@@ -26,5 +29,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="profile_width">75dp</dimen>
     <dimen name="profile_height">75dp</dimen>
+
+    <dimen name="text_size">32sp</dimen>
+    <dimen name="email_size">14sp</dimen>
+    <dimen name="high_rate">30dp</dimen>
+    <dimen name="width_rate">30dp</dimen>
 
 </resources>

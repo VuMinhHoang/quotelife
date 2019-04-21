@@ -87,7 +87,7 @@ class DialogFactory {
             return fragment
         }
 
-        // allow state loss on fragment commit transaction
+        // allow status loss on fragment commit transaction
         val transaction = manager.beginTransaction()
         transaction.add(dialogFragment, tag ?: getTag(dialogFragment.javaClass))
         transaction.commitAllowingStateLoss()

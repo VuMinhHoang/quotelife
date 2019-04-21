@@ -8,4 +8,6 @@ sealed class Event(val eventName: String) {
     object TapMenu: Event("tap_menu")
     object TapQuoteList: Event("tap_quote_list")
     object TapLogout: Event("tap_logout")
+    object RegisterSuccess : Event("register_success")
+    object RegisterFailure : Event("register_failure")
 }

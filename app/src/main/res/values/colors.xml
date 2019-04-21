@@ -10,9 +10,12 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000</color>
     <color name="gold">#B5A25D</color>
+    <color name="yellow">#FFEE59</color>
     <color name="colorTransparent">#00000000</color>
     <color name="semiActiveBackground">#E6EDF1</color>
     <color name="semiActiveBorder">#D4DADE</color>
+    <color name="red">#F56B6B</color>
+    <color name="bg_base_app">#7215A8</color>
 
     <color name="main_disabled_on_light_background">@color/gray300</color>
     <color name="main_primary_button_background">@color/btn_bg</color>

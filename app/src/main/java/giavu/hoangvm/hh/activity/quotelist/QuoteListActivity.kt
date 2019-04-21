@@ -3,13 +3,16 @@ package giavu.hoangvm.hh.activity.quotelist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import giavu.hoangvm.hh.R
+import giavu.hoangvm.hh.utils.State
 import kotlinx.android.synthetic.main.activity_quote_list.*
 
 class QuoteListActivity : AppCompatActivity() {
@@ -28,8 +31,18 @@ class QuoteListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quote_list)
         viewModel = ViewModelProviders.of(this)
             .get(QuoteListViewModel::class.java)
+        initializeActionBar()
         initAdapter()
         initState()
+    }
+
+    private fun initializeActionBar() {
+        val actionBar: ActionBar? = supportActionBar
+        actionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            actionBar.title = "QUOTE LIST"
+            setHomeAsUpIndicator(R.drawable.ic_stat_keyboard_backspace)
+        }
     }
 
     private fun initAdapter() {
@@ -52,5 +65,13 @@ class QuoteListActivity : AppCompatActivity() {
                 quoteListAdapter.setState(state ?: State.DONE)
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
