@@ -34,7 +34,7 @@ build:
       code: |
         cp ./release.keystore ./app
         echo sdk.dir=/usr/local/android-sdk-linux > ./local.properties
-  #- script:
-  #    name: run gradle assembleDebug
-  #    code: |
-  #      ./gradlew -Dorg.gradle.jvmargs=-Xmx4096m -PfirebasePerformanceInstrumentationEnabled=true --full-stacktrace --project-cache-dir=$WERCKER_CACHE_DIR assembleDebug
+  - script:
+      name: run gradle assembleDebug
+      code: |
+        ./gradlew -Dorg.gradle.jvmargs=-Xmx4096m -PfirebasePerformanceInstrumentationEnabled=true --full-stacktrace --project-cache-dir=$WERCKER_CACHE_DIR assembleDebug
