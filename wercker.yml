@@ -2,7 +2,7 @@
 # Docker Hub https://hub.docker.com/_/openjdk/
 # Read more about containers on our dev center
 # https://devcenter.wercker.com/overview-and-core-concepts/containers/
-box: openjdk:8-jdk
+box: quotelife
 
 # This is the build pipeline. Pipelines are the core of wercker
 # Read more about pipelines on our dev center
@@ -14,6 +14,9 @@ build:
       code: |
         ./gradlew -v
         echo $ANDROID_HOME
+        echo $ANDROID_SDK_VERSION
+        echo $ANDROID_BUILD_TOOLS
+        echo $ANDROID_UPDATE_FILTER
 
   # https://app.wercker.com/applications/52406677f92d800d4b001f3d/tab/details/
   - script:
