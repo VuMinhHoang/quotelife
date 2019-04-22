@@ -21,4 +21,8 @@ build:
       filter:
         platform-tools,
         build-tools-28.0.3,
-        android-28
+        android-28,
+      - script:
+          name: run gradle assembleDebug
+          code: |
+            ./gradlew -Dorg.gradle.jvmargs=-Xmx4096m -PfirebasePerformanceInstrumentationEnabled=true --full-stacktrace --project-cache-dir=$WERCKER_CACHE_DIR assembleDebug
