@@ -29,6 +29,11 @@ build:
         platform-tools,
         build-tools-28.0.3,
         android-28,
+  - script:
+      name: create local.properties
+      code: |
+        cp ./release.keystore ./app
+        echo sdk.dir=/usr/local/android-sdk-linux > ./local.properties
   #- script:
   #    name: run gradle assembleDebug
   #    code: |
