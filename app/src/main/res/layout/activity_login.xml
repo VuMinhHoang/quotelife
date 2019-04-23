@@ -79,7 +79,7 @@
                     android:text="@string/label_sign_in"
                     android:textAllCaps="false"
                     app:onClick="@{() -> viewModel.login()}"
-                    android:enabled="@{viewModel.loginBtnEnable}"
+                    android:enabled="@{safeUnbox(viewModel.loginBtnEnable)}"
                     android:textSize="18sp"/>
 
             <TextView

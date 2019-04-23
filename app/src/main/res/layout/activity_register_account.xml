@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_16dp"
                 android:layout_marginEnd="@dimen/space_16dp"
-                app:passwordVisibilityToggleEnabled="@{viewModel.viewState.passwordToggleEnabled}"
+                app:passwordVisibilityToggleEnabled="@{safeUnbox(viewModel.viewState.passwordToggleEnabled)}"
                 app:hintEnabled="false"
                 app:errorEnabled="true"
                 app:error="@{viewModel.viewState.passwordError}">
@@ -103,7 +103,7 @@
             android:layout_marginBottom="@dimen/margin_top_50dp"
             android:layout_marginTop="@dimen/margin_top_30dp"
             app:onClick="@{() -> viewModel.register()}"
-            android:enabled="@{viewModel.viewState.registerBtnEnabled}"
+            android:enabled="@{safeUnbox(viewModel.viewState.registerBtnEnabled)}"
             android:text="@string/action_register" />
 
         <TextView
