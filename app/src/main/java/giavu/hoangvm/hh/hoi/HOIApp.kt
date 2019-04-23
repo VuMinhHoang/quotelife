@@ -5,8 +5,6 @@ import android.app.Application
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.webkit.WebView
-import com.facebook.stetho.Stetho
 import com.google.firebase.FirebaseApp
 import giavu.hoangvm.hh.BuildConfig
 import giavu.hoangvm.hh.firebase.FcmToken
@@ -37,13 +35,13 @@ open class HOIApp : Application() {
         super.onCreate()
         if(BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-            Stetho.initialize(
+/*            Stetho.initialize(
                     Stetho.newInitializerBuilder(this)
                             .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                             .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
                             .build())
 
-            WebView.setWebContentsDebuggingEnabled(true)
+            WebView.setWebContentsDebuggingEnabled(true)*/
         }
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         KoinInitializer(this).initialize()
