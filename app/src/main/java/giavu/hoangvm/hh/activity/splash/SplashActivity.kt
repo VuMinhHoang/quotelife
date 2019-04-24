@@ -41,9 +41,6 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
     }
 
     private fun checkLocalData() {
-        val userSession = UserSharePreference.fromContext(this)
-            .getUserSession()
-
         val userName = UserSharePreference.fromContext(this)
             .getUserName()
 
