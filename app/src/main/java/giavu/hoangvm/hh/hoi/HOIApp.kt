@@ -35,13 +35,6 @@ open class HOIApp : Application() {
         super.onCreate()
         if(BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-/*            Stetho.initialize(
-                    Stetho.newInitializerBuilder(this)
-                            .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                            .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-                            .build())
-
-            WebView.setWebContentsDebuggingEnabled(true)*/
         }
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         KoinInitializer(this).initialize()
