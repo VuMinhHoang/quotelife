@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import giavu.hoangvm.hh.api.UserApi
 import giavu.hoangvm.hh.helper.ResourceProvider
+import giavu.hoangvm.hh.helper.UserSharePreference
 import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.model.RegBody
 import giavu.hoangvm.hh.model.RegUser
 import giavu.hoangvm.hh.utils.Status
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
@@ -20,15 +22,16 @@ import io.reactivex.schedulers.Schedulers
  */
 class RegisterViewModel(
     resourceProvider: ResourceProvider,
-    private val userApi: UserApi
+    private val userApi: UserApi,
+    private val userSharePreference: UserSharePreference
 ) : ViewModel() {
 
-    private val _status: MutableLiveData<Status<LoginResponse>> = MutableLiveData()
+    private val _status: MutableLiveData<Status<Unit>> = MutableLiveData()
     private val _showProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _hideProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _gotoLogin: MutableLiveData<Unit> = MutableLiveData()
 
-    val status: LiveData<Status<LoginResponse>>
+    val status: LiveData<Status<Unit>>
         get() = _status
 
     val showProgressRequest: LiveData<Unit>
@@ -66,18 +69,26 @@ class RegisterViewModel(
             user = body
         )
         userApi.register(user)
+            .flatMapCompletable { saveApiToken(it) }
             .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { _showProgressRequest.value = Unit }
             .doFinally { _hideProgressRequest.value = Unit }
-            .observeOn(AndroidSchedulers.mainThread())
+
             .subscribeBy(
-                onSuccess = { response ->
-                    _status.value = Status.Success(response)
+                onComplete = {
+                    _status.value = Status.Success(Unit)
                 },
                 onError = { error ->
                     _status.value = Status.Failure(error)
                 }
             )
+    }
+
+    private fun saveApiToken(loginResponse: LoginResponse): Completable {
+        return Completable.fromAction {
+            userSharePreference.updateUserPref(loginResponse)
+        }
     }
 
 }

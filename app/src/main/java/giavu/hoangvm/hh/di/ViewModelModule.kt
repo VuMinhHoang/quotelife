@@ -17,6 +17,6 @@ class ViewModelModule {
         viewModel { MainViewModel(quotesApi = get()) }
         viewModel { LoginViewModel(userApi = get(), userSharePreference = get()) }
         viewModel { ProfileViewModel(userApi = get()) }
-        viewModel { RegisterViewModel(resourceProvider = get(), userApi = get()) }
+        viewModel { RegisterViewModel(resourceProvider = get(), userApi = get(), userSharePreference = get()) }
     }
 }
