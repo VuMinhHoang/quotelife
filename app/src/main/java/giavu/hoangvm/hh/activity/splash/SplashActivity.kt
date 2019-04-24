@@ -41,37 +41,34 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
     }
 
     private fun checkLocalData() {
-        val userSession = UserSharePreference.fromContext(this@SplashActivity)
-                .getUserSession()
-
-        val userName = UserSharePreference.fromContext(this@SplashActivity)
-                .getUserName()
+        val userName = UserSharePreference.fromContext(this)
+            .getUserName()
 
         userApi.getUser()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = { response ->
-                            if (response.login == userName) {
-                                loadActivity(true)
-                            } else {
-                                loadActivity(false)
-                            }
-                        },
-                        onError = {
-                            onError(it)
-                        }
-                )
-                .addTo(compositeDisposable = compositeDisposable)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = { response ->
+                    if (response.login == userName) {
+                        loadActivity(true)
+                    } else {
+                        loadActivity(false)
+                    }
+                },
+                onError = {
+                    onError(it)
+                }
+            )
+            .addTo(compositeDisposable = compositeDisposable)
     }
 
     private fun loadActivity(isLogined: Boolean) {
         if (isLogined) {
-            startActivity(MainActivity.createIntent(this@SplashActivity))
-            this@SplashActivity.finish()
+            startActivity(MainActivity.createIntent(this))
+            this.finish()
         } else {
-            startActivity(LoginActivity.createIntent(this@SplashActivity))
-            this@SplashActivity.finish()
+            startActivity(LoginActivity.createIntent(this))
+            this.finish()
         }
 
     }
@@ -95,7 +92,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
     override fun onDialogResult(requestCode: Int, whichButton: Int, data: Intent?) {
         when (whichButton) {
             Dialog.BUTTON_POSITIVE -> {
-                if(requestCode == TAG_RETRY_DIALOG){
+                if (requestCode == TAG_RETRY_DIALOG) {
                     checkLocalData()
                 }
             }

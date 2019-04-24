@@ -15,8 +15,8 @@ class ViewModelModule {
 
     val module: Module = org.koin.dsl.module.module {
         viewModel { MainViewModel(quotesApi = get()) }
-        viewModel { LoginViewModel(userApi = get()) }
+        viewModel { LoginViewModel(userApi = get(), userSharePreference = get()) }
         viewModel { ProfileViewModel(userApi = get()) }
-        viewModel { RegisterViewModel(resourceProvider = get(), userApi = get()) }
+        viewModel { RegisterViewModel(resourceProvider = get(), userApi = get(), userSharePreference = get()) }
     }
 }
