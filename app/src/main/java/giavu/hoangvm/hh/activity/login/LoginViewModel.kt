@@ -26,6 +26,7 @@ class LoginViewModel(
     private val _showProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _hideProgressRequest: MutableLiveData<Unit> = MutableLiveData()
     private val _registerEvent: MutableLiveData<Unit> = MutableLiveData()
+    private val _loginByGuestEvent: MutableLiveData<Unit> = MutableLiveData()
 
     val status: LiveData<Status<Unit>>
         get() = _status
@@ -38,6 +39,9 @@ class LoginViewModel(
 
     val registerEvent: LiveData<Unit>
         get() = _registerEvent
+
+    val loginByGuestEvent: LiveData<Unit>
+        get() = _loginByGuestEvent
 
     val username = MutableLiveData<String>()
     val password = MutableLiveData<String>()
@@ -85,5 +89,9 @@ class LoginViewModel(
 
     fun register() {
         _registerEvent.value = Unit
+    }
+
+    fun loginByGuest() {
+        _loginByGuestEvent.value = Unit
     }
 }
