@@ -3,7 +3,7 @@
     <data>
         <variable
                 name="viewModel"
-                type="giavu.hoangvm.hh.activity.profile.ProfileViewModel">
+                type="giavu.co.jp.activity.profile.ProfileViewModel">
         </variable>
     </data>
     <LinearLayout
@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context="giavu.hoangvm.hh.activity.profile.ProfileActivity">
+            tools:context="giavu.co.jp.activity.profile.ProfileActivity">
         <RelativeLayout
                 android:layout_marginStart="@dimen/space_10dp"
                 android:layout_marginEnd="@dimen/space_10dp"

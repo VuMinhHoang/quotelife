@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_all"
-        tools:context="giavu.hoangvm.hh.activity.quotelist.QuoteListActivity">
+        tools:context="giavu.co.jp.activity.quotelist.QuoteListActivity">
     <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"

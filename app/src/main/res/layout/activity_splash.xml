@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_base_app"
-    tools:context="giavu.hoangvm.hh.activity.splash.SplashActivity">
+    tools:context="giavu.co.jp.activity.splash.SplashActivity">
 
     <TextView
             android:layout_width="wrap_content"
