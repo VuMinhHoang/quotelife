@@ -15,7 +15,6 @@ import giavu.hoangvm.hh.tracker.FirebaseTracker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import me.leolin.shortcutbadger.ShortcutBadger
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -46,7 +45,6 @@ open class HOIApp : Application() {
 
     private fun initialize() {
         initFcm()
-        initBadge()
     }
 
     private fun initFcm() {
@@ -58,11 +56,6 @@ open class HOIApp : Application() {
                         onSuccess = fcmTokenStore.token::setValue,
                         onError = Timber::w
                 )
-    }
-
-    private fun initBadge() {
-        Log.d(TAG, ShortcutBadger.isBadgeCounterSupported(this).toString())
-        ShortcutBadger.applyCount(this, 17)
     }
 
     private fun observeFcmToken() {
