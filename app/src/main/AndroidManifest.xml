@@ -11,17 +11,17 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
-            android:name="giavu.co.giavu.co.jp.hoi.HOIApp"
+            android:name="giavu.co.jp.hoi.HOIApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="giavu.co.giavu.co.jp.activity.profile.ProfileActivity">
+        <activity android:name="giavu.co.jp.activity.profile.ProfileActivity">
         </activity>
-        <activity android:name="giavu.co.giavu.co.jp.activity.quotelist.QuoteListActivity"/>
+        <activity android:name="giavu.co.jp.activity.quotelist.QuoteListActivity"/>
         <activity
-                android:name="giavu.co.giavu.co.jp.activity.splash.SplashActivity"
+                android:name="giavu.co.jp.activity.splash.SplashActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -33,17 +33,17 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="giavu.co.giavu.co.jp.activity.main.MainActivity"
+                android:name="giavu.co.jp.activity.main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-                android:name="giavu.co.giavu.co.jp.activity.login.LoginActivity"
+                android:name="giavu.co.jp.activity.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-                android:name="giavu.co.giavu.co.jp.activity.register.RegisterActivity"
+                android:name="giavu.co.jp.activity.register.RegisterActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
 
         <service
-                android:name="giavu.co.giavu.co.jp.firebase.JFDFirebaseMessagingService"
+                android:name="giavu.co.jp.firebase.JFDFirebaseMessagingService"
                 tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
@@ -51,7 +51,7 @@
         </service>
 
         <receiver
-                android:name="giavu.co.giavu.co.jp.notify.DailyQuoteReceiver"
+                android:name="giavu.co.jp.notify.DailyQuoteReceiver"
                 android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -60,7 +60,7 @@
         </receiver>
 
         <receiver
-                android:name="giavu.co.giavu.co.jp.notify.QuoteReceiver"
+                android:name="giavu.co.jp.notify.QuoteReceiver"
                 android:enabled="true"
                 android:exported="true"/>
     </application>
