@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -16,6 +19,8 @@ import giavu.co.jp.R
 import giavu.co.jp.activity.login.LoginActivity
 import giavu.co.jp.activity.profile.ProfileActivity
 import giavu.co.jp.activity.quotelist.QuoteListActivity
+import giavu.co.jp.activity.quotelist.QuoteListAdapter
+import giavu.co.jp.activity.quotelist.QuoteListViewModel
 import giavu.co.jp.api.UserApi
 import giavu.co.jp.dialog.AlertDialogFragment
 import giavu.co.jp.dialog.hideProgress
@@ -26,11 +31,13 @@ import giavu.co.jp.model.BackgroundImages
 import giavu.co.jp.model.LoginResponse
 import giavu.co.jp.tracker.Event
 import giavu.co.jp.tracker.FirebaseTracker
+import giavu.co.jp.utils.State
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_quote.*
+import kotlinx.android.synthetic.main.activity_quote_list.*
 import kotlinx.android.synthetic.main.nav_header_menu.*
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -43,7 +50,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    val viewModel: MainViewModel by inject()
+    val viewModel: QuoteListViewModel by inject()
+    private lateinit var quoteListAdapter: QuoteListAdapter
     val userSharePreference: UserSharePreference by inject()
     private val userApi: UserApi by inject()
     private val tracker: FirebaseTracker by inject()
@@ -52,10 +60,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigation_view.setNavigationItemSelectedListener(nav)
-        initBackground()
+        // initBackground()
         initActionBar()
-        initViewModel()
-        observeQuote()
+        initAdapter()
+        initState()
     }
 
     private fun initBackground() {
@@ -88,9 +96,14 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun observeQuote() {
-        viewModel.quote.observe(this, Observer {
-            quote.text = it
+    private fun initState() {
+        txt_error.setOnClickListener { viewModel.retry() }
+        viewModel.getState().observe(this, Observer { state ->
+            progress_bar.visibility = if (viewModel.listIsEmpty() && state == State.LOADING) View.VISIBLE else View.GONE
+            txt_error.visibility = if (viewModel.listIsEmpty() && state == State.ERROR) View.VISIBLE else View.GONE
+            if (!viewModel.listIsEmpty()) {
+                quoteListAdapter.setState(state ?: State.DONE)
+            }
         })
     }
 
@@ -104,6 +117,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun initAdapter() {
+        quoteListAdapter = QuoteListAdapter { viewModel.retry() }
+        recycler_view.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recycler_view.adapter = quoteListAdapter
+        viewModel.quoteList.observe(
+            this, Observer {
+                quoteListAdapter.submitList(it)
+            }
+        )
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             android.R.id.home -> {
@@ -113,11 +137,6 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-
-    private fun initViewModel() {
-        viewModel.initialize(navigator = navigator)
     }
 
     private val navigator = object : MainNavigator {
