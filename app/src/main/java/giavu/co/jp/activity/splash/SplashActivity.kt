@@ -5,14 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import giavu.co.jp.R
-import giavu.co.jp.activity.login.LoginActivity
 import giavu.co.jp.activity.main.MainActivity
 import giavu.co.jp.api.UserApi
 import giavu.co.jp.dialog.AlertDialogFragment
 import giavu.co.jp.dialog.BaseDialogFragment
 import giavu.co.jp.exception.ResponseError
 import giavu.co.jp.exception.ResponseSuccessErrorCode
-import giavu.co.jp.helper.UserSharePreference
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -41,19 +39,12 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
     }
 
     private fun checkLocalData() {
-        val userName = UserSharePreference.fromContext(this)
-            .getUserName()
-
         userApi.getUser()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onSuccess = { response ->
-                    if (response.login == userName) {
-                        loadActivity(true)
-                    } else {
-                        loadActivity(false)
-                    }
+                onSuccess = {
+                    loadActivity()
                 },
                 onError = {
                     onError(it)
@@ -62,15 +53,9 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
             .addTo(compositeDisposable = compositeDisposable)
     }
 
-    private fun loadActivity(isLogined: Boolean) {
-        if (isLogined) {
-            startActivity(MainActivity.createIntent(this))
-            this.finish()
-        } else {
-            startActivity(LoginActivity.createIntent(this))
-            this.finish()
-        }
-
+    private fun loadActivity() {
+        startActivity(MainActivity.createIntent(this))
+        this.finish()
     }
 
     private fun onError(throwable: Throwable) {
@@ -84,7 +69,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
                     .setTarget(this, TAG_RETRY_DIALOG)
             }
             is ResponseSuccessErrorCode -> {
-                loadActivity(isLogined = false)
+                loadActivity()
             }
         }
     }

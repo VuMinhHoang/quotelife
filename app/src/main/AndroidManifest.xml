@@ -19,7 +19,9 @@
             android:theme="@style/AppTheme">
         <activity android:name="giavu.co.jp.activity.profile.ProfileActivity">
         </activity>
-        <activity android:name="giavu.co.jp.activity.quotelist.QuoteListActivity"/>
+        <activity android:name="giavu.co.jp.activity.quotelist.QuoteListActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
                 android:name="giavu.co.jp.activity.splash.SplashActivity"
                 android:theme="@style/AppTheme.NoActionBar">
