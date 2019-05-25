@@ -4,16 +4,8 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="giavu.hoangvm.hh.activity.main.MainActivity">
-    
-    <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            app:titleTextColor="@color/white"
-            android:background="@color/bg_base_app"
-            android:minHeight="?actionBarSize"/>
+                tools:context="giavu.co.jp.activity.main.MainActivity">
+
     <TextView
             android:id="@+id/background_quote"
             android:layout_below="@+id/toolbar"

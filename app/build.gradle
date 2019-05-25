@@ -129,6 +129,7 @@ dependencies {
 
     implementation "com.airbnb.android:lottie:${LOTTIE_VERSIOIN}"
     implementation "com.jakewharton.timber:timber:${TIMBER_VERSION}"
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
 }
 
 dependenciesLoader.loadTestLibraries()
