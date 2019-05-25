@@ -5,12 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import giavu.co.jp.R
+import giavu.co.jp.activity.login.LoginActivity
 import giavu.co.jp.activity.main.MainActivity
 import giavu.co.jp.api.UserApi
 import giavu.co.jp.dialog.AlertDialogFragment
 import giavu.co.jp.dialog.BaseDialogFragment
 import giavu.co.jp.exception.ResponseError
 import giavu.co.jp.exception.ResponseSuccessErrorCode
+import giavu.co.jp.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -44,7 +46,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = {
-                    loadActivity()
+                    loadActivity(Status.Success(Unit))
                 },
                 onError = {
                     onError(it)
@@ -53,8 +55,11 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
             .addTo(compositeDisposable = compositeDisposable)
     }
 
-    private fun loadActivity() {
-        startActivity(MainActivity.createIntent(this))
+    private fun loadActivity(status: Status<Any>) {
+        when (status) {
+            is Status.Success -> startActivity(MainActivity.createIntent(this))
+            is Status.Failure -> startActivity(LoginActivity.createIntent(this))
+        }
         this.finish()
     }
 
@@ -69,7 +74,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
                     .setTarget(this, TAG_RETRY_DIALOG)
             }
             is ResponseSuccessErrorCode -> {
-                loadActivity()
+                loadActivity(Status.Failure(throwable))
             }
         }
     }
@@ -91,4 +96,5 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
         super.onDestroy()
         compositeDisposable.dispose()
     }
+
 }
