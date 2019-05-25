@@ -21,10 +21,6 @@
         <activity android:name=".activity.profile.ProfileActivity">
         </activity>
         <activity
-                android:name=".activity.quotelist.QuoteListActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
                 android:name=".activity.splash.SplashActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
