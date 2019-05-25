@@ -57,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
             registerEvent.observe(this@LoginActivity, Observer { toRegister() })
             loginByGuestEvent.observe(this@LoginActivity, Observer {
                 startActivity(MainActivity.createIntent(this@LoginActivity))
+                this@LoginActivity.finish()
             })
         }
     }
