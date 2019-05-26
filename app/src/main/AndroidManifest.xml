@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="giavu.co.jp">
+          package="giavu.hoangvm.hh">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -10,22 +10,18 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
-            android:name=".hoi.HOIApp"
+            android:name="giavu.hoangvm.hh.hoi.HOIApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".activity.daily_quote.DailyQuote">
+        <activity android:name="giavu.hoangvm.hh.activity.daily_quote.DailyQuote">
         </activity>
-        <activity android:name=".activity.profile.ProfileActivity">
-        </activity>
-        <activity
-                android:name=".activity.quotelist.QuoteListActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="giavu.hoangvm.hh.activity.profile.ProfileActivity">
         </activity>
         <activity
-                android:name=".activity.splash.SplashActivity"
+                android:name="giavu.hoangvm.hh.activity.splash.SplashActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -37,17 +33,17 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".activity.main.MainActivity"
+                android:name="giavu.hoangvm.hh.activity.main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-                android:name=".activity.login.LoginActivity"
+                android:name="giavu.hoangvm.hh.activity.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-                android:name=".activity.register.RegisterActivity"
+                android:name="giavu.hoangvm.hh.activity.register.RegisterActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
 
         <service
-                android:name=".firebase.JFDFirebaseMessagingService"
+                android:name="giavu.hoangvm.hh.firebase.JFDFirebaseMessagingService"
                 tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
@@ -55,7 +51,7 @@
         </service>
 
         <receiver
-                android:name=".notify.DailyQuoteReceiver"
+                android:name="giavu.hoangvm.hh.notify.DailyQuoteReceiver"
                 android:enabled="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -64,7 +60,7 @@
             </intent-filter>
         </receiver>
         <receiver
-                android:name=".notify.QuoteReceiver"
+                android:name="giavu.hoangvm.hh.notify.QuoteReceiver"
                 android:enabled="true"
                 android:exported="true"/>
     </application>
