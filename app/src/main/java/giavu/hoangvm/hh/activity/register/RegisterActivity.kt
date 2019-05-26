@@ -14,8 +14,6 @@ import giavu.hoangvm.hh.databinding.ActivityRegisterAccountBinding
 import giavu.hoangvm.hh.dialog.DialogFactory
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
-import giavu.hoangvm.hh.helper.UserSharePreference
-import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.utils.Status
 import org.koin.android.ext.android.inject
 
@@ -57,21 +55,16 @@ class RegisterActivity : AppCompatActivity() {
             })
             status.observe(this@RegisterActivity, Observer { state ->
                 when (state) {
-                    is Status.Success -> gotoMainScreen(state.data)
+                    is Status.Success -> gotoMainScreen()
                     is Status.Failure -> DialogFactory().create(this@RegisterActivity, state.throwable)
                 }
             })
         }
     }
 
-    private fun gotoMainScreen(response: LoginResponse) {
-        response.userToken?.let {
-            if (it.isNotEmpty()) {
-                UserSharePreference.fromContext(this@RegisterActivity).updateUserPref(response)
-                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
+    private fun gotoMainScreen() {
+        val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

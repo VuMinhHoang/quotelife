@@ -11,7 +11,10 @@ import giavu.hoangvm.hh.utils.State
  * @Author: Hoang Vu
  * @Date:   2019/03/11
  */
-class QuoteListAdapter(private val retry: () -> Unit): PagedListAdapter<Quote, RecyclerView.ViewHolder>(quoteDiffCallBack)  {
+class QuoteListAdapter(
+    val retry: () -> Unit,
+    val navigator: ItemListNavigator
+): PagedListAdapter<Quote, RecyclerView.ViewHolder>(quoteDiffCallBack)  {
 
     private val DATA_VIEW_TYPE = 1
     private val FOOTER_VIEW_TYPE = 2
@@ -32,9 +35,9 @@ class QuoteListAdapter(private val retry: () -> Unit): PagedListAdapter<Quote, R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == DATA_VIEW_TYPE){
-            QuoteViewHolder.create(parent)
+            QuoteViewHolder.create(parent, navigator)
         } else {
-            QuoteViewHolder.create(parent)
+            QuoteViewHolder.create(parent, navigator)
         }
     }
 

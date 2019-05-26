@@ -12,7 +12,7 @@ import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.BaseDialogFragment
 import giavu.hoangvm.hh.exception.ResponseError
 import giavu.hoangvm.hh.exception.ResponseSuccessErrorCode
-import giavu.hoangvm.hh.helper.UserSharePreference
+import giavu.hoangvm.hh.utils.Status
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -41,39 +41,26 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
     }
 
     private fun checkLocalData() {
-        val userSession = UserSharePreference.fromContext(this@SplashActivity)
-                .getUserSession()
-
-        val userName = UserSharePreference.fromContext(this@SplashActivity)
-                .getUserName()
-
         userApi.getUser()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = { response ->
-                            if (response.login == userName) {
-                                loadActivity(true)
-                            } else {
-                                loadActivity(false)
-                            }
-                        },
-                        onError = {
-                            onError(it)
-                        }
-                )
-                .addTo(compositeDisposable = compositeDisposable)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = {
+                    loadActivity(Status.Success(Unit))
+                },
+                onError = {
+                    onError(it)
+                }
+            )
+            .addTo(compositeDisposable = compositeDisposable)
     }
 
-    private fun loadActivity(isLogined: Boolean) {
-        if (isLogined) {
-            startActivity(MainActivity.createIntent(this@SplashActivity))
-            this@SplashActivity.finish()
-        } else {
-            startActivity(LoginActivity.createIntent(this@SplashActivity))
-            this@SplashActivity.finish()
+    private fun loadActivity(status: Status<Any>) {
+        when (status) {
+            is Status.Success -> startActivity(MainActivity.createIntent(this))
+            is Status.Failure -> startActivity(LoginActivity.createIntent(this))
         }
-
+        this.finish()
     }
 
     private fun onError(throwable: Throwable) {
@@ -87,7 +74,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
                     .setTarget(this, TAG_RETRY_DIALOG)
             }
             is ResponseSuccessErrorCode -> {
-                loadActivity(isLogined = false)
+                loadActivity(Status.Failure(throwable))
             }
         }
     }
@@ -95,7 +82,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
     override fun onDialogResult(requestCode: Int, whichButton: Int, data: Intent?) {
         when (whichButton) {
             Dialog.BUTTON_POSITIVE -> {
-                if(requestCode == TAG_RETRY_DIALOG){
+                if (requestCode == TAG_RETRY_DIALOG) {
                     checkLocalData()
                 }
             }
@@ -109,4 +96,5 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
         super.onDestroy()
         compositeDisposable.dispose()
     }
+
 }

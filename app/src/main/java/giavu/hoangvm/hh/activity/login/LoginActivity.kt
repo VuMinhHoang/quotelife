@@ -10,12 +10,9 @@ import giavu.hoangvm.hh.R
 import giavu.hoangvm.hh.activity.main.MainActivity
 import giavu.hoangvm.hh.activity.register.RegisterActivity
 import giavu.hoangvm.hh.databinding.ActivityLoginBinding
-import giavu.hoangvm.hh.dialog.AlertDialogFragment
 import giavu.hoangvm.hh.dialog.DialogFactory
 import giavu.hoangvm.hh.dialog.hideProgress
 import giavu.hoangvm.hh.dialog.showProgress
-import giavu.hoangvm.hh.helper.UserSharePreference
-import giavu.hoangvm.hh.model.LoginResponse
 import giavu.hoangvm.hh.tracker.Event
 import giavu.hoangvm.hh.tracker.FirebaseTracker
 import giavu.hoangvm.hh.utils.Status
@@ -53,11 +50,15 @@ class LoginActivity : AppCompatActivity() {
             hideProgressRequest.observe(this@LoginActivity, Observer { hideProgress() })
             status.observe(this@LoginActivity, Observer { state ->
                 when (state) {
-                    is Status.Success -> onLoginComplete(state.data)
+                    is Status.Success -> onLoginComplete()
                     is Status.Failure -> onError(state.throwable)
                 }
             })
             registerEvent.observe(this@LoginActivity, Observer { toRegister() })
+            loginByGuestEvent.observe(this@LoginActivity, Observer {
+                startActivity(MainActivity.createIntent(this@LoginActivity))
+                this@LoginActivity.finish()
+            })
         }
     }
 
@@ -72,31 +73,17 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun saveUserPreference(loginResponse: LoginResponse) {
-        UserSharePreference.fromContext(this).updateUserPref(loginResponse)
-    }
-
     private fun toRegister() {
         startActivity(RegisterActivity.createIntent(this@LoginActivity))
         finish()
         tracker.track(Event.IMPSRegister)
     }
 
-    private fun onLoginComplete(response: LoginResponse) {
-        if (response.userToken != null) {
-            saveUserPreference(response)
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-            tracker.track(Event.LoginSuccess)
-
-        } else {
-            AlertDialogFragment.Builder()
-                .setTitle("Network error")
-                .setMessage("Please check your network connection !")
-                .setPositiveButtonText("OK")
-                .show(supportFragmentManager)
-        }
+    private fun onLoginComplete() {
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+        tracker.track(Event.LoginSuccess)
     }
 
     private fun onError(error: Throwable) {

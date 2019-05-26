@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'com.apollographql.android'
-
 apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'kotlin-kapt'
@@ -39,8 +37,8 @@ android {
         minSdkVersion MIN_SDK_VERSION
         targetSdkVersion TARGET_SDK_VERSION
         multiDexEnabled true
-        versionCode 5
-        versionName "1.0"
+        versionCode 6
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -116,10 +114,6 @@ dependencies {
     implementation "androidx.work:work-rxjava2:$work_version"
 
 
-    implementation "com.apollographql.apollo:apollo-android-support:$apollo_version"
-    implementation "com.apollographql.apollo:apollo-rx2-support:$apollo_version"
-    implementation "com.apollographql.apollo:apollo-runtime:$apollo_version"
-
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT_VERSION}"
@@ -135,12 +129,7 @@ dependencies {
 
     implementation "com.airbnb.android:lottie:${LOTTIE_VERSIOIN}"
     implementation "com.jakewharton.timber:timber:${TIMBER_VERSION}"
-
-    implementation 'com.github.arturogutierrez:badges:1.0.5@aar'
-    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
-
-    debugImplementation "com.facebook.stetho:stetho:${STETHO_VERSION}"
-    debugImplementation "com.facebook.stetho:stetho-okhttp3:${STETHO_VERSION}"
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
 }
 
 dependenciesLoader.loadTestLibraries()

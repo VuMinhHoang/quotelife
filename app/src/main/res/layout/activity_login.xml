@@ -62,34 +62,41 @@
                     android:text="@={viewModel.password}"
                     android:singleLine="true"/>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:paddingTop="5dp"
-                    android:textColor="@color/colorPrimary"
-                    android:text="@string/label_forgot_password"/>
-
-
             <Button
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="22dp"
                     style="@style/MainPrimaryButton"
                     android:text="@string/label_sign_in"
-                    android:textAllCaps="false"
+                    android:textAllCaps="true"
                     app:onClick="@{() -> viewModel.login()}"
                     android:enabled="@{safeUnbox(viewModel.loginBtnEnable)}"
                     android:textSize="18sp"/>
 
+            <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_10dp"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginEnd="22dp"
+                    style="@style/MainPrimaryButton"
+                    android:text="@string/action_register"
+                    android:textAllCaps="true"
+                    app:onClick="@{() -> viewModel.register()}"/>
+
             <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/high_32dp"
-                    android:paddingTop="5dp"
-                    android:gravity="center_horizontal"
-                    app:onClick="@{() -> viewModel.register()}"
-                    android:textColor="@color/colorPrimary"
-                    android:text="@string/label_no_account"/>
+                    android:layout_height="52dp"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:background="@color/grayish_blue500"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginTop="50dp"
+                    android:textColor="@color/white"
+                    android:text="I'm a guest"
+                    app:onClick="@{() -> viewModel.loginByGuest()}"/>
+
         </LinearLayout>
     </LinearLayout>
 </layout>

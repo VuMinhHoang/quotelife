@@ -15,7 +15,6 @@ import giavu.hoangvm.hh.tracker.FirebaseTracker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import me.leolin.shortcutbadger.ShortcutBadger
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -35,13 +34,6 @@ open class HOIApp : Application() {
         super.onCreate()
         if(BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-/*            Stetho.initialize(
-                    Stetho.newInitializerBuilder(this)
-                            .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                            .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-                            .build())
-
-            WebView.setWebContentsDebuggingEnabled(true)*/
         }
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         KoinInitializer(this).initialize()
@@ -53,7 +45,6 @@ open class HOIApp : Application() {
 
     private fun initialize() {
         initFcm()
-        initBadge()
     }
 
     private fun initFcm() {
@@ -65,11 +56,6 @@ open class HOIApp : Application() {
                         onSuccess = fcmTokenStore.token::setValue,
                         onError = Timber::w
                 )
-    }
-
-    private fun initBadge() {
-        Log.d(TAG, ShortcutBadger.isBadgeCounterSupported(this).toString())
-        ShortcutBadger.applyCount(this, 17)
     }
 
     private fun observeFcmToken() {

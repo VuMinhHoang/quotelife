@@ -25,9 +25,12 @@ class QuoteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 
     companion object {
-        fun create(parent: ViewGroup): QuoteViewHolder {
+        fun create(parent: ViewGroup, navigator: ItemListNavigator): QuoteViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_quote, parent, false)
+            view.setOnClickListener {
+                navigator.onItemClick()
+            }
             return QuoteViewHolder(view)
         }
     }

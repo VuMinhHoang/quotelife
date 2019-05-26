@@ -1,7 +1,6 @@
 package giavu.hoangvm.hh.core.retrofit
 
 import androidx.annotation.NonNull
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import giavu.hoangvm.hh.core.graphql.TimeoutConfig
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
@@ -21,7 +20,6 @@ class OkHttpClientFactory {
                 .connectionPool(connectionPool)
                 .addInterceptor(headerInterceptor)
                 .addInterceptor(loggingInterceptor)
-                .addNetworkInterceptor(StethoInterceptor())
                 .connectTimeout(timeoutConfig.connectionTimeoutMillis(), TimeUnit.MILLISECONDS)
                 .writeTimeout(timeoutConfig.writeTimeoutMillis(), TimeUnit.MILLISECONDS)
                 .readTimeout(timeoutConfig.readTimeoutMillis(), TimeUnit.MILLISECONDS)
