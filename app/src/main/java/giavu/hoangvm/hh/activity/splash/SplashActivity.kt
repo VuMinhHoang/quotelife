@@ -41,6 +41,7 @@ class SplashActivity : AppCompatActivity(), BaseDialogFragment.OnDialogResult {
     }
 
     private fun checkLocalData() {
+        // TODO check login or not here
         userApi.getUser()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
