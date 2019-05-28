@@ -144,7 +144,7 @@ class AlertDialogFragment : BaseDialogFragment() {
         dismissNotifyResult(whichButton, data)
     }
 
-    override fun onCancel(dialog: DialogInterface?) {
+    override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
         dismissNotifyResult(DialogInterface.BUTTON_NEGATIVE)
     }
