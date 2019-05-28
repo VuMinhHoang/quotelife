@@ -19,8 +19,8 @@ class ProgressDialogFragment : BaseDialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        dialog.window!!.setBackgroundDrawableResource(R.color.colorTransparent)
-        dialog.setCanceledOnTouchOutside(false)
+        dialog?.window?.setBackgroundDrawableResource(R.color.colorTransparent)
+        dialog?.setCanceledOnTouchOutside(false)
         val args = arguments
         if (args != null) {
             isCancelable = args.getBoolean(CANCELABLE, true)
@@ -38,11 +38,11 @@ class ProgressDialogFragment : BaseDialogFragment() {
         val networkRequestTag = args.getString(NETWORK_REQUEST_TAG)
 
         if (!StringUtils.isNullOrEmpty(networkRequestTag)) {
-            dialog.setOnCancelListener { dismissNotifyResult(DialogInterface.BUTTON_NEGATIVE, null, false) }
+            dialog?.setOnCancelListener { dismissNotifyResult(DialogInterface.BUTTON_NEGATIVE, null, false) }
         }
     }
 
-    override fun onCancel(dialog: DialogInterface?) {
+    override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
         dismissNotifyResult(DialogInterface.BUTTON_NEGATIVE, null, false)
     }
